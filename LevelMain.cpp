@@ -1,12 +1,13 @@
 #include "HFL/Source/HFL.h"
 #include "OP2Helper/OP2Helper.h"
 #include "Outpost2DLL/Outpost2DLL.h"
+#include "PlayerInitialization.h"
 #include <vector>
 #include <algorithm>
 
 
-// Required data exports  (Description, Map, TechTree, GameType, NumPlayers)
-ExportLevelDetails("4P, SRV, 'Out Of The Frying Pan'", "YukonTrail.map", "survtech.txt", MultiSpaceRace, 5);
+// Required data exports  (Description, Map, TechTree, GameType, NumPlayers, TechLvl,,number of AI)
+ExportLevelDetailsFullEx("4P, SRV, 'Out Of The Frying Pan'", "YukonTrail.map", "survtech.txt", MultiSpaceRace, 5, 12, false, 1);
 
 struct ScriptGlobal
 {
@@ -79,7 +80,6 @@ Export int InitProc()
 	PlayerNum aiIndex = GetAIIndex();
 	Player[aiIndex].GoAI();
 	Player[aiIndex].SetColorNumber(GetAIColor());
-	Player[aiIndex].GoPlymouth();
 
 	TethysGame::SetMusicPlayList(8, 2, PlayList);
 
@@ -96,6 +96,8 @@ Export int InitProc()
 			Player[j].AllyWith(i);
 		}
 	}
+
+	InitializePlayers(HumanPlayerCount());
 
 	return true;
 }

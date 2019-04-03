@@ -38,10 +38,10 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <TargetName>mr4oofp</TargetName>
+    <TargetName>mf4oofp</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <TargetName>mr4Yuko</TargetName>
+    <TargetName>mf4oofp</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -99,10 +99,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AIInitialization.cpp" />
     <ClCompile Include="DllMain.cpp" />
     <ClCompile Include="LevelMain.cpp" />
+    <ClCompile Include="PlayerInitialization.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AIInitialization.h" />
+    <ClInclude Include="PlayerInitialization.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
