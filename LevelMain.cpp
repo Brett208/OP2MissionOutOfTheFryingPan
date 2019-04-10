@@ -16,7 +16,7 @@ ExportSaveLoadData(scriptGlobal);
 
 const MAP_RECT LavaCellRect(1 + X_, 1 + Y_, 256 + X_, 255 + Y_);
 const LOCATION NWVolcanoFlowLoc(60 + X_, 20 + Y_);
-const LOCATION SWVolcanoFlowLoc(179+ X_, 70 + Y_);
+const LOCATION SWVolcanoFlowLoc(179 + X_, 70 + Y_);
 
 // List of songs to play
 SongIds PlayList[] = {
@@ -105,7 +105,7 @@ Export int InitProc()
 
 
 	TethysGame::SetDaylightEverywhere(TethysGame::UsesDayNight() == 0);
-	TethysGame::SetDaylightMoves(1);
+	TethysGame::SetDaylightMoves(true);
 	GameMap::SetInitialLightLevel(TethysGame::GetRand(128));
 
 	SetLavaPossibleAllSlowCells(LavaCellRect);
