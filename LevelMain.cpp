@@ -6,8 +6,8 @@
 #include <algorithm>
 
 
-// Required data exports  (Description, Map, TechTree, GameType, NumPlayers, TechLvl,,number of AI)
-ExportLevelDetailsFullEx("4P, SRV, 'Out Of The Frying Pan'", "YukonTrail.map", "survtech.txt", MultiSpaceRace, 5, 12, false, 1);
+// Required data exports  (Description, Map, TechTree, GameType, NumPlayers, TechLvl, number of AI)
+ExportLevelDetailsFullEx("4P, SRV, 'Out Of The Frying Pan'", "OutOfTheFryingPan.map", "survtech.txt", MultiSpaceRace, 5, 12, false, 1);
 
 struct ScriptGlobal
 {
@@ -40,8 +40,7 @@ PlayerColor GetAIColor(bool allowBlack = false)
 	}
 
 	std::vector<int> availableColors;
-	for (int i = 0; i < totalColors; ++i)
-	{
+	for (int i = 0; i < totalColors; ++i) {
 		availableColors.push_back(i);
 	}
 
@@ -55,9 +54,9 @@ PlayerColor GetAIColor(bool allowBlack = false)
 		return PlayerColor::PlayerBlue;
 	}
 
-	int colorIndex = TethysGame::GetRand(availableColors.size());
+	const int colorIndex = TethysGame::GetRand(availableColors.size());
 
-	return (PlayerColor)availableColors[colorIndex];
+	return static_cast<PlayerColor>(availableColors[colorIndex]);
 }
 
 // AI player is last player
@@ -83,7 +82,11 @@ Export int InitProc()
 
 	TethysGame::SetMusicPlayList(8, 2, PlayList);
 
-	TethysGame::ForceMoraleGood(-1);
+	TethysGame::ForceMoraleGood(PlayerNum::PlayerAll);
+	if (TethysGame::UsesMorale()) {
+		TethysGame::FreeMoraleLevel(PlayerNum::PlayerAll);
+	}
+
 
 	TethysGame::SetDaylightEverywhere(TethysGame::UsesDayNight() == 0);
 	TethysGame::SetDaylightMoves(1);
