@@ -14,6 +14,10 @@ struct ScriptGlobal
 } scriptGlobal;
 ExportSaveLoadData(scriptGlobal);
 
+const MAP_RECT LavaCellRect(1 + X_, 1 + Y_, 256 + X_, 255 + Y_);
+const LOCATION NWVolcanoFlowLoc(60 + X_, 20 + Y_);
+const LOCATION SWVolcanoFlowLoc(179+ X_, 70 + Y_);
+
 // List of songs to play
 SongIds PlayList[] = {
 	SongIds::songStatic03,
@@ -72,6 +76,18 @@ PlayerNum GetAIIndex()
 	throw std::runtime_error("No AI player detected");
 }
 
+Export void NWVolcanoErupts()
+{
+	TethysGame::SetEruption(60 + X_, 22 + Y_, 80);
+	//TethysGame::SetEruption(volcanoEruptionLoc.x, volcanoEruptionLoc.y, 1000);
+}
+
+Export void SWVolcanoErupts()
+{
+	TethysGame::SetEruption(60 + X_, 22 + Y_, 80);
+	//TethysGame::SetEruption(volcanoEruptionLoc.x, volcanoEruptionLoc.y, 1000);
+}
+
 Export int InitProc()
 {
 	HFLInit();
@@ -91,6 +107,14 @@ Export int InitProc()
 	TethysGame::SetDaylightEverywhere(TethysGame::UsesDayNight() == 0);
 	TethysGame::SetDaylightMoves(1);
 	GameMap::SetInitialLightLevel(TethysGame::GetRand(128));
+
+	SetLavaPossibleAllSlowCells(LavaCellRect);
+
+	AnimateFlowSE(NWVolcanoFlowLoc);
+	AnimateFlowSE(SWVolcanoFlowLoc);
+
+	Trigger NWTrigVolcanoEruption = CreateTimeTrigger(true, true, 10, "NWVolcanoErupts");
+	Trigger SWTrigVolcanoEruption = CreateTimeTrigger(true, true, 10, "SWVolcanoErupts");
 
 	for (int i = 0; i < HumanPlayerCount(); ++i)
 	{
