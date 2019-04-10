@@ -103,9 +103,11 @@
     <ClCompile Include="DllMain.cpp" />
     <ClCompile Include="LevelMain.cpp" />
     <ClCompile Include="PlayerInitialization.cpp" />
+    <ClCompile Include="VolcanoHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AIInitialization.h" />
+    <ClInclude Include="VolcanoHelper.h" />
     <ClInclude Include="PlayerInitialization.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>

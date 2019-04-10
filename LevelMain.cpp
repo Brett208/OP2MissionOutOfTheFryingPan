@@ -76,17 +76,6 @@ PlayerNum GetAIIndex()
 	throw std::runtime_error("No AI player detected");
 }
 
-Export void NWVolcanoErupts()
-{
-	TethysGame::SetEruption(60 + X_, 22 + Y_, 80);
-	//TethysGame::SetEruption(volcanoEruptionLoc.x, volcanoEruptionLoc.y, 1000);
-}
-
-Export void SWVolcanoErupts()
-{
-	TethysGame::SetEruption(60 + X_, 22 + Y_, 80);
-	//TethysGame::SetEruption(volcanoEruptionLoc.x, volcanoEruptionLoc.y, 1000);
-}
 
 Export int InitProc()
 {
