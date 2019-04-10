@@ -6,10 +6,10 @@
 #include<vector>
 
 const std::array<LOCATION, 4> playerStartLocs{
-	LOCATION(100 + X_, 100 + Y_),
-	LOCATION(150 + X_, 100 + Y_),
-	LOCATION(170 + X_, 100 + Y_),
-	LOCATION(190 + X_, 100 + Y_),
+	LOCATION(152 + X_, 110 + Y_),
+	LOCATION(172 + X_, 110 + Y_),
+	LOCATION(136 + X_, 44 + Y_),
+	LOCATION(160 + X_, 133 + Y_),
 };
 
 const ResourceSet resourceSet{

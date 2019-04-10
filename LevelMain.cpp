@@ -2,6 +2,7 @@
 #include "OP2Helper/OP2Helper.h"
 #include "Outpost2DLL/Outpost2DLL.h"
 #include "PlayerInitialization.h"
+#include "VolcanoHelper.h"
 #include <vector>
 #include <algorithm>
 
@@ -14,9 +15,6 @@ struct ScriptGlobal
 } scriptGlobal;
 ExportSaveLoadData(scriptGlobal);
 
-const MAP_RECT LavaCellRect(1 + X_, 1 + Y_, 256 + X_, 255 + Y_);
-const LOCATION NWVolcanoFlowLoc(60 + X_, 20 + Y_);
-const LOCATION SWVolcanoFlowLoc(179 + X_, 70 + Y_);
 
 // List of songs to play
 SongIds PlayList[] = {
@@ -92,18 +90,9 @@ Export int InitProc()
 		TethysGame::FreeMoraleLevel(PlayerNum::PlayerAll);
 	}
 
-
 	TethysGame::SetDaylightEverywhere(TethysGame::UsesDayNight() == 0);
 	TethysGame::SetDaylightMoves(true);
 	GameMap::SetInitialLightLevel(TethysGame::GetRand(128));
-
-	SetLavaPossibleAllSlowCells(LavaCellRect);
-
-	AnimateFlowSE(NWVolcanoFlowLoc);
-	AnimateFlowSE(SWVolcanoFlowLoc);
-
-	Trigger NWTrigVolcanoEruption = CreateTimeTrigger(true, true, 10, "NWVolcanoErupts");
-	Trigger SWTrigVolcanoEruption = CreateTimeTrigger(true, true, 10, "SWVolcanoErupts");
 
 	for (int i = 0; i < HumanPlayerCount(); ++i)
 	{
@@ -114,6 +103,7 @@ Export int InitProc()
 	}
 
 	InitializePlayers(HumanPlayerCount());
+	InitializeVolcanos();
 
 	return true;
 }
