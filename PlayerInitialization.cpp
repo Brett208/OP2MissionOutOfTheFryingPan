@@ -8,8 +8,8 @@
 const std::array<LOCATION, 4> playerStartLocs{
 	LOCATION(152 + X_, 110 + Y_),
 	LOCATION(172 + X_, 110 + Y_),
-	LOCATION(136 + X_, 44 + Y_),
-	LOCATION(160 + X_, 133 + Y_),
+	LOCATION(141 + X_, 148 + Y_),
+	LOCATION(158 + X_, 133 + Y_),
 };
 
 const ResourceSet resourceSet{
