@@ -4,3 +4,7 @@
 #include "Outpost2DLL/Outpost2DLL.h"
 
 void InitializeVolcanos();
+
+Export void NWVolcanoErupts();
+Export void SWVolcanoErupts();
+Export void SEVolcanoErupts();
