@@ -49,25 +49,27 @@ void InitializePlayer(PlayerNum playerNumber, const LOCATION& initBaseLoc)
 	currentLoc.y = initBaseLoc.y - 5;
 
 	CreateInitialUnit(unit, mapBasicLab, currentLoc, playerNumber, map_id::mapNone);
-	currentLoc.y = initBaseLoc.y + 7;
+	currentLoc.y = initBaseLoc.y + 5;
 	
 	CreateInitialUnit(unit, mapCommonOreSmelter, currentLoc, playerNumber, map_id::mapNone);
-	currentLoc.x = initBaseLoc.x - 5;
+	currentLoc.x = initBaseLoc.x - 4;
 	currentLoc.y = initBaseLoc.y;
 
 	CreateInitialUnit(unit, mapStructureFactory, currentLoc, playerNumber, map_id::mapNone);
-	currentLoc.x = initBaseLoc.x + 5;
+	currentLoc.x = initBaseLoc.x + 4;
 	
 	CreateInitialUnit(unit, mapAgridome, currentLoc, playerNumber, map_id::mapNone);
-	currentLoc.x = initBaseLoc.x + 10;
-	currentLoc.y = initBaseLoc.y - 10;
+	currentLoc.x = initBaseLoc.x + 7;
+	currentLoc.y = initBaseLoc.y - 7;
 	
 	CreateInitialUnit(unit, mapTokamak, currentLoc, playerNumber, map_id::mapNone);
 	currentLoc.x = initBaseLoc.x;
-	currentLoc.y = initBaseLoc.y + 11;
+	currentLoc.y = initBaseLoc.y + 9;
 
-	CreateTubeOrWallLine(initBaseLoc.x, initBaseLoc.y - 5, initBaseLoc.x, initBaseLoc.y + 7,mapTube);
-	CreateTubeOrWallLine(initBaseLoc.x - 2, initBaseLoc.y, initBaseLoc.x + 4, initBaseLoc.y, mapTube);
+	CreateTubeOrWallLine(initBaseLoc.x, initBaseLoc.y - 3, initBaseLoc.x, initBaseLoc.y - 1,mapTube);
+	CreateTubeOrWallLine(initBaseLoc.x, initBaseLoc.y + 1, initBaseLoc.x, initBaseLoc.y + 5, mapTube);
+	CreateTubeOrWallLine(initBaseLoc.x - 2, initBaseLoc.y, initBaseLoc.x -1, initBaseLoc.y, mapTube);
+	CreateTubeOrWallLine(initBaseLoc.x + 1, initBaseLoc.y, initBaseLoc.x + 3, initBaseLoc.y, mapTube);
 
 	TethysGame::CreateBeacon(map_id::mapMiningBeacon, currentLoc.x, currentLoc.y, BeaconTypes::OreTypeCommon, Yield::Bar2, Variant::Variant3);
 	currentLoc.x = vechStartLoc.x;

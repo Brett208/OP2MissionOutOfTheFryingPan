@@ -13,7 +13,7 @@ const LOCATION SEVolcanoFlowLoc(180 + X_, 170 + Y_);
 
 Export void NWVolcanoErupts()
 {
-	TethysGame::SetEruption(64 + X_, 21 + Y_, 80);
+	TethysGame::SetEruption(64 + X_, 22 + Y_, 80);
 	//TethysGame::SetEruption(volcanoEruptionLoc.x, volcanoEruptionLoc.y, 1000);
 }
 
@@ -44,5 +44,5 @@ void InitializeVolcanos()
 
 	Trigger NWTrigVolcanoEruption = CreateTimeTrigger(true, true, 10, "NWVolcanoErupts");
 	Trigger SWTrigVolcanoEruption = CreateTimeTrigger(true, true, 10, "SWVolcanoErupts");
-	Trigger SETrigVolcanoEruption = CreateTimeTrigger(true, true, 10, "SEVolcanoErupts");
+	//Trigger SETrigVolcanoEruption = CreateTimeTrigger(true, true, 10, "SEVolcanoErupts");
 }

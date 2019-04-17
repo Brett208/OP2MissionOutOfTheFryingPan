@@ -99,8 +99,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AIInitialization.cpp" />
-    <ClCompile Include="AIPlayercpp.cpp" />
+    <ClCompile Include="AIBaseBuilder.cpp" />
+    <ClCompile Include="AIPlayer.cpp" />
     <ClCompile Include="DisasterHelper.cpp" />
     <ClCompile Include="DllMain.cpp" />
     <ClCompile Include="LevelMain.cpp" />
@@ -108,7 +108,7 @@
     <ClCompile Include="VolcanoHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AIInitialization.h" />
+    <ClInclude Include="AIBaseBuilder.h" />
     <ClInclude Include="AIPlayer.h" />
     <ClInclude Include="DisasterHelper.h" />
     <ClInclude Include="VolcanoHelper.h" />

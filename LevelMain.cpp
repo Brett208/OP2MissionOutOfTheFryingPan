@@ -32,11 +32,46 @@ SongIds PlayList[] = {
 	SongIds::songEP63
 };
 
+std::vector<bool> moraleFree; // If each player's morale is free
+const int disastersAndMoraleTimer = 20'000;
+
 int HumanPlayerCount()
 {
 	return TethysGame::NoPlayers() - 1;
 }
 
+void FreeMorale(int playerIndex)
+{
+	Unit unit;
+	moraleFree[playerIndex] = true;
+	TethysGame::FreeMoraleLevel(playerIndex);
+	TethysGame::AddMessage(unit, "Morale is waivering, Good Luck Commander!", playerIndex, SoundID::sndMessage2);
+}
+
+void CheckMorale()
+{
+	for (int i = 0; i < HumanPlayerCount(); ++i) {
+		if (moraleFree[i]) {
+			continue;
+		}
+
+		if (TethysGame::Time() > disastersAndMoraleTimer) {
+			FreeMorale(i);
+		}
+
+		PlayerBuildingEnum playerBuildingEnum = PlayerBuildingEnum(i, map_id::mapStandardLab);
+
+		Unit unit;
+		while (playerBuildingEnum.GetNext(unit))
+		{
+			if (unit.GetType() == map_id::mapStandardLab)
+			{
+				FreeMorale(i);
+				break;
+			}
+		}
+	}
+}
 
 
 Export int InitProc()
@@ -50,13 +85,17 @@ Export int InitProc()
 		Trigger DisasterTimeTrig = CreateTimeTrigger(true, false, 2000, 4500, "CreateDisaster"); //Set time in ticks (marks / 100)
 	}
 
+	if (TethysGame::UsesMorale()) {
+		moraleFree.resize(HumanPlayerCount(), false);
+	}
+	else {
+		moraleFree.resize(HumanPlayerCount(), true);
+	}
+
 	TethysGame::SetMusicPlayList(8, 2, PlayList);
 
 	TethysGame::ForceMoraleGood(PlayerNum::PlayerAll);
-	if (TethysGame::UsesMorale()) {
-		TethysGame::FreeMoraleLevel(PlayerNum::PlayerAll);
-	}
-
+	
 	TethysGame::SetDaylightEverywhere(TethysGame::UsesDayNight() == 0);
 	TethysGame::SetDaylightMoves(true);
 	GameMap::SetInitialLightLevel(TethysGame::GetRand(128));
@@ -69,18 +108,20 @@ Export int InitProc()
 		}
 	}
 
-	InitializePlayers(HumanPlayerCount());
 	InitializeVolcanos();
+	InitializePlayers(HumanPlayerCount());
 	
-	Trigger BlightTrigger = CreateTimeTrigger(true, true, 1, 1, "SpawnBlight");
+	
+	//Trigger BlightTrigger = CreateTimeTrigger(true, true, 1, 1, "SpawnBlight");
 	
 	return true;
 }
 
 Export void AIProc() 
 {
-	
+	CheckMorale();
 }
+
 
 Export void SpawnBlight()
 {
@@ -91,6 +132,16 @@ Export void SpawnBlight()
 
 	// Warning Message
 	TethysGame::AddMessage(1248, 576, "Microbe growth detected!", -1, 152);
+}
+
+Export void CreateDisaster()
+{
+	if (!disasterHelper.MapPropertiesSet())
+	{
+		disasterHelper.SetMapProperties(256, 256, false); //MapWidth, MapHeight, Does map wrap East/West
+	}
+
+	disasterHelper.CreateRandomDisaster();
 }
 
 Export void NoResponseToTrigger() {}	//Optional function export, supposed to be empty

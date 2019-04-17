@@ -49,7 +49,9 @@ PlayerNum GetAIIndex()
 
 	void AIInitialization()
 	{
+		LOCATION AIWeakBaseLoc(50 + X_, 50 + Y_);
 		PlayerNum aiIndex = GetAIIndex();
 		Player[aiIndex].GoAI();
 		Player[aiIndex].SetColorNumber(GetAIColor());
+		BuildAIBase(aiIndex, AIWeakBaseLoc);
 	}
