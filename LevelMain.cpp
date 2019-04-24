@@ -110,6 +110,7 @@ Export int InitProc()
 
 	InitializeVolcanos();
 	InitializePlayers(HumanPlayerCount());
+	AIInitialization();
 	
 	
 	//Trigger BlightTrigger = CreateTimeTrigger(true, true, 1, 1, "SpawnBlight");

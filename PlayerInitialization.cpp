@@ -46,13 +46,13 @@ void InitializePlayer(PlayerNum playerNumber, const LOCATION& initBaseLoc)
 	Player[playerNumber].CenterViewOn(initBaseLoc.x, initBaseLoc.y);
 
 	CreateInitialUnit(unit, mapCommandCenter, initBaseLoc, playerNumber, map_id::mapNone); //ComandCenter
-	currentLoc.y = initBaseLoc.y - 5;
+	currentLoc.y = initBaseLoc.y - 6;
 
 	CreateInitialUnit(unit, mapBasicLab, currentLoc, playerNumber, map_id::mapNone);
-	currentLoc.y = initBaseLoc.y - 3;
+	currentLoc.y = initBaseLoc.y - 4;
 
 	CreateInitialUnit(unit, mapBasicLab, currentLoc, playerNumber, map_id::mapNone);
-	currentLoc.y = initBaseLoc.y + 8;
+	currentLoc.y = initBaseLoc.y + 6;
 	
 	CreateInitialUnit(unit, mapCommonOreSmelter, currentLoc, playerNumber, map_id::mapNone);
 	currentLoc.x = initBaseLoc.x - 4;

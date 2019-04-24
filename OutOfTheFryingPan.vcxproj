@@ -100,6 +100,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AIBaseBuilder.cpp" />
+    <ClCompile Include="AIHelper.cpp" />
     <ClCompile Include="AIPlayer.cpp" />
     <ClCompile Include="DisasterHelper.cpp" />
     <ClCompile Include="DllMain.cpp" />
@@ -109,6 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AIBaseBuilder.h" />
+    <ClInclude Include="AIHelper.h" />
     <ClInclude Include="AIPlayer.h" />
     <ClInclude Include="DisasterHelper.h" />
     <ClInclude Include="VolcanoHelper.h" />
