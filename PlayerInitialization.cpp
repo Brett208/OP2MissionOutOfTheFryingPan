@@ -6,7 +6,7 @@
 #include<vector>
 
 const std::array<LOCATION, 4> playerStartLocs{
-	LOCATION(152 + X_, 110 + Y_),
+	LOCATION(147 + X_, 110 + Y_),
 	LOCATION(172 + X_, 110 + Y_),
 	LOCATION(141 + X_, 148 + Y_),
 	LOCATION(158 + X_, 133 + Y_),
@@ -15,9 +15,9 @@ const std::array<LOCATION, 4> playerStartLocs{
 const ResourceSet resourceSet{
 	{
 		// Kids, Adults, Scientist, Food, Common, Rare
-		{ 27, 18, 22, 4000, 0, 0 },		// Easy
-		{ 24, 15, 20, 3500, 0, 0 },		// Medium
-		{ 20, 12, 18, 3000, 0, 0 },		// Hard
+		{ 27, 18, 22, 4000, 2000, 0 },		// Easy
+		{ 24, 15, 20, 3500, 1500, 0 },		// Medium
+		{ 20, 12, 18, 3000, 1000, 0 },		// Hard
 	}
 };
 
@@ -37,19 +37,22 @@ void InitializePlayers(int humanPlayerCount)
 	}
 }
 
-
 void InitializePlayer(PlayerNum playerNumber, const LOCATION& initBaseLoc)
 {
-
 	LOCATION currentLoc = initBaseLoc;
 	LOCATION vechStartLoc(initBaseLoc.x + 4, initBaseLoc.y + 4);
 	Unit unit;
+
+	Player[playerNumber].CenterViewOn(initBaseLoc.x, initBaseLoc.y);
 
 	CreateInitialUnit(unit, mapCommandCenter, initBaseLoc, playerNumber, map_id::mapNone); //ComandCenter
 	currentLoc.y = initBaseLoc.y - 5;
 
 	CreateInitialUnit(unit, mapBasicLab, currentLoc, playerNumber, map_id::mapNone);
-	currentLoc.y = initBaseLoc.y + 5;
+	currentLoc.y = initBaseLoc.y - 3;
+
+	CreateInitialUnit(unit, mapBasicLab, currentLoc, playerNumber, map_id::mapNone);
+	currentLoc.y = initBaseLoc.y + 8;
 	
 	CreateInitialUnit(unit, mapCommonOreSmelter, currentLoc, playerNumber, map_id::mapNone);
 	currentLoc.x = initBaseLoc.x - 4;
@@ -86,7 +89,7 @@ void InitializePlayer(PlayerNum playerNumber, const LOCATION& initBaseLoc)
 	currentLoc.x = vechStartLoc.x;
 	currentLoc.y++;
 
-	CreateInitialUnit(unit, map_id::mapEarthworker, currentLoc, playerNumber, map_id::mapNone);
+	CreateInitialUnit(unit, map_id::mapCargoTruck, currentLoc, playerNumber, map_id::mapNone);
 	currentLoc.x++;
 	CreateInitialUnit(unit, map_id::mapCargoTruck, currentLoc, playerNumber, map_id::mapNone);
 	currentLoc.x++;
@@ -97,9 +100,12 @@ void InitializePlayer(PlayerNum playerNumber, const LOCATION& initBaseLoc)
 	currentLoc.x = vechStartLoc.x;
 	currentLoc.y++;
 
+	CreateInitialUnit(unit, map_id::mapEarthworker, currentLoc, playerNumber, map_id::mapNone);
+	currentLoc.x++;
 	CreateInitialUnit(unit, map_id::mapRoboMiner, currentLoc, playerNumber, map_id::mapNone);
 	currentLoc.x++;
 	CreateInitialUnit(unit, map_id::mapRoboSurveyor, currentLoc, playerNumber, map_id::mapNone);
+
 
 	
 	map_id cargo = map_id::mapMicrowave;
@@ -120,4 +126,5 @@ void CreateInitialUnit(Unit unit, map_id unitType, LOCATION loc, PlayerNum playe
 {
 	const UnitDirection rotation = UnitDirection::South;
 	TethysGame::CreateUnit(unit, unitType, loc, playerNumber, Cargo, rotation);
+	unit.DoSetLights(true);
 }
