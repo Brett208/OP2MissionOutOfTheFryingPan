@@ -11,7 +11,6 @@ void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
 	MAP_RECT miningIdleRect(initBaseLoc.x - 4, initBaseLoc.y, initBaseLoc.x + 6, initBaseLoc.y + 4);
 	Unit unit;
 	
-
 	CreateInitialAIUnit(unit, mapCommandCenter, initBaseLoc, aiPlayerNum, map_id::mapNone);//ComandCenter
 	currentLoc.x = initBaseLoc.x + 5;
 	CreateInitialAIUnit(unit, mapStructureFactory, currentLoc, aiPlayerNum, map_id::mapNone);
@@ -43,7 +42,7 @@ void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
 	
 }
 
-void CreateInitialAIUnit(Unit unit, map_id unitType, LOCATION loc, PlayerNum aiPlayerNum, map_id Cargo)
+void CreateInitialAIUnit(Unit& unit, map_id unitType, LOCATION loc, PlayerNum aiPlayerNum, map_id Cargo)
 {
 	const UnitDirection rotation = UnitDirection::South;
 	TethysGame::CreateUnit(unit, unitType, loc, aiPlayerNum, Cargo, rotation);

@@ -53,5 +53,6 @@ PlayerNum GetAIIndex()
 		PlayerNum aiIndex = GetAIIndex();
 		Player[aiIndex].GoAI();
 		Player[aiIndex].SetColorNumber(GetAIColor());
+		Player[aiIndex].GoPlymouth();
 		BuildAIBase(aiIndex, AIWeakBaseLoc);
 	}
