@@ -6,6 +6,11 @@
 #include <stdexcept>
 #include <algorithm>
 
+int HumanPlayerCount()
+{
+	return TethysGame::NoPlayers() - 1;
+}
+
 // AI player is last player
 PlayerNum GetAIIndex()
 {

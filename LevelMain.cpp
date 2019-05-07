@@ -35,10 +35,7 @@ SongIds PlayList[] = {
 std::vector<bool> moraleFree; // If each player's morale is free
 const int disastersAndMoraleTimer = 20'000;
 
-int HumanPlayerCount()
-{
-	return TethysGame::NoPlayers() - 1;
-}
+
 
 void FreeMorale(int playerIndex)
 {

@@ -1,8 +1,12 @@
 #include "AIBaseBuilder.h"
 #include "AIHelper.h"
+#include "AIPlayer.h"
 #include "HFL/Source/HFL.h"
 #include "OP2Helper/OP2Helper.h"
 #include "Outpost2DLL/Outpost2DLL.h"
+
+void PopulateDefensiveFightGroup(PlayerNum aiPlayerNum);
+void AddLynx(FightGroup& fightGroup, const LOCATION& loc, map_id weapon, PlayerNum playerNum);
 
 void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
 {
@@ -32,18 +36,79 @@ void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
 
 	CreateInitialAIUnit(unit, mapTokamak, currentLoc, aiPlayerNum, map_id::mapNone);
 
-	CreateTubeOrWallLine(initBaseLoc.x, initBaseLoc.y - 3, initBaseLoc.x, initBaseLoc.y - 1, mapTube);
-	CreateTubeOrWallLine(initBaseLoc.x, initBaseLoc.y + 1, initBaseLoc.x, initBaseLoc.y + 5, mapTube);
-	CreateTubeOrWallLine(initBaseLoc.x - 2, initBaseLoc.y, initBaseLoc.x - 1, initBaseLoc.y, mapTube);
-	CreateTubeOrWallLine(initBaseLoc.x + 1, initBaseLoc.y, initBaseLoc.x + 3, initBaseLoc.y, mapTube);
+	CreateTubeLine(initBaseLoc + LOCATION(0, -3), initBaseLoc + LOCATION(0, -1));
+	CreateTubeLine(initBaseLoc + LOCATION(0, 1), initBaseLoc + LOCATION(0, 5));
+	CreateTubeLine(initBaseLoc + LOCATION(-2, 0), initBaseLoc + LOCATION(-1, 0));
+	CreateTubeLine(initBaseLoc + LOCATION(1, 0), initBaseLoc + LOCATION(3, 0));
 
 	MiningGroup miningGroup;
 	SetupMiningGroup(miningGroup, commonMine, commonSmelter, miningIdleRect, 3, aiPlayerNum);
 	
+	PopulateDefensiveFightGroup(aiPlayerNum);
 }
 
 void CreateInitialAIUnit(Unit& unit, map_id unitType, LOCATION loc, PlayerNum aiPlayerNum, map_id Cargo)
 {
 	const UnitDirection rotation = UnitDirection::South;
 	TethysGame::CreateUnit(unit, unitType, loc, aiPlayerNum, Cargo, rotation);
+}
+
+void PopulateDefensiveFightGroup(PlayerNum aiPlayerNum)
+{
+	MAP_RECT guardedRect(68 + X_, 122 + Y_, 80 + X_, 140 + Y_);
+	FightGroup fightGroup = CreateFightGroup(Player[aiPlayerNum]);
+	fightGroup.AddGuardedRect(guardedRect);
+
+	// 3 ESG, 3 EMP, 3 Sticky, 3 RPG, 3 Microwave
+	AddLynx(fightGroup, guardedRect.RandPt(), map_id::mapESG, aiPlayerNum);
+	AddLynx(fightGroup, guardedRect.RandPt(), map_id::mapESG, aiPlayerNum);
+	AddLynx(fightGroup, guardedRect.RandPt(), map_id::mapESG, aiPlayerNum);
+
+	AddLynx(fightGroup, guardedRect.RandPt(), map_id::mapEMP, aiPlayerNum);
+	AddLynx(fightGroup, guardedRect.RandPt(), map_id::mapEMP, aiPlayerNum);
+	AddLynx(fightGroup, guardedRect.RandPt(), map_id::mapEMP, aiPlayerNum);
+
+	AddLynx(fightGroup, guardedRect.RandPt(), map_id::mapStickyfoam, aiPlayerNum);
+	AddLynx(fightGroup, guardedRect.RandPt(), map_id::mapStickyfoam, aiPlayerNum);
+	AddLynx(fightGroup, guardedRect.RandPt(), map_id::mapStickyfoam, aiPlayerNum);
+
+	AddLynx(fightGroup, guardedRect.RandPt(), map_id::mapRPG, aiPlayerNum);
+	AddLynx(fightGroup, guardedRect.RandPt(), map_id::mapRPG, aiPlayerNum);
+	AddLynx(fightGroup, guardedRect.RandPt(), map_id::mapRPG, aiPlayerNum);
+
+	AddLynx(fightGroup, guardedRect.RandPt(), map_id::mapMicrowave, aiPlayerNum);
+	AddLynx(fightGroup, guardedRect.RandPt(), map_id::mapMicrowave, aiPlayerNum);
+	AddLynx(fightGroup, guardedRect.RandPt(), map_id::mapMicrowave, aiPlayerNum);
+
+	
+	int targetUnitCount = 5;
+
+	switch (HumanPlayerCount())
+	{
+	case 3: {
+		targetUnitCount = 8;
+		break;
+	}
+	case 4: {
+		targetUnitCount = 12;
+		break;
+	}
+	}
+
+	fightGroup.SetTargCount(map_id::mapLynx, map_id::mapESG, targetUnitCount);
+	fightGroup.SetTargCount(map_id::mapLynx, map_id::mapRPG, targetUnitCount);
+	fightGroup.SetTargCount(map_id::mapLynx, map_id::mapMicrowave, targetUnitCount);
+	fightGroup.SetTargCount(map_id::mapLynx, map_id::mapStickyfoam, targetUnitCount);
+	fightGroup.SetTargCount(map_id::mapLynx, map_id::mapEMP, targetUnitCount);
+
+}
+
+void AddLynx(FightGroup& fightGroup, const LOCATION& loc, map_id weapon, PlayerNum playerNum)
+{
+	int direction = TethysGame::GetRand(8);
+
+	Unit unit;
+	TethysGame::CreateUnit(unit, map_id::mapLynx, loc, playerNum, weapon, direction);
+	unit.DoSetLights(true);
+	fightGroup.TakeUnit(unit);
 }

@@ -69,10 +69,10 @@ void InitializePlayer(PlayerNum playerNumber, const LOCATION& initBaseLoc)
 	currentLoc.x = initBaseLoc.x;
 	currentLoc.y = initBaseLoc.y + 9;
 
-	CreateTubeOrWallLine(initBaseLoc.x, initBaseLoc.y - 3, initBaseLoc.x, initBaseLoc.y - 1,mapTube);
-	CreateTubeOrWallLine(initBaseLoc.x, initBaseLoc.y + 1, initBaseLoc.x, initBaseLoc.y + 5, mapTube);
-	CreateTubeOrWallLine(initBaseLoc.x - 2, initBaseLoc.y, initBaseLoc.x -1, initBaseLoc.y, mapTube);
-	CreateTubeOrWallLine(initBaseLoc.x + 1, initBaseLoc.y, initBaseLoc.x + 3, initBaseLoc.y, mapTube);
+	CreateTubeLine(initBaseLoc + LOCATION(0, -3), initBaseLoc + LOCATION(0, -1));
+	CreateTubeLine(initBaseLoc + LOCATION(0, 1), initBaseLoc + LOCATION(0, 5));
+	CreateTubeLine(initBaseLoc + LOCATION(-2, 0), initBaseLoc + LOCATION(-1, 0));
+	CreateTubeLine(initBaseLoc + LOCATION(1, 0), initBaseLoc + LOCATION(3, 0));
 
 	TethysGame::CreateBeacon(map_id::mapMiningBeacon, currentLoc.x, currentLoc.y, BeaconTypes::OreTypeCommon, Yield::Bar2, Variant::Variant3);
 	currentLoc.x = vechStartLoc.x;
@@ -106,8 +106,20 @@ void InitializePlayer(PlayerNum playerNumber, const LOCATION& initBaseLoc)
 	currentLoc.x++;
 	CreateInitialUnit(unit, map_id::mapRoboSurveyor, currentLoc, playerNumber, map_id::mapNone);
 
+	// 1. Lynx
+	// 2. Lynx
+	// 3. Robo-Dozer
+	// 4. Earthworker
+	// 5. Robo-Miner
+	// 6. ConVec - Guard Post
+	// 7. ConVec - Guard Post
+	// 8. Truck
+	// 9. Robo-Surveyor
+	// 10. Scout
+	// 11. ConVec - Guard Post
+	// 12. Truck
 
-	
+	//weapon function
 	map_id cargo = map_id::mapMicrowave;
 	if (Player[playerNumber].IsEden()) {
 		cargo = map_id::mapLaser;

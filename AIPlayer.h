@@ -5,7 +5,8 @@
 #include "Outpost2DLL/Outpost2DLL.h"
 
 void AIInitialization();
-
+int HumanPlayerCount();
 PlayerNum GetAIIndex();
 PlayerColor GetAIColor(bool allowBlack = false);
+
 
