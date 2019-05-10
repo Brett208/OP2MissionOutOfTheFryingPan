@@ -7,6 +7,7 @@
 
 void PopulateDefensiveFightGroup(PlayerNum aiPlayerNum);
 void AddLynx(FightGroup& fightGroup, const LOCATION& loc, map_id weapon, PlayerNum playerNum);
+int SelectTargetCount();
 
 void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
 {
@@ -55,9 +56,16 @@ void CreateInitialAIUnit(Unit& unit, map_id unitType, LOCATION loc, PlayerNum ai
 
 void PopulateDefensiveFightGroup(PlayerNum aiPlayerNum)
 {
-	MAP_RECT guardedRect(68 + X_, 122 + Y_, 80 + X_, 140 + Y_);
+	Unit unit;
+	TethysGame::CreateUnit(unit, map_id::mapLynx, LOCATION(100 + X_, 130 + Y_), 0, map_id::mapLaser, South);
+
+	MAP_RECT guardedRect(68 + X_, 122 + Y_, 85 + X_, 140 + Y_);
 	FightGroup fightGroup = CreateFightGroup(Player[aiPlayerNum]);
+	
+	fightGroup.DoGuardRect();
+	fightGroup.SetRect(guardedRect);
 	fightGroup.AddGuardedRect(guardedRect);
+	
 
 	// 3 ESG, 3 EMP, 3 Sticky, 3 RPG, 3 Microwave
 	AddLynx(fightGroup, guardedRect.RandPt(), map_id::mapESG, aiPlayerNum);
@@ -80,20 +88,7 @@ void PopulateDefensiveFightGroup(PlayerNum aiPlayerNum)
 	AddLynx(fightGroup, guardedRect.RandPt(), map_id::mapMicrowave, aiPlayerNum);
 	AddLynx(fightGroup, guardedRect.RandPt(), map_id::mapMicrowave, aiPlayerNum);
 
-	
-	int targetUnitCount = 5;
-
-	switch (HumanPlayerCount())
-	{
-	case 3: {
-		targetUnitCount = 8;
-		break;
-	}
-	case 4: {
-		targetUnitCount = 12;
-		break;
-	}
-	}
+	int targetUnitCount = SelectTargetCount();
 
 	fightGroup.SetTargCount(map_id::mapLynx, map_id::mapESG, targetUnitCount);
 	fightGroup.SetTargCount(map_id::mapLynx, map_id::mapRPG, targetUnitCount);
@@ -111,4 +106,20 @@ void AddLynx(FightGroup& fightGroup, const LOCATION& loc, map_id weapon, PlayerN
 	TethysGame::CreateUnit(unit, map_id::mapLynx, loc, playerNum, weapon, direction);
 	unit.DoSetLights(true);
 	fightGroup.TakeUnit(unit);
+}
+
+int SelectTargetCount()
+{
+	switch (HumanPlayerCount())
+	{
+	case 2: {
+		return 5;
+	}
+	case 3: {
+		return 8;
+	}
+	case 4: {
+		return 12;
+	}
+	}
 }

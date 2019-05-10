@@ -5,6 +5,11 @@
 #include<array>
 #include<vector>
 
+void InitializePlayer(PlayerNum playerNumber, const LOCATION& initBaseLoc);
+void SelectInitialUnit(int index, const LOCATION& Location, PlayerNum playerNumber);
+map_id GetInitialWeapon(PlayerNum playerNumber);
+void CreateInitialUnit(Unit& unit, map_id unitType, const LOCATION& loc, PlayerNum playerNumber, map_id Cargo);
+
 const std::array<LOCATION, 4> playerStartLocs{
 	LOCATION(147 + X_, 110 + Y_),
 	LOCATION(172 + X_, 110 + Y_),
@@ -120,60 +125,73 @@ void InitializePlayer(PlayerNum playerNumber, const LOCATION& initBaseLoc)
 	// 12. Truck
 
 	
-	map_id cargo = map_id::mapMicrowave;
-	if (Player[playerNumber].IsEden()) {
-		cargo = map_id::mapLaser;
-	}
-
+	
 	for (int i = 0; i < TethysGame::InitialUnits(); ++i)
 	{
 		currentLoc.x = vechStartLoc.x + i % 4;
 		currentLoc.y = vechStartLoc.y + 4 + i / 4;
 
-		switch (i)
-		{
-
-		case 1:
-		case 2: {
-			CreateInitialUnit(unit, map_id::mapLynx, currentLoc, playerNumber, cargo);
-			break; }
-
-		case 3: {
-			CreateInitialUnit(unit, map_id::mapRoboDozer, currentLoc, playerNumber, map_id::mapNone);
-			break; }
-
-		case 4: {
-			CreateInitialUnit(unit, map_id::mapEarthworker, currentLoc, playerNumber, map_id::mapNone);
-			break; }
-
-		case 5: {
-			CreateInitialUnit(unit, map_id::mapRoboMiner, currentLoc, playerNumber, map_id::mapNone);
-			break; }
-
-		case 6:
-		case 7:
-		case 11: {
-			CreateInitialUnit(unit, map_id::mapConVec, currentLoc, playerNumber, map_id::mapGuardPost);
-			break; }
-
-		case 8:
-		case 12: {
-			CreateInitialUnit(unit, map_id::mapCargoTruck, currentLoc, playerNumber, map_id::mapNone);
-			break; }
-
-		case 9: {
-			CreateInitialUnit(unit, map_id::mapRoboSurveyor, currentLoc, playerNumber, map_id::mapNone);
-			break; }
-
-		case 10: {
-			CreateInitialUnit(unit, map_id::mapScout, currentLoc, playerNumber, map_id::mapNone);
-			break; }
-
-		}
+		SelectInitialUnit(i, currentLoc, playerNumber);
 	}
 }
 
-void CreateInitialUnit(Unit unit, map_id unitType, LOCATION loc, PlayerNum playerNumber, map_id Cargo)
+
+void SelectInitialUnit(int index, const LOCATION& location, PlayerNum playerNumber)
+{
+	Unit unit;
+	
+	switch (index)
+	{
+
+	case 1:
+	case 2: {
+		map_id cargo = GetInitialWeapon(playerNumber);
+		CreateInitialUnit(unit, map_id::mapLynx, location, playerNumber, cargo);
+		break; }
+
+	case 3: {
+		CreateInitialUnit(unit, map_id::mapRoboDozer, location, playerNumber, map_id::mapNone);
+		break; }
+
+	case 4: {
+		CreateInitialUnit(unit, map_id::mapEarthworker, location, playerNumber, map_id::mapNone);
+		break; }
+
+	case 5: {
+		CreateInitialUnit(unit, map_id::mapRoboMiner, location, playerNumber, map_id::mapNone);
+		break; }
+
+	case 6:
+	case 7:
+	case 11: {
+		CreateInitialUnit(unit, map_id::mapConVec, location, playerNumber, map_id::mapGuardPost);
+		break; }
+
+	case 8:
+	case 12: {
+		CreateInitialUnit(unit, map_id::mapCargoTruck, location, playerNumber, map_id::mapNone);
+		break; }
+
+	case 9: {
+		CreateInitialUnit(unit, map_id::mapRoboSurveyor, location, playerNumber, map_id::mapNone);
+		break; }
+
+	case 10: {
+		CreateInitialUnit(unit, map_id::mapScout, location, playerNumber, map_id::mapNone);
+		break; }
+
+	}
+}
+
+map_id GetInitialWeapon(PlayerNum playerNumber) {
+	map_id cargo = map_id::mapMicrowave;
+	if (Player[playerNumber].IsEden()) {
+		cargo = map_id::mapLaser;
+		return cargo;
+	}
+}
+
+void CreateInitialUnit(Unit& unit, map_id unitType, const LOCATION& loc, PlayerNum playerNumber, map_id Cargo)
 {
 	const UnitDirection rotation = UnitDirection::South;
 	TethysGame::CreateUnit(unit, unitType, loc, playerNumber, Cargo, rotation);
