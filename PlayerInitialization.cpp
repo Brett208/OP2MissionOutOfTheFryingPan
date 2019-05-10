@@ -53,18 +53,18 @@ void InitializePlayer(PlayerNum playerNumber, const LOCATION& initBaseLoc)
 
 	CreateInitialUnit(unit, mapBasicLab, currentLoc, playerNumber, map_id::mapNone);
 	currentLoc.y = initBaseLoc.y + 6;
-	
+
 	CreateInitialUnit(unit, mapCommonOreSmelter, currentLoc, playerNumber, map_id::mapNone);
 	currentLoc.x = initBaseLoc.x - 4;
 	currentLoc.y = initBaseLoc.y;
 
 	CreateInitialUnit(unit, mapStructureFactory, currentLoc, playerNumber, map_id::mapNone);
 	currentLoc.x = initBaseLoc.x + 4;
-	
+
 	CreateInitialUnit(unit, mapAgridome, currentLoc, playerNumber, map_id::mapNone);
 	currentLoc.x = initBaseLoc.x + 7;
 	currentLoc.y = initBaseLoc.y - 7;
-	
+
 	CreateInitialUnit(unit, mapTokamak, currentLoc, playerNumber, map_id::mapNone);
 	currentLoc.x = initBaseLoc.x;
 	currentLoc.y = initBaseLoc.y + 9;
@@ -119,7 +119,7 @@ void InitializePlayer(PlayerNum playerNumber, const LOCATION& initBaseLoc)
 	// 11. ConVec - Guard Post
 	// 12. Truck
 
-	//weapon function
+	
 	map_id cargo = map_id::mapMicrowave;
 	if (Player[playerNumber].IsEden()) {
 		cargo = map_id::mapLaser;
@@ -130,7 +130,46 @@ void InitializePlayer(PlayerNum playerNumber, const LOCATION& initBaseLoc)
 		currentLoc.x = vechStartLoc.x + i % 4;
 		currentLoc.y = vechStartLoc.y + 4 + i / 4;
 
-		CreateInitialUnit(unit, map_id::mapLynx, currentLoc, playerNumber, cargo);
+		switch (i)
+		{
+
+		case 1:
+		case 2: {
+			CreateInitialUnit(unit, map_id::mapLynx, currentLoc, playerNumber, cargo);
+			break; }
+
+		case 3: {
+			CreateInitialUnit(unit, map_id::mapRoboDozer, currentLoc, playerNumber, map_id::mapNone);
+			break; }
+
+		case 4: {
+			CreateInitialUnit(unit, map_id::mapEarthworker, currentLoc, playerNumber, map_id::mapNone);
+			break; }
+
+		case 5: {
+			CreateInitialUnit(unit, map_id::mapRoboMiner, currentLoc, playerNumber, map_id::mapNone);
+			break; }
+
+		case 6:
+		case 7:
+		case 11: {
+			CreateInitialUnit(unit, map_id::mapConVec, currentLoc, playerNumber, map_id::mapGuardPost);
+			break; }
+
+		case 8:
+		case 12: {
+			CreateInitialUnit(unit, map_id::mapCargoTruck, currentLoc, playerNumber, map_id::mapNone);
+			break; }
+
+		case 9: {
+			CreateInitialUnit(unit, map_id::mapRoboSurveyor, currentLoc, playerNumber, map_id::mapNone);
+			break; }
+
+		case 10: {
+			CreateInitialUnit(unit, map_id::mapScout, currentLoc, playerNumber, map_id::mapNone);
+			break; }
+
+		}
 	}
 }
 
