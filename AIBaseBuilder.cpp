@@ -5,7 +5,7 @@
 #include "OP2Helper/OP2Helper.h"
 #include "Outpost2DLL/Outpost2DLL.h"
 
-void PopulateDefensiveFightGroup(PlayerNum aiPlayerNum);
+void PopulateDefensiveFightGroup(const Unit& vehicleFactory, PlayerNum aiPlayerNum);
 void AddLynx(FightGroup& fightGroup, const LOCATION& loc, map_id weapon, PlayerNum playerNum);
 int SelectTargetCount();
 
@@ -32,7 +32,8 @@ void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
 	currentLoc.x = initBaseLoc.x;
 	currentLoc.y = initBaseLoc.y + 5;
 
-	CreateInitialAIUnit(unit, mapVehicleFactory, currentLoc, aiPlayerNum, map_id::mapNone);
+	Unit vehicleFactory;
+	CreateInitialAIUnit(vehicleFactory, mapVehicleFactory, currentLoc, aiPlayerNum, map_id::mapNone);
 	currentLoc.y = initBaseLoc.y - 6;
 
 	CreateInitialAIUnit(unit, mapTokamak, currentLoc, aiPlayerNum, map_id::mapNone);
@@ -44,8 +45,8 @@ void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
 
 	MiningGroup miningGroup;
 	SetupMiningGroup(miningGroup, commonMine, commonSmelter, miningIdleRect, 3, aiPlayerNum);
-	
-	PopulateDefensiveFightGroup(aiPlayerNum);
+
+	PopulateDefensiveFightGroup(vehicleFactory, aiPlayerNum);
 }
 
 void CreateInitialAIUnit(Unit& unit, map_id unitType, LOCATION loc, PlayerNum aiPlayerNum, map_id Cargo)
@@ -54,7 +55,7 @@ void CreateInitialAIUnit(Unit& unit, map_id unitType, LOCATION loc, PlayerNum ai
 	TethysGame::CreateUnit(unit, unitType, loc, aiPlayerNum, Cargo, rotation);
 }
 
-void PopulateDefensiveFightGroup(PlayerNum aiPlayerNum)
+void PopulateDefensiveFightGroup(const Unit& vehicleFactory, PlayerNum aiPlayerNum)
 {
 	Unit unit;
 	TethysGame::CreateUnit(unit, map_id::mapLynx, LOCATION(100 + X_, 130 + Y_), 0, map_id::mapLaser, South);
@@ -66,6 +67,9 @@ void PopulateDefensiveFightGroup(PlayerNum aiPlayerNum)
 	fightGroup.SetRect(guardedRect);
 	fightGroup.AddGuardedRect(guardedRect);
 	
+	BuildingGroup buildingGroup = CreateBuildingGroup(Player[aiPlayerNum]);
+	buildingGroup.RecordVehReinforceGroup(fightGroup, 1);
+	buildingGroup.TakeUnit(vehicleFactory);
 
 	// 3 ESG, 3 EMP, 3 Sticky, 3 RPG, 3 Microwave
 	AddLynx(fightGroup, guardedRect.RandPt(), map_id::mapESG, aiPlayerNum);
@@ -95,7 +99,6 @@ void PopulateDefensiveFightGroup(PlayerNum aiPlayerNum)
 	fightGroup.SetTargCount(map_id::mapLynx, map_id::mapMicrowave, targetUnitCount);
 	fightGroup.SetTargCount(map_id::mapLynx, map_id::mapStickyfoam, targetUnitCount);
 	fightGroup.SetTargCount(map_id::mapLynx, map_id::mapEMP, targetUnitCount);
-
 }
 
 void AddLynx(FightGroup& fightGroup, const LOCATION& loc, map_id weapon, PlayerNum playerNum)
@@ -118,7 +121,7 @@ int SelectTargetCount()
 	case 3: {
 		return 8;
 	}
-	case 4: {
+	default: {
 		return 12;
 	}
 	}

@@ -183,12 +183,13 @@ void SelectInitialUnit(int index, const LOCATION& location, PlayerNum playerNumb
 	}
 }
 
-map_id GetInitialWeapon(PlayerNum playerNumber) {
-	map_id cargo = map_id::mapMicrowave;
+map_id GetInitialWeapon(PlayerNum playerNumber)
+{
 	if (Player[playerNumber].IsEden()) {
-		cargo = map_id::mapLaser;
-		return cargo;
+		return map_id::mapLaser;
 	}
+
+	return map_id::mapMicrowave;
 }
 
 void CreateInitialUnit(Unit& unit, map_id unitType, const LOCATION& loc, PlayerNum playerNumber, map_id Cargo)
