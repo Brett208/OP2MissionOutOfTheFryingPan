@@ -102,9 +102,12 @@
     <ClCompile Include="AIBaseBuilder.cpp" />
     <ClCompile Include="AIHelper.cpp" />
     <ClCompile Include="AIPlayer.cpp" />
+    <ClCompile Include="DefensiveFightGroup.cpp" />
     <ClCompile Include="DisasterHelper.cpp" />
     <ClCompile Include="DllMain.cpp" />
+    <ClCompile Include="FightGroupOverlay.cpp" />
     <ClCompile Include="LevelMain.cpp" />
+    <ClCompile Include="OffensiveFightGroup.cpp" />
     <ClCompile Include="PlayerInitialization.cpp" />
     <ClCompile Include="VolcanoHelper.cpp" />
   </ItemGroup>
@@ -112,7 +115,10 @@
     <ClInclude Include="AIBaseBuilder.h" />
     <ClInclude Include="AIHelper.h" />
     <ClInclude Include="AIPlayer.h" />
+    <ClInclude Include="DefensiveFightGroup.h" />
     <ClInclude Include="DisasterHelper.h" />
+    <ClInclude Include="FightGroupOverlay.h" />
+    <ClInclude Include="OffensiveFightGroup.h" />
     <ClInclude Include="VolcanoHelper.h" />
     <ClInclude Include="PlayerInitialization.h" />
     <ClInclude Include="resource.h" />
