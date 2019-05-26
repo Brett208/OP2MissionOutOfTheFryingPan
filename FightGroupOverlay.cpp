@@ -1,28 +1,35 @@
 #include "FightGroupOverlay.h"
 #include "AIPlayer.h"
 
-FightGroup FightGroupOverlay::Initialize(MAP_RECT guardedRect, const Unit& vehicleFactory, PlayerNum aiPlayerNum)
-{
-	this->aiPlayerNum = aiPlayerNum;
+FightGroupOverlay::FightGroupOverlay(PlayerNum aiPlayerNum) : aiPlayerNum(aiPlayerNum) {}
 
-	FightGroup fightGroup = CreateFightGroup(Player[aiPlayerNum]);
+void FightGroupOverlay::Initialize(MAP_RECT guardedRect, const Unit& vehicleFactory)
+{
+	this->guardedRect = guardedRect;
+
+	fightGroup = CreateFightGroup(Player[aiPlayerNum]);
 	fightGroup.DoGuardRect();
 	fightGroup.SetRect(guardedRect);
 	fightGroup.AddGuardedRect(guardedRect);
 
-	BuildingGroup buildingGroup = CreateBuildingGroup(Player[aiPlayerNum]);
+	buildingGroup = CreateBuildingGroup(Player[aiPlayerNum]);
 	buildingGroup.RecordVehReinforceGroup(fightGroup, 1);
 	buildingGroup.TakeUnit(vehicleFactory);
-
-	return fightGroup;
 }
 
-void FightGroupOverlay::AddLynx(FightGroup& fightGroup, const LOCATION& loc, map_id weapon, PlayerNum playerNum)
+void FightGroupOverlay::SetTankCounts(const std::vector<TargetTankCount>& targetTankCounts)
+{
+	for (const auto& targetTankCount : targetTankCounts) {
+		fightGroup.SetTargCount(targetTankCount.tankType, targetTankCount.weaponType, targetTankCount.count);
+	}
+}
+
+void FightGroupOverlay::AddLynx(const LOCATION& loc, map_id weapon)
 {
 	int direction = TethysGame::GetRand(8);
 
 	Unit unit;
-	TethysGame::CreateUnit(unit, map_id::mapLynx, loc, playerNum, weapon, direction);
+	TethysGame::CreateUnit(unit, map_id::mapLynx, loc, aiPlayerNum, weapon, direction);
 	unit.DoSetLights(true);
 	fightGroup.TakeUnit(unit);
 }
@@ -41,4 +48,34 @@ int FightGroupOverlay::SelectTargetCount()
 		return 12;
 	}
 	}
+}
+
+void FightGroupOverlay::ClearTargetCount()
+{
+	fightGroup.ClearTargCount();
+}
+
+void FightGroupOverlay::SetLynxCount(map_id weaponType, int targetCount)
+{
+	fightGroup.SetTargCount(map_id::mapLynx, weaponType, targetCount);
+}
+
+void FightGroupOverlay::SetPantherCount(map_id weaponType, int targetCount)
+{
+	fightGroup.SetTargCount(map_id::mapPanther, weaponType, targetCount);
+}
+
+void FightGroupOverlay::SetTigerCount(map_id weaponType, int targetCount)
+{
+	fightGroup.SetTargCount(map_id::mapTiger, weaponType, targetCount);
+}
+
+void FightGroupOverlay::SetScorpionCount(int targetCount)
+{
+	fightGroup.SetTargCount(map_id::mapScorpion, map_id::mapEnergyCannon, targetCount);
+}
+
+MAP_RECT FightGroupOverlay::GetGuardedRect()
+{
+	return guardedRect;
 }

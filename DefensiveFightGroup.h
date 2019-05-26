@@ -5,13 +5,10 @@
 class DefensiveFightGroup : FightGroupOverlay
 {
 public:
+	DefensiveFightGroup(PlayerNum aiPlayerNum) : FightGroupOverlay(aiPlayerNum) {}
 
-	FightGroup Initialize(MAP_RECT guardedRect, const Unit& vehicleFactory, PlayerNum aiPlayerNum) override
-	{
-		return FightGroupOverlay::Initialize(guardedRect, vehicleFactory, aiPlayerNum);
-	}
-
-	void Populate(FightGroup& fightGroup, MAP_RECT gaurdedRect);
+	void Initialize(MAP_RECT guardedRect, const Unit& vehicleFactory) override;
+	void Populate();
 
 private:
 	

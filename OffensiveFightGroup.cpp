@@ -1,6 +1,11 @@
 #include "OffensiveFightGroup.h"
 
-void OffensiveFightGroup::Populate(FightGroup& fightGroup, MAP_RECT attackAssembleRect)
+void OffensiveFightGroup::Initialize(MAP_RECT guardedRect, const Unit& vehicleFactory)
 {
-	fightGroup.SetTargCount(map_id::mapLynx, map_id::mapMicrowave, SelectTargetCount());
+	FightGroupOverlay::Initialize(guardedRect, vehicleFactory);
+}
+
+void OffensiveFightGroup::Populate()
+{
+	SetLynxCount(map_id::mapMicrowave, SelectTargetCount());
 }
