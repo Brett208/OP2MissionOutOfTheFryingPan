@@ -79,3 +79,24 @@ MAP_RECT FightGroupOverlay::GetGuardedRect()
 {
 	return guardedRect;
 }
+
+void FightGroupOverlay::SetFightGroupTarget()
+{
+	int target = TethysGame::GetRand(4);
+
+	switch (target)
+	{
+	case 0: // General Attack
+		fightGroup.DoAttackEnemy();
+		return;
+	case 1:
+
+	}
+	
+
+}
+
+int FightGroupOverlay::GetFightGroupCount()
+{
+	return fightGroup.TotalUnitCount();
+}

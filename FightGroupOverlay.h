@@ -25,7 +25,9 @@ protected:
 	void SetTigerCount(map_id weaponType, int targetCount);
 	void SetScorpionCount(int targetCount);
 	MAP_RECT GetGuardedRect();
-
+	void SetFightGroupTarget();
+	int GetFightGroupCount();
+	
 private:
 	MAP_RECT guardedRect;
 	const PlayerNum aiPlayerNum;

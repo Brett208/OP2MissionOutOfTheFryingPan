@@ -57,10 +57,11 @@ void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
 	defensiveFightGroup.Initialize(guardedRect, defenseVehicleFactory);
 	defensiveFightGroup.Populate();
 
+	MAP_RECT offensiveGuardedRect(85 + X_, 140 + Y_, 89 + X_, 144 + Y_);
 	OffensiveFightGroup offensiveFightGroup(aiPlayerNum);
-	MAP_RECT attackGroupAssembleRect(85 + X_, 128 + Y_, 90 + X_, 134 + Y_);
-	offensiveFightGroup.Initialize(attackGroupAssembleRect, offenseVehicleFactory);
+	offensiveFightGroup.Initialize(offensiveGuardedRect, offenseVehicleFactory);
 	offensiveFightGroup.Populate();
+	
 }
 
 void CreateInitialAIUnit(Unit& unit, map_id unitType, LOCATION loc, PlayerNum aiPlayerNum, map_id Cargo)
