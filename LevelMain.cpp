@@ -1,13 +1,14 @@
 #include "HFL/Source/HFL.h"
 #include "OP2Helper/OP2Helper.h"
 #include "Outpost2DLL/Outpost2DLL.h"
+#include "WeakAIBase.h"
 #include "DisasterHelper.h"
 #include "AIPlayer.h"
 #include "PlayerInitialization.h"
 #include "VolcanoHelper.h"
+#include "OffensiveFightGroup.h"
 #include <vector>
 #include <algorithm>
-
 
 // Required data exports  (Description, Map, TechTree, GameType, NumPlayers, TechLvl, number of AI)
 ExportLevelDetailsFullEx("4P, SRV, 'Out Of The Frying Pan'", "OutOfTheFryingPan.map", "survtech.txt", MultiSpaceRace, 5, 12, false, 1);
@@ -70,11 +71,18 @@ void CheckMorale()
 	}
 }
 
+void AIInitialization()
+{
+	LOCATION AIWeakBaseLoc(76 + X_, 132 + Y_);
+	PlayerNum aiIndex = GetAIIndex();
+	Player[aiIndex].GoAI();
+	Player[aiIndex].SetColorNumber(GetAIColor());
+	Player[aiIndex].GoPlymouth();
+	BuildAIBase(aiIndex, AIWeakBaseLoc);
+}
 
 Export int InitProc()
 {
-	HFLInit();
-
 	disasterHelper.SetMapProperties(256, 256, false);
 
 	if (TethysGame::CanHaveDisasters())
@@ -118,6 +126,7 @@ Export int InitProc()
 Export void AIProc() 
 {
 	CheckMorale();
+	
 }
 
 

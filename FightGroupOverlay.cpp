@@ -1,10 +1,11 @@
 #include "FightGroupOverlay.h"
-#include "AIPlayer.h"
 
-FightGroupOverlay::FightGroupOverlay(PlayerNum aiPlayerNum) : aiPlayerNum(aiPlayerNum) {}
+FightGroupOverlay::FightGroupOverlay(PlayerNum aiPlayerNum, int humanPlayerCount) : 
+	aiPlayerNum(aiPlayerNum), humanPlayerCount(humanPlayerCount) {}
 
 void FightGroupOverlay::Initialize(MAP_RECT guardedRect, const Unit& vehicleFactory)
 {
+	this->vehicleFactory = vehicleFactory;
 	this->guardedRect = guardedRect;
 
 	fightGroup = CreateFightGroup(Player[aiPlayerNum]);
@@ -12,6 +13,7 @@ void FightGroupOverlay::Initialize(MAP_RECT guardedRect, const Unit& vehicleFact
 	fightGroup.SetRect(guardedRect);
 	fightGroup.AddGuardedRect(guardedRect);
 
+	buildingGroup.Destroy();
 	buildingGroup = CreateBuildingGroup(Player[aiPlayerNum]);
 	buildingGroup.RecordVehReinforceGroup(fightGroup, 1);
 	buildingGroup.TakeUnit(vehicleFactory);
@@ -19,35 +21,21 @@ void FightGroupOverlay::Initialize(MAP_RECT guardedRect, const Unit& vehicleFact
 
 void FightGroupOverlay::SetTankCounts(const std::vector<TargetTankCount>& targetTankCounts)
 {
+	targetCount = 0;
 	for (const auto& targetTankCount : targetTankCounts) {
+		targetCount += targetTankCount.count;
 		fightGroup.SetTargCount(targetTankCount.tankType, targetTankCount.weaponType, targetTankCount.count);
 	}
 }
 
-void FightGroupOverlay::AddLynx(const LOCATION& loc, map_id weapon)
+void FightGroupOverlay::AddTank(map_id tankType, map_id weapon)
 {
 	int direction = TethysGame::GetRand(8);
 
 	Unit unit;
-	TethysGame::CreateUnit(unit, map_id::mapLynx, loc, aiPlayerNum, weapon, direction);
+	TethysGame::CreateUnit(unit, tankType, GetGuardedRect().RandPt(), aiPlayerNum, weapon, direction);
 	unit.DoSetLights(true);
 	fightGroup.TakeUnit(unit);
-}
-
-int FightGroupOverlay::SelectTargetCount()
-{
-	switch (HumanPlayerCount())
-	{
-	case 2: {
-		return 5;
-	}
-	case 3: {
-		return 8;
-	}
-	default: {
-		return 12;
-	}
-	}
 }
 
 void FightGroupOverlay::ClearTargetCount()
@@ -80,20 +68,17 @@ MAP_RECT FightGroupOverlay::GetGuardedRect()
 	return guardedRect;
 }
 
-void FightGroupOverlay::SetFightGroupTarget()
+void FightGroupOverlay::BasicAttack() {
+	fightGroup.DoAttackEnemy();
+}
+
+FightGroup FightGroupOverlay::GetFightGroup() {
+	return fightGroup;
+}
+
+bool FightGroupOverlay::IsFull()
 {
-	int target = TethysGame::GetRand(4);
-
-	switch (target)
-	{
-	case 0: // General Attack
-		fightGroup.DoAttackEnemy();
-		return;
-	case 1:
-
-	}
-	
-
+	return GetFightGroupCount() == targetCount;
 }
 
 int FightGroupOverlay::GetFightGroupCount()

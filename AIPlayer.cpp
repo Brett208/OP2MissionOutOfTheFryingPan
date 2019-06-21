@@ -51,13 +51,3 @@ PlayerNum GetAIIndex()
 
 		return static_cast<PlayerColor>(availableColors[colorIndex]);
 	}
-
-	void AIInitialization()
-	{
-		LOCATION AIWeakBaseLoc(76 + X_, 132 + Y_);
-		PlayerNum aiIndex = GetAIIndex();
-		Player[aiIndex].GoAI();
-		Player[aiIndex].SetColorNumber(GetAIColor());
-		Player[aiIndex].GoPlymouth();
-		BuildAIBase(aiIndex, AIWeakBaseLoc);
-	}

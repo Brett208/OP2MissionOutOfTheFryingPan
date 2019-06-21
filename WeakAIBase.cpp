@@ -1,11 +1,27 @@
-#include "AIBaseBuilder.h"
-#include "OffensiveFightGroup.h"
+#include "WeakAIBase.h"
 #include "DefensiveFightGroup.h"
 #include "AIHelper.h"
 #include "AIPlayer.h"
 #include "HFL/Source/HFL.h"
 #include "OP2Helper/OP2Helper.h"
 #include "Outpost2DLL/Outpost2DLL.h"
+#include <memory>
+
+
+int SelectTargetCount();
+std::unique_ptr<OffensiveFightGroup> offensiveFightGroupPointer;
+
+std::vector<TargetTankCount> offensiveTankCount{
+		TargetTankCount {map_id::mapLynx, map_id::mapMicrowave, SelectTargetCount()}
+};
+
+void Update()
+{
+	offensiveFightGroupPointer->UpdateTaskedFightGroups();
+	if (offensiveFightGroupPointer->IsFull()) {
+		offensiveFightGroupPointer->Attack(offensiveTankCount);
+	}
+}
 
 void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
 {
@@ -51,17 +67,26 @@ void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
 	SetupMiningGroup(miningGroup, commonMine, commonSmelter, miningIdleRect, 3, aiPlayerNum);
 
 	MAP_RECT guardedRect(68 + X_, 122 + Y_, 85 + X_, 140 + Y_);
-	
-	DefensiveFightGroup defensiveFightGroup(aiPlayerNum);
+
+	const std::vector<TargetTankCount> targetTanks{
+		TargetTankCount{map_id::mapLynx, map_id::mapMicrowave, 3},
+		TargetTankCount{map_id::mapLynx, map_id::mapESG, 3},
+		TargetTankCount{map_id::mapLynx, map_id::mapEMP, 3},
+		TargetTankCount{map_id::mapLynx, map_id::mapRPG, 3},
+		TargetTankCount{map_id::mapLynx, map_id::mapStickyfoam, 3}
+	};
+
+	DefensiveFightGroup defensiveFightGroup(aiPlayerNum, HumanPlayerCount());
 
 	defensiveFightGroup.Initialize(guardedRect, defenseVehicleFactory);
-	defensiveFightGroup.Populate();
+	defensiveFightGroup.Populate(targetTanks);
 
 	MAP_RECT offensiveGuardedRect(85 + X_, 140 + Y_, 89 + X_, 144 + Y_);
-	OffensiveFightGroup offensiveFightGroup(aiPlayerNum);
-	offensiveFightGroup.Initialize(offensiveGuardedRect, offenseVehicleFactory);
-	offensiveFightGroup.Populate();
+	OffensiveFightGroup offensiveFightGroup(aiPlayerNum, HumanPlayerCount());
 	
+	offensiveFightGroup.Initialize(offensiveGuardedRect, offenseVehicleFactory, offensiveTankCount);
+
+	offensiveFightGroupPointer = std::make_unique<OffensiveFightGroup>(offensiveFightGroup);
 }
 
 void CreateInitialAIUnit(Unit& unit, map_id unitType, LOCATION loc, PlayerNum aiPlayerNum, map_id Cargo)
@@ -70,5 +95,19 @@ void CreateInitialAIUnit(Unit& unit, map_id unitType, LOCATION loc, PlayerNum ai
 	TethysGame::CreateUnit(unit, unitType, loc, aiPlayerNum, Cargo, rotation);
 }
 
-
+int SelectTargetCount()
+{
+	switch (HumanPlayerCount())
+	{
+	case 2: {
+		return 5;
+	}
+	case 3: {
+		return 8;
+	}
+	default: {
+		return 12;
+	}
+	}
+}
 
