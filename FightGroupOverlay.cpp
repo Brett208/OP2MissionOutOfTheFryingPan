@@ -13,7 +13,10 @@ void FightGroupOverlay::Initialize(MAP_RECT guardedRect, const Unit& vehicleFact
 	fightGroup.SetRect(guardedRect);
 	fightGroup.AddGuardedRect(guardedRect);
 
-	buildingGroup.Destroy();
+	if (buildingGroup.IsInitialized()) {
+		buildingGroup.Destroy();
+	}
+
 	buildingGroup = CreateBuildingGroup(Player[aiPlayerNum]);
 	buildingGroup.RecordVehReinforceGroup(fightGroup, 1);
 	buildingGroup.TakeUnit(vehicleFactory);
