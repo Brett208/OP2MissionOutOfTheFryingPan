@@ -12,10 +12,10 @@ int GetTankCount();
 std::unique_ptr<OffensiveFightGroup> offensiveFightGroupPointer;
 
 std::vector<TargetTankCount> offensiveTankCount{
-		TargetTankCount {map_id::mapLynx, map_id::mapMicrowave, GetTankCount()}
+	TargetTankCount {map_id::mapLynx, map_id::mapMicrowave, GetTankCount()}
 };
 
-void Update()
+void UpdateWeakAIBase()
 {
 	offensiveFightGroupPointer->UpdateTaskedFightGroups();
 	if (offensiveFightGroupPointer->IsFull()) {

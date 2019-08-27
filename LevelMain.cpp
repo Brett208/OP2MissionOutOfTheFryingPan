@@ -128,7 +128,7 @@ Export int InitProc()
 Export void AIProc() 
 {
 	CheckMorale();
-	
+	UpdateWeakAIBase();
 }
 
 
