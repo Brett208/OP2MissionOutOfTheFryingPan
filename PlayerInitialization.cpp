@@ -51,29 +51,29 @@ void InitializePlayer(PlayerNum playerNumber, const LOCATION& initBaseLoc)
 	Player[playerNumber].CenterViewOn(initBaseLoc.x, initBaseLoc.y);
 
 	CreateInitialUnit(unit, mapCommandCenter, initBaseLoc, playerNumber, map_id::mapNone); //ComandCenter
+	
 	currentLoc.y = initBaseLoc.y - 6;
-
 	CreateInitialUnit(unit, mapBasicLab, currentLoc, playerNumber, map_id::mapNone);
-	currentLoc.y = initBaseLoc.y - 4;
-
+	
+	currentLoc.y = initBaseLoc.y - 3;
 	CreateInitialUnit(unit, mapBasicLab, currentLoc, playerNumber, map_id::mapNone);
+	
 	currentLoc.y = initBaseLoc.y + 6;
-
 	CreateInitialUnit(unit, mapCommonOreSmelter, currentLoc, playerNumber, map_id::mapNone);
+
 	currentLoc.x = initBaseLoc.x - 4;
 	currentLoc.y = initBaseLoc.y;
-
 	CreateInitialUnit(unit, mapStructureFactory, currentLoc, playerNumber, map_id::mapNone);
+	
 	currentLoc.x = initBaseLoc.x + 4;
-
 	CreateInitialUnit(unit, mapAgridome, currentLoc, playerNumber, map_id::mapNone);
+	
 	currentLoc.x = initBaseLoc.x + 7;
 	currentLoc.y = initBaseLoc.y - 7;
-
 	CreateInitialUnit(unit, mapTokamak, currentLoc, playerNumber, map_id::mapNone);
+	
 	currentLoc.x = initBaseLoc.x;
 	currentLoc.y = initBaseLoc.y + 9;
-
 	CreateTubeLine(initBaseLoc + LOCATION(0, -3), initBaseLoc + LOCATION(0, -1));
 	CreateTubeLine(initBaseLoc + LOCATION(0, 1), initBaseLoc + LOCATION(0, 5));
 	CreateTubeLine(initBaseLoc + LOCATION(-2, 0), initBaseLoc + LOCATION(-1, 0));
