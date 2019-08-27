@@ -8,11 +8,11 @@
 #include <memory>
 
 
-int SelectTargetCount();
+int GetTankCount();
 std::unique_ptr<OffensiveFightGroup> offensiveFightGroupPointer;
 
 std::vector<TargetTankCount> offensiveTankCount{
-		TargetTankCount {map_id::mapLynx, map_id::mapMicrowave, SelectTargetCount()}
+		TargetTankCount {map_id::mapLynx, map_id::mapMicrowave, GetTankCount()}
 };
 
 void Update()
@@ -95,7 +95,7 @@ void CreateInitialAIUnit(Unit& unit, map_id unitType, LOCATION loc, PlayerNum ai
 	TethysGame::CreateUnit(unit, unitType, loc, aiPlayerNum, Cargo, rotation);
 }
 
-int SelectTargetCount()
+int GetTankCount()
 {
 	switch (HumanPlayerCount())
 	{
