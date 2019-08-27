@@ -116,8 +116,10 @@ Export int InitProc()
 	InitializeVolcanos();
 	InitializePlayers(HumanPlayerCount());
 	AIInitialization();
-	
-	
+
+	CreateMicrobeWallLine(LOCATION(39 + X_, 99 + Y_), LOCATION(64 + X_, 99 + Y_));
+	CreateMicrobeWallLine(LOCATION(39 + X_, 126 + Y_), LOCATION(64 + X_, 126 + Y_));
+
 	//Trigger BlightTrigger = CreateTimeTrigger(true, true, 1, 1, "SpawnBlight");
 	
 	return true;
