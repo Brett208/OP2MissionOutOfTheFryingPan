@@ -135,13 +135,9 @@ Export void AIProc()
 Export void SpawnBlight()
 {
 	LOCATION blightSpawnLoc(1 + X_, 255 + Y_);
-	
-
 	GameMap::SetVirusUL(blightSpawnLoc, 1); // Spawn the blight
-	TethysGame::SetMicrobeSpreadSpeed(60);	// set blight speed
-
-	TethysGame::AddMessage(1 + X_, 255 + Y_, "The Blight is Approaching", -1, 152); // Check Sound Message
-	
+	TethysGame::SetMicrobeSpreadSpeed(60);	
+	TethysGame::AddMessage(1 + X_, 255 + Y_, "The Blight is Approaching", -1, 152); 
 }
 
 
