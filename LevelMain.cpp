@@ -141,6 +141,13 @@ Export void SpawnBlight()
 
 	// Warning Message
 	TethysGame::AddMessage(1248, 576, "Microbe growth detected!", -1, 152);
+
+	GameMap::SetVirusUL(blightSpawnLoc, 1); // Spawn the blight
+	TethysGame::SetMicrobeSpreadSpeed(60);	// set blight speed
+
+	TethysGame::AddMessage(1248, 576, "The Blight is Approaching", -1, 152); // Check Sound Message
+	
+}
 }
 
 Export void CreateDisaster()
