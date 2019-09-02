@@ -120,7 +120,7 @@ Export int InitProc()
 	CreateMicrobeWallLine(LOCATION(39 + X_, 99 + Y_), LOCATION(64 + X_, 99 + Y_));
 	CreateMicrobeWallLine(LOCATION(39 + X_, 126 + Y_), LOCATION(64 + X_, 126 + Y_));
 
-	//Trigger BlightTrigger = CreateTimeTrigger(true, true, 1, 1, "SpawnBlight");
+	Trigger BlightTrigger = CreateTimeTrigger(true, true, 1, 1, "SpawnBlight");
 	
 	return true;
 }
@@ -134,21 +134,16 @@ Export void AIProc()
 
 Export void SpawnBlight()
 {
-	LOCATION blightSpawnLoc(1 + X_, 1 + Y_);
-	// Setup Blight
-	GameMap::SetVirusUL(blightSpawnLoc, 1);  // Spawn the Blight
-	TethysGame::SetMicrobeSpreadSpeed(60);  	// Set the Blight's spread speed
-
-	// Warning Message
-	TethysGame::AddMessage(1248, 576, "Microbe growth detected!", -1, 152);
+	LOCATION blightSpawnLoc(1 + X_, 255 + Y_);
+	
 
 	GameMap::SetVirusUL(blightSpawnLoc, 1); // Spawn the blight
 	TethysGame::SetMicrobeSpreadSpeed(60);	// set blight speed
 
-	TethysGame::AddMessage(1248, 576, "The Blight is Approaching", -1, 152); // Check Sound Message
+	TethysGame::AddMessage(1 + X_, 255 + Y_, "The Blight is Approaching", -1, 152); // Check Sound Message
 	
 }
-}
+
 
 Export void CreateDisaster()
 {
