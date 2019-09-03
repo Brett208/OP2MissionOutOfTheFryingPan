@@ -71,6 +71,31 @@ void CheckMorale()
 	}
 }
 
+void AddVictoryConditions()
+{
+	Trigger trigger;
+
+	// Children's Module
+	trigger = CreateCountTrigger(true, false, PlayerAll, mapChildrenModule, mapNone, 1, cmpGreaterEqual, "NoResponseToTrigger");
+	CreateVictoryCondition(true, false, trigger, "Evacuate 50 Children to spacecraft");
+
+	// Evacuation Module
+	trigger = CreateCountTrigger(true, false, PlayerAll, mapEvacuationModule, mapNone, 1, cmpGreaterEqual, "NoResponseToTrigger");
+	CreateVictoryCondition(true, false, trigger, "Evacuate 200 colonists to spacecraft");
+
+	// Food Cargo
+	trigger = CreateCountTrigger(true, false, PlayerAll, mapFoodCargo, mapNone, 1, cmpGreaterEqual, "NoResponseToTrigger");
+	CreateVictoryCondition(true, false, trigger, "Evacuate 10,000 units of food to spacecraft");
+
+	// Rare Metals Cargo
+	trigger = CreateCountTrigger(true, false, PlayerAll, mapRareMetalsCargo, mapNone, 1, cmpGreaterEqual, "NoResponseToTrigger");
+	CreateVictoryCondition(true, false, trigger, "Evacuate 10,000 units of Rare Metals to spacecraft");
+
+	// Common Metals Cargo
+	trigger = CreateCountTrigger(true, false, PlayerAll, mapCommonMetalsCargo, mapNone, 1, cmpGreaterEqual, "NoResponseToTrigger");
+	CreateVictoryCondition(true, false, trigger, "Evacuate 10,000 units of Common Metals to spacecraft");
+}
+
 void AIInitialization()
 {
 	LOCATION AIWeakBaseLoc(76 + X_, 132 + Y_);
@@ -119,7 +144,7 @@ Export int InitProc()
 
 	CreateMicrobeWallLine(LOCATION(39 + X_, 99 + Y_), LOCATION(64 + X_, 99 + Y_));
 	CreateMicrobeWallLine(LOCATION(39 + X_, 126 + Y_), LOCATION(64 + X_, 126 + Y_));
-
+	AddVictoryConditions();
 	Trigger BlightTrigger = CreateTimeTrigger(true, true, 1, 1, "SpawnBlight");
 	
 	return true;
