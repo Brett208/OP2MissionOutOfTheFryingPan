@@ -12,7 +12,7 @@ int GetTankCount();
 std::unique_ptr<OffensiveFightGroup> offensiveFightGroupPointer;
 
 std::vector<TargetTankCount> offensiveTankCount{
-	TargetTankCount {map_id::mapLynx, map_id::mapMicrowave, GetTankCount()}
+	TargetTankCount {map_id::mapLynx, map_id::mapMicrowave, 0}
 };
 
 void UpdateWeakAIBase()
@@ -25,6 +25,8 @@ void UpdateWeakAIBase()
 
 void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
 {
+	offensiveTankCount[0].count = GetTankCount();
+
 	LOCATION currentLoc = initBaseLoc;
 	LOCATION vechStartLoc(initBaseLoc.x + 4, initBaseLoc.y + 4);
 	MAP_RECT miningIdleRect(initBaseLoc.x - 4, initBaseLoc.y, initBaseLoc.x + 6, initBaseLoc.y + 4);
@@ -97,7 +99,8 @@ void CreateInitialAIUnit(Unit& unit, map_id unitType, LOCATION loc, PlayerNum ai
 
 int GetTankCount()
 {
-	switch (HumanPlayerCount())
+	int humanPlayerCount = HumanPlayerCount();
+	switch (humanPlayerCount)
 	{
 	case 2: {
 		return 5;
