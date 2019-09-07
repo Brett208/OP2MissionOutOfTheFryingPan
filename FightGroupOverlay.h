@@ -13,7 +13,7 @@ class FightGroupOverlay
 {
 public:
 	FightGroupOverlay(PlayerNum aiPlayerNum, int humanPlayerCount);
-	virtual void Initialize(MAP_RECT guardedRect, const Unit& vehicleFactory);
+	virtual void Initialize(MAP_RECT guardedRect, Unit& vehicleFactory);
 	bool IsFull();
 	
 protected:

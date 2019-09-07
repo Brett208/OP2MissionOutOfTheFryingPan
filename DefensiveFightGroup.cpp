@@ -1,6 +1,6 @@
 #include "DefensiveFightGroup.h"
 
-void DefensiveFightGroup::Initialize(MAP_RECT guardedRect, const Unit& vehicleFactory) 
+void DefensiveFightGroup::Initialize(MAP_RECT guardedRect, Unit& vehicleFactory) 
 {
 	FightGroupOverlay::Initialize(guardedRect, vehicleFactory);
 }

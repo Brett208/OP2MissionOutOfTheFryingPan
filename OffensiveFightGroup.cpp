@@ -1,6 +1,6 @@
 #include "OffensiveFightGroup.h"
 
-void OffensiveFightGroup::Initialize(MAP_RECT guardedRect, const Unit& vehicleFactory, const std::vector<TargetTankCount>& targetTankCounts)
+void OffensiveFightGroup::Initialize(MAP_RECT guardedRect, Unit& vehicleFactory, const std::vector<TargetTankCount>& targetTankCounts)
 {
 	FightGroupOverlay::Initialize(guardedRect, vehicleFactory);
 	SetTankCounts(targetTankCounts);

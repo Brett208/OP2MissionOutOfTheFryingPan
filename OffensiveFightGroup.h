@@ -8,7 +8,7 @@ class OffensiveFightGroup : public FightGroupOverlay
 {
 public:
 	OffensiveFightGroup(PlayerNum aiPlayerNum, int humanPlayerCount) : FightGroupOverlay(aiPlayerNum, humanPlayerCount) {}
-	void Initialize(MAP_RECT guardedRect, const Unit& vehicleFactory, const std::vector<TargetTankCount>& targetCounts);
+	void Initialize(MAP_RECT guardedRect, Unit& vehicleFactory, const std::vector<TargetTankCount>& targetCounts);
 	void Attack(const std::vector<TargetTankCount>& targetCounts);
 	void UpdateTaskedFightGroups();
 
