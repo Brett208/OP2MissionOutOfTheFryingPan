@@ -10,6 +10,8 @@
 
 int GetTankCount();
 std::unique_ptr<OffensiveFightGroup> offensiveFightGroupPointer;
+std::vector<Unit> offensiveVehicleFactories;
+std::vector<Unit> defensiveVehicleFactories;
 
 std::vector<TargetTankCount> offensiveTankCount{
 	TargetTankCount {map_id::mapLynx, map_id::mapMicrowave, 0}
@@ -47,14 +49,20 @@ void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
 
 	currentLoc.x = initBaseLoc.x;
 	currentLoc.y = initBaseLoc.y + 5;
-
+	
 	Unit defenseVehicleFactory;
 	CreateInitialAIUnit(defenseVehicleFactory, mapVehicleFactory, currentLoc, aiPlayerNum, map_id::mapNone);
+	defensiveVehicleFactories.push_back(defenseVehicleFactory);
 
 	currentLoc.y = initBaseLoc.y + 9;
-
 	Unit offenseVehicleFactory;
-	CreateInitialAIUnit(offenseVehicleFactory, mapVehicleFactory, currentLoc, aiPlayerNum, map_id::mapNone);
+
+	for (std::size_t i = 0; i < HumanPlayerCount() - 1; ++i)
+	{
+		CreateInitialAIUnit(offenseVehicleFactory, mapVehicleFactory, currentLoc, aiPlayerNum, map_id::mapNone);
+		offensiveVehicleFactories.push_back(offenseVehicleFactory);
+		currentLoc.y = currentLoc.y + 4;
+	}
 
 	currentLoc.y = initBaseLoc.y - 10;
 
@@ -80,13 +88,13 @@ void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
 
 	DefensiveFightGroup defensiveFightGroup(aiPlayerNum, HumanPlayerCount());
 
-	defensiveFightGroup.Initialize(guardedRect, defenseVehicleFactory);
+	defensiveFightGroup.Initialize(guardedRect, defensiveVehicleFactories);
 	defensiveFightGroup.Populate(targetTanks);
 
 	MAP_RECT offensiveGuardedRect(85 + X_, 140 + Y_, 89 + X_, 144 + Y_);
 	OffensiveFightGroup offensiveFightGroup(aiPlayerNum, HumanPlayerCount());
 	
-	offensiveFightGroup.Initialize(offensiveGuardedRect, offenseVehicleFactory, offensiveTankCount);
+	offensiveFightGroup.Initialize(offensiveGuardedRect, offensiveVehicleFactories, offensiveTankCount);
 
 	offensiveFightGroupPointer = std::make_unique<OffensiveFightGroup>(offensiveFightGroup);
 }
