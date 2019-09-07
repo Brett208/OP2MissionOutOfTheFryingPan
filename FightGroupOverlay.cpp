@@ -3,9 +3,9 @@
 FightGroupOverlay::FightGroupOverlay(PlayerNum aiPlayerNum, int humanPlayerCount) : 
 	aiPlayerNum(aiPlayerNum), humanPlayerCount(humanPlayerCount) {}
 
-void FightGroupOverlay::Initialize(MAP_RECT guardedRect, Unit& vehicleFactory)
+void FightGroupOverlay::Initialize(MAP_RECT guardedRect, std::vector<Unit> vehicleFactories)
 {
-	this->vehicleFactory = vehicleFactory;
+	this->vehicleFactories = vehicleFactories;
 	this->guardedRect = guardedRect;
 
 	fightGroup = CreateFightGroup(Player[aiPlayerNum]);
@@ -19,8 +19,10 @@ void FightGroupOverlay::Initialize(MAP_RECT guardedRect, Unit& vehicleFactory)
 
 	buildingGroup = CreateBuildingGroup(Player[aiPlayerNum]);
 	buildingGroup.RecordVehReinforceGroup(fightGroup, 1);
-	if (vehicleFactory.IsLive()) {
-		buildingGroup.TakeUnit(vehicleFactory);
+	for (Unit& vehicleFactory : vehicleFactories) {
+		if (vehicleFactory.IsLive()) {
+			buildingGroup.TakeUnit(vehicleFactory);
+		}
 	}
 }
 

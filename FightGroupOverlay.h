@@ -13,12 +13,12 @@ class FightGroupOverlay
 {
 public:
 	FightGroupOverlay(PlayerNum aiPlayerNum, int humanPlayerCount);
-	virtual void Initialize(MAP_RECT guardedRect, Unit& vehicleFactory);
+	virtual void Initialize(MAP_RECT guardedRect, std::vector<Unit> vehicleFactories);
 	bool IsFull();
 	
 protected:
 	const std::size_t humanPlayerCount;
-	Unit vehicleFactory;
+	std::vector<Unit> vehicleFactories;
 	
 	void AddTank(map_id tankType, map_id weapon);
 

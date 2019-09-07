@@ -1,8 +1,8 @@
 #include "DefensiveFightGroup.h"
 
-void DefensiveFightGroup::Initialize(MAP_RECT guardedRect, Unit& vehicleFactory) 
+void DefensiveFightGroup::Initialize(MAP_RECT guardedRect, std::vector<Unit> vehicleFactories) 
 {
-	FightGroupOverlay::Initialize(guardedRect, vehicleFactory);
+	FightGroupOverlay::Initialize(guardedRect, vehicleFactories);
 }
 
 void DefensiveFightGroup::Populate(const std::vector<TargetTankCount>& targetTankCounts)
