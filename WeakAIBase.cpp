@@ -75,7 +75,7 @@ void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
 	currentLoc.y = initBaseLoc.y + 9;
 	Unit offenseVehicleFactory;
 
-	for (std::size_t i = 0; i < HumanPlayerCount() - 1; ++i)
+	for (int i = 0; i < HumanPlayerCount() - 1; ++i)
 	{
 		CreateInitialAIUnit(offenseVehicleFactory, mapVehicleFactory, currentLoc, aiPlayerNum, map_id::mapNone);
 		offensiveVehicleFactories.push_back(offenseVehicleFactory);
