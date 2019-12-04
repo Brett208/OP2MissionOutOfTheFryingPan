@@ -159,7 +159,7 @@ public:
 
 private:
 	int xOffset = 31;
-	int yOffset = -1;
+	const int yOffset = -1;
 
 	int mapWidth;
 	int mapHeight;

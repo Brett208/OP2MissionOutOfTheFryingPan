@@ -106,9 +106,14 @@ void AIInitialization()
 	BuildAIBase(aiIndex, AIWeakBaseLoc);
 }
 
+void InitializeDisasterHelper()
+{
+	disasterHelper.SetMapProperties(LOCATION(80, 0), LOCATION(256, 256), false);
+}
+
 Export int InitProc()
 {
-	disasterHelper.SetMapProperties(256, 256, false);
+	InitializeDisasterHelper();
 
 	if (TethysGame::CanHaveDisasters())
 	{
@@ -170,7 +175,7 @@ Export void CreateDisaster()
 {
 	if (!disasterHelper.MapPropertiesSet())
 	{
-		disasterHelper.SetMapProperties(256, 256, false); //MapWidth, MapHeight, Does map wrap East/West
+		InitializeDisasterHelper();
 	}
 
 	disasterHelper.CreateRandomDisaster();

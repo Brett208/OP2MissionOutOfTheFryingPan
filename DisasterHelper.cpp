@@ -1,26 +1,25 @@
 #include "DisasterHelper.h"
 
-void DisasterHelper::SetMapProperties(int mapWidth, int mapHeight, bool wrapsEastWest)
+void DisasterHelper::SetMapProperties(LOCATION topLeft, LOCATION bottomRight, bool wrapsEastWest)
 {
-	if (mapWidth <= 0)
+	if (topLeft.x < 0)
 	{
-		SendDebugMessage("Map width cannot be set to 0 or negative.");
+		SendDebugMessage("Left cannot be negative.");
 		return;
 	}
 
-	if (mapHeight <= 0)
+	if (topLeft.y < 0)
 	{
-		SendDebugMessage("Map height cannot be set to 0 or negative.");
+		SendDebugMessage("Top cannot be negative.");
 		return;
 	}
 
-	this->mapWidth = mapWidth;
-	this->mapHeight = mapHeight;
+	this->topLeft = topLeft;
+	this->bottomRight = bottomRight;
 
 	if (wrapsEastWest)
 	{
 		xOffset = -1;
-		yOffset = -1;
 	}
 }
 
@@ -93,10 +92,12 @@ LOCATION DisasterHelper::GetRandMapLoc()
 		return LOCATION(0, 0);
 	}
 
-	return LOCATION(TethysGame::GetRand(mapWidth) + xOffset, TethysGame::GetRand(mapHeight) + yOffset);
+	return LOCATION(
+		TethysGame::GetRand(GetWidth()) + xOffset + topLeft.x, 
+		TethysGame::GetRand(GetHeight()) + yOffset + topLeft.y);
 }
 
-bool DisasterHelper::IsLocInSafeArea(LOCATION& loc)
+bool DisasterHelper::IsInSafeArea(LOCATION& location)
 {
 	if (TethysGame::Time() / 100 >= safeZoneTimer)
 	{
@@ -105,7 +106,7 @@ bool DisasterHelper::IsLocInSafeArea(LOCATION& loc)
 
 	for (auto& mapRect : safeRects)
 	{
-		if (mapRect.Check(loc))
+		if (mapRect.Check(location))
 		{
 			return true;
 		}
@@ -122,14 +123,14 @@ LOCATION DisasterHelper::GetRandLocOutsideSafeAreas()
 		return LOCATION(0, 0);
 	}
 
-	LOCATION loc;
+	LOCATION location;
 	bool LocInSafeArea = true;
 	int numberOfLocsChecked = 0;
 	while (LocInSafeArea)
 	{
-		loc = GetRandMapLoc();
+		location = GetRandMapLoc();
 
-		if (!IsLocInSafeArea(loc))
+		if (!IsInSafeArea(location))
 		{
 			break;
 		}
@@ -143,7 +144,7 @@ LOCATION DisasterHelper::GetRandLocOutsideSafeAreas()
 		}
 	}
 
-	return loc;
+	return location;
 }
 
 double DisasterHelper::DistanceBetweenPoints(LOCATION loc1, LOCATION loc2)
@@ -186,9 +187,9 @@ void DisasterHelper::CreateEarthquake()
 		return;
 	}
 
-	LOCATION loc = GetRandLocOutsideSafeAreas();
+	LOCATION location = GetRandLocOutsideSafeAreas();
 	int quakeStrength = minQuakeStrength + TethysGame::GetRand(maxQuakeStrength - minQuakeStrength);
-	TethysGame::SetEarthquake(loc.x, loc.y, quakeStrength);
+	TethysGame::SetEarthquake(location.x, location.y, quakeStrength);
 }
 
 //minPercentHypotenuseTravel is the minimum percentage of the MAP_RECT's hypotenuse's size that the line must travel.
