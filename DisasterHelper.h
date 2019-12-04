@@ -30,7 +30,7 @@ class DisasterHelper
 public:
 	//Tile width and tile height of map. 
 	//DisasterHelper uses the setting wrapsEastWest to set proper map coordinate offsets.
-	void SetMapProperties(int mapWidth, int mapHeight, bool wrapsEastWest);
+	void SetMapProperties(LOCATION topLeft, LOCATION bottomRight, bool wrapsEastWest);
 
 	void CreateRandomDisaster();
 	void CreateStorm();
@@ -151,7 +151,7 @@ public:
 
 	bool MapPropertiesSet()
 	{
-		return mapWidth != 0;
+		return bottomRight.x != 0;
 	}
 
 	static const int TimerNeverExpires = INT_MAX;
@@ -159,10 +159,13 @@ public:
 
 private:
 	int xOffset = 31;
-	int yOffset = -1;
+	const int yOffset = -1;
 
-	int mapWidth;
-	int mapHeight;
+	inline int GetWidth() const { return bottomRight.x - topLeft.x; };
+	inline int GetHeight() const { return bottomRight.y - topLeft.y; };
+
+	LOCATION topLeft;
+	LOCATION bottomRight;
 
 	int noDisasterPercent = 15;
 	int meteorPercent = 40;
@@ -190,7 +193,7 @@ private:
 
 	LOCATION GetRandMapLoc();
 	double DistanceBetweenPoints(LOCATION loc1, LOCATION loc2);	
-	bool DisasterHelper::IsLocInSafeArea(LOCATION& loc);
+	bool DisasterHelper::IsInSafeArea(LOCATION& loc);
 	LOCATION DisasterHelper::FindVortexEndLoc(const MAP_RECT& vortexCorridor,
 		const LOCATION& startLoc, double minPercentHypotenuseTravel);
 
