@@ -11,7 +11,7 @@
 #include <algorithm>
 
 // Required data exports  (Description, Map, TechTree, GameType, NumPlayers, TechLvl, number of AI)
-ExportLevelDetailsFullEx("4P, SRV, 'Out Of The Frying Pan'", "OutOfTheFryingPan.map", "survtech.txt", MultiSpaceRace, 5, 12, false, 1);
+ExportLevelDetailsFullEx("4P, SRV, 'Out Of The Frying Pan'", "FryingPan.map", "survtech.txt", MultiSpaceRace, 5, 12, false, 1);
 
 DisasterHelper disasterHelper;
 
