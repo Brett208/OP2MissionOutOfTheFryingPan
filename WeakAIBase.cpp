@@ -57,7 +57,7 @@ void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
 	Unit commonSmelter;
 	CreateInitialAIUnit(commonSmelter, mapCommonOreSmelter, currentLoc, aiPlayerNum, map_id::mapNone);
 	
-	currentLoc.x = initBaseLoc.x - 9;
+	currentLoc.x = initBaseLoc.x - 10;
 	Unit secondCommonSmelter;
 	CreateInitialAIUnit(commonSmelter, mapCommonOreSmelter, currentLoc, aiPlayerNum, map_id::mapNone);
 
@@ -82,7 +82,7 @@ void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
 		currentLoc.y = currentLoc.y + 4;
 	}
 
-	currentLoc.y = initBaseLoc.y + 15;
+	currentLoc.y = initBaseLoc.y + 16;
 	CreateInitialAIUnit(unit, mapTokamak, currentLoc, aiPlayerNum, map_id::mapNone);
 
 	currentLoc.x = initBaseLoc.x + 3;
