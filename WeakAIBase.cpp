@@ -35,21 +35,39 @@ void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
 	Unit unit;
 	
 	CreateInitialAIUnit(unit, mapCommandCenter, initBaseLoc, aiPlayerNum, map_id::mapNone);//ComandCenter
+	
 	currentLoc.x = initBaseLoc.x + 5;
 	CreateInitialAIUnit(unit, mapStructureFactory, currentLoc, aiPlayerNum, map_id::mapNone);
-	currentLoc.x = initBaseLoc.x - 5;
+
+	currentLoc.x = initBaseLoc.x + 2;
+	currentLoc.y = initBaseLoc.y + - 4;
+	CreateInitialAIUnit(unit, mapResidence, currentLoc, aiPlayerNum, map_id::mapNone);
+
+	currentLoc.x = initBaseLoc.x - 2;
+	CreateInitialAIUnit(unit, mapAgridome, currentLoc, aiPlayerNum, map_id::mapNone);
+
+	currentLoc.x = initBaseLoc.x - 6;
+	CreateInitialAIUnit(unit, mapDIRT, currentLoc, aiPlayerNum, map_id::mapNone);
+
+	currentLoc.x = initBaseLoc.x + 5;
+	CreateInitialAIUnit(unit, mapMedicalCenter, currentLoc, aiPlayerNum, map_id::mapNone);
 	
+	currentLoc.x = initBaseLoc.x - 5;
+	currentLoc.y = initBaseLoc.y;
 	Unit commonSmelter;
 	CreateInitialAIUnit(commonSmelter, mapCommonOreSmelter, currentLoc, aiPlayerNum, map_id::mapNone);
-	currentLoc.y = initBaseLoc.y + 4;
+	
+	currentLoc.x = initBaseLoc.x - 9;
+	Unit secondCommonSmelter;
+	CreateInitialAIUnit(commonSmelter, mapCommonOreSmelter, currentLoc, aiPlayerNum, map_id::mapNone);
 
+	currentLoc.y = initBaseLoc.y + 4;
 	Unit commonMine;
 	TethysGame::CreateBeacon(map_id::mapMiningBeacon, currentLoc.x, currentLoc.y, BeaconTypes::OreTypeCommon, Yield::Bar2, Variant::Variant3);
 	CreateInitialAIUnit(commonMine, mapCommonOreMine, currentLoc, aiPlayerNum, map_id::mapNone);
 
 	currentLoc.x = initBaseLoc.x;
 	currentLoc.y = initBaseLoc.y + 5;
-	
 	Unit defenseVehicleFactory;
 	CreateInitialAIUnit(defenseVehicleFactory, mapVehicleFactory, currentLoc, aiPlayerNum, map_id::mapNone);
 	defensiveVehicleFactories.push_back(defenseVehicleFactory);
@@ -64,8 +82,10 @@ void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
 		currentLoc.y = currentLoc.y + 4;
 	}
 
-	currentLoc.y = initBaseLoc.y - 10;
+	currentLoc.y = initBaseLoc.y + 15;
+	CreateInitialAIUnit(unit, mapTokamak, currentLoc, aiPlayerNum, map_id::mapNone);
 
+	currentLoc.x = initBaseLoc.x + 3;
 	CreateInitialAIUnit(unit, mapTokamak, currentLoc, aiPlayerNum, map_id::mapNone);
 
 	CreateTubeLine(initBaseLoc + LOCATION(0, -3), initBaseLoc + LOCATION(0, -1));
@@ -75,6 +95,7 @@ void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
 
 	MiningGroup miningGroup;
 	SetupMiningGroup(miningGroup, commonMine, commonSmelter, miningIdleRect, 3, aiPlayerNum);
+	//SetupMiningGroup(miningGroup, commonMine, secondCommonSmelter, miningIdleRect, 3, aiPlayerNum);
 
 	MAP_RECT guardedRect(68 + X_, 122 + Y_, 85 + X_, 140 + Y_);
 
