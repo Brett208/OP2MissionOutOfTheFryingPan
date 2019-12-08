@@ -131,7 +131,8 @@ Export int InitProc()
 
 	TethysGame::ForceMoraleGood(PlayerNum::PlayerAll);
 	
-	TethysGame::SetDaylightEverywhere(TethysGame::UsesDayNight() == 0);
+	// To stablize Blight force night cycle always
+	TethysGame::SetDaylightEverywhere(false);
 	TethysGame::SetDaylightMoves(true);
 	GameMap::SetInitialLightLevel(TethysGame::GetRand(128));
 
