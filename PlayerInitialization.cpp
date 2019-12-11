@@ -146,7 +146,7 @@ void SelectInitialUnit(int index, const LOCATION& location, PlayerNum playerNumb
 	case 1:
 	case 2: {
 		map_id cargo = GetInitialWeapon(playerNumber);
-		CreateInitialUnit(unit, map_id::mapLynx, location, playerNumber, cargo);
+			CreateInitialUnit(unit, map_id::mapLynx, location, playerNumber, cargo);
 		break; }
 
 	case 3: {

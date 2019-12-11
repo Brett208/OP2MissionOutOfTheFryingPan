@@ -5,4 +5,4 @@
 
 void UpdateWeakAIBase();
 void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc);
-void CreateInitialAIUnit(Unit& unit, map_id unitType, LOCATION loc, PlayerNum playerNumber, map_id Cargo);
+void CreateInitialAIBuilding(Unit& unit, map_id unitType, LOCATION loc, PlayerNum playerNumber, map_id Cargo);
