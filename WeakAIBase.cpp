@@ -81,7 +81,7 @@ void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
 	currentLoc.y = initBaseLoc.y + 9;
 	Unit offenseVehicleFactory;
 
-	MAP_RECT offensiveGuardedRect(85 + X_, 140 + Y_, 89 + X_, 144 + Y_);
+	MAP_RECT offensiveGuardedRect(80 + X_, 135 + Y_, 89 + X_, 145 + Y_);
 
 	for (int i = 0; i < HumanPlayerCount() - 1; ++i)
 	{
