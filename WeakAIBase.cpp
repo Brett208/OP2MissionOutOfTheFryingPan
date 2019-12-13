@@ -6,10 +6,11 @@
 #include "OP2Helper/OP2Helper.h"
 #include "Outpost2DLL/Outpost2DLL.h"
 #include <memory>
+#include <vector>
 
 
 int GetTankCount();
-std::unique_ptr<OffensiveFightGroup> offensiveFightGroupPointer;
+std::vector<std::unique_ptr<OffensiveFightGroup>> offensiveFightGroups;
 std::vector<Unit> offensiveVehicleFactories;
 std::vector<Unit> defensiveVehicleFactories;
 std::vector<Unit> weakAiBuildings;
@@ -20,9 +21,11 @@ std::vector<TargetTankCount> offensiveTankCount{
 
 void UpdateWeakAIBase()
 {
-	offensiveFightGroupPointer->UpdateTaskedFightGroups();
-	if (offensiveFightGroupPointer->IsFull()) {
-		offensiveFightGroupPointer->Attack(offensiveTankCount);
+	for (auto& offensiveFightGroup : offensiveFightGroups) {
+		offensiveFightGroup->UpdateTaskedFightGroups();
+		if (offensiveFightGroup->IsFull()) {
+			offensiveFightGroup->Attack(offensiveTankCount);
+		}
 	}
 }
 
@@ -124,7 +127,7 @@ void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
 	
 	offensiveFightGroup.Initialize(offensiveGuardedRect, offensiveVehicleFactories, offensiveTankCount);
 
-	offensiveFightGroupPointer = std::make_unique<OffensiveFightGroup>(offensiveFightGroup);
+	offensiveFightGroups.push_back(std::make_unique<OffensiveFightGroup>(offensiveFightGroup));
 }
 
 void CreateInitialAIBuilding(Unit& unit, map_id unitType, LOCATION loc, PlayerNum aiPlayerNum, map_id Cargo)
