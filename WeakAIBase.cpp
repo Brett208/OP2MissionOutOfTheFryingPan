@@ -45,7 +45,7 @@ void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
 	CreateInitialAIBuilding(structureFactory, map_id::mapStructureFactory, currentLoc, aiPlayerNum, map_id::mapNone);
 	
 	currentLoc.x = initBaseLoc.x + 2;
-	currentLoc.y = initBaseLoc.y + - 4;
+	currentLoc.y = initBaseLoc.y - 4;
 	CreateInitialAIBuilding(unit, mapResidence, currentLoc, aiPlayerNum, map_id::mapNone);
 	
 	currentLoc.x = initBaseLoc.x - 2;
