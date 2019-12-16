@@ -92,6 +92,18 @@ void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
 	currentLoc.x = initBaseLoc.x + 3;
 	CreateInitialAIBuilding(unit, mapTokamak, currentLoc, aiPlayerNum, map_id::mapNone);
 
+	
+	createGuardPostCluster(aiPlayerNum, LOCATION(88 + X_, 127 + Y_));
+	createGuardPostCluster(aiPlayerNum, LOCATION(79 + X_, 119 + Y_));
+	createGuardPostCluster(aiPlayerNum, LOCATION(85 + X_, 138 + Y_));
+	createGuardPostCluster(aiPlayerNum, LOCATION(75 + X_, 152 + Y_));
+
+	CreateInitialAIBuilding(unit, mapAgridome, LOCATION(74 + X_, 125 + Y_), aiPlayerNum, mapNone);
+	CreateInitialAIBuilding(unit, mapResidence, LOCATION(78 + X_, 125 + Y_), aiPlayerNum, mapNone);
+	CreateInitialAIBuilding(unit, mapMedicalCenter, LOCATION(81 + X_, 125 + Y_), aiPlayerNum, mapNone);
+	CreateInitialAIBuilding(unit, mapDIRT, LOCATION(70 + X_, 125 + Y_), aiPlayerNum, mapNone);
+	CreateInitialAIBuilding(unit, mapDIRT, LOCATION(67 + X_, 128 + Y_), aiPlayerNum, mapNone);
+
 	CreateTubeLine(initBaseLoc + LOCATION(0, -3), initBaseLoc + LOCATION(0, -1));
 	CreateTubeLine(initBaseLoc + LOCATION(0, 1), initBaseLoc + LOCATION(0, 5));
 	CreateTubeLine(initBaseLoc + LOCATION(-2, 0), initBaseLoc + LOCATION(-1, 0));
@@ -150,4 +162,22 @@ int GetTankCount()
 	}
 	}
 }
+
+void createGuardPostCluster(PlayerNum aiPlayerNum, LOCATION loc) {
+	
+	Unit unit;
+	TethysGame::CreateUnit(unit, mapGuardPost, loc, aiPlayerNum, mapEMP, South);
+	weakAiBuildings.push_back(unit);
+
+	loc.y += 2;
+	TethysGame::CreateUnit(unit, mapGuardPost, loc, aiPlayerNum, mapESG, South);
+	weakAiBuildings.push_back(unit);
+
+	loc.x += 1;
+	loc.y -= 1;
+	TethysGame::CreateUnit(unit, mapGuardPost, loc, aiPlayerNum, mapStickyfoam, South);
+	weakAiBuildings.push_back(unit);
+}
+
+
 
