@@ -4,24 +4,29 @@
 #include "OP2Helper/OP2Helper.h"
 #include "Outpost2DLL/Outpost2DLL.h"
 
-void SetupBuildingGroup(BuildingGroup& buildingGroup, Unit& structreFactory, Unit& vehicleFactory, 
+void SetupBuildingGroup(BuildingGroup& buildingGroup, Unit& structureFactory, Unit& vehicleFactory, 
 	std::vector<Unit>& buildings,  PlayerNum aiPlayerNum, MAP_RECT idleRect) {
 	
 	buildingGroup = CreateBuildingGroup(Player[aiPlayerNum]);
 
 	Unit unit;
 	TethysGame::CreateUnit(unit,map_id::mapConVec, idleRect.RandPt(), aiPlayerNum, mapNone, South);
+	unit.DoSetLights(true);
+	buildingGroup.TakeUnit(unit);
+	TethysGame::CreateUnit(unit, map_id::mapConVec, idleRect.RandPt(), aiPlayerNum, mapNone, South);
+	unit.DoSetLights(true);
 	buildingGroup.TakeUnit(unit);
 	TethysGame::CreateUnit(unit, map_id::mapEarthworker, idleRect.RandPt(), aiPlayerNum, mapNone, South);
+	unit.DoSetLights(true);
 	buildingGroup.TakeUnit(unit);
 
-	buildingGroup.TakeUnit(structreFactory);
+	buildingGroup.TakeUnit(structureFactory);
 	buildingGroup.TakeUnit(vehicleFactory);
 	buildingGroup.SetRect(idleRect);
 
 	for (Unit building : buildings)
 	{
-		buildingGroup.RecordBuilding(building.Location(), building.GetType(), map_id::mapNone);
+		buildingGroup.RecordBuilding(building.Location(), building.GetType(), building.GetCargo());
 	}
 }
 
