@@ -17,6 +17,7 @@ public:
 	bool IsFull();
 	
 protected:
+	const PlayerNum aiPlayerNum;
 	const std::size_t humanPlayerCount;
 	std::vector<Unit> vehicleFactories;
 	
@@ -39,7 +40,6 @@ protected:
 
 private:
 	MAP_RECT guardedRect;
-	const PlayerNum aiPlayerNum;
 	BuildingGroup buildingGroup;
 	FightGroup fightGroup;
 };

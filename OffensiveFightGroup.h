@@ -11,6 +11,7 @@ public:
 	void Initialize(MAP_RECT guardedRect, std::vector<Unit> vehicleFactories, const std::vector<TargetTankCount>& targetCounts);
 	void Attack(const std::vector<TargetTankCount>& targetCounts);
 	void UpdateTaskedFightGroups();
+	void CreateTank(map_id type, map_id turret);
 
 private:
 	struct FightGroupTarget

@@ -160,6 +160,7 @@ Export void AIProc()
 {
 	CheckMorale();
 	UpdateWeakAIBase();
+	Trigger AddTank = CreateTimeTrigger(true, false, 100, 101, "AddTankWeakAIBase");
 }
 
 
@@ -183,3 +184,17 @@ Export void CreateDisaster()
 }
 
 Export void NoResponseToTrigger() {}	//Optional function export, supposed to be empty
+
+bool VechicleFactoryExists(const LOCATION& location)
+{
+	LocationEnumerator locEnum(location);
+
+	Unit vehicleFactory;
+	while (locEnum.GetNext(vehicleFactory)) {
+		if (vehicleFactory.GetType() == mapVehicleFactory) {
+			return true;
+		}
+	}
+
+	return false;
+}
