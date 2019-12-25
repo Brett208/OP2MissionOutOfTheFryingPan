@@ -95,19 +95,20 @@ void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
 		offensiveFightGroup.Initialize(offensiveGuardedRect, { offenseVehicleFactory }, offensiveTankCount);
 		offensiveFightGroups.push_back(std::make_unique<OffensiveFightGroup>(offensiveFightGroup));
 
-		currentLoc.y = currentLoc.y + 4;
+		currentLoc.y += + 4;
 	}
 
+	currentLoc.x = initBaseLoc.x - 12;
 	currentLoc.y = initBaseLoc.y + 16;
 	CreateInitialAIBuilding(unit, mapTokamak, currentLoc, aiPlayerNum, map_id::mapNone);
 
-	currentLoc.x = initBaseLoc.x + 3;
+	currentLoc.x += + 3;
 	CreateInitialAIBuilding(unit, mapTokamak, currentLoc, aiPlayerNum, map_id::mapNone);
 
 	createGuardPostCluster(aiPlayerNum, LOCATION(88 + X_, 127 + Y_));
 	createGuardPostCluster(aiPlayerNum, LOCATION(80 + X_, 118 + Y_));
 	createGuardPostCluster(aiPlayerNum, LOCATION(85 + X_, 138 + Y_));
-	createGuardPostCluster(aiPlayerNum, LOCATION(78 + X_, 152 + Y_));
+	createGuardPostCluster(aiPlayerNum, LOCATION(80 + X_, 152 + Y_));
 
 	CreateTubeLine(initBaseLoc + LOCATION(0, -3), initBaseLoc + LOCATION(0, -1));
 	CreateTubeLine(initBaseLoc + LOCATION(0, 1), initBaseLoc + LOCATION(0, 5));
@@ -173,7 +174,7 @@ void createGuardPostCluster(PlayerNum aiPlayerNum, LOCATION loc) {
 	TethysGame::CreateUnit(unit, mapGuardPost, loc, aiPlayerNum, mapESG, South);
 	weakAiBuildings.push_back(unit);
 
-	loc.x += 1;
+	loc.x += 2;
 	loc.y -= 1;
 	TethysGame::CreateUnit(unit, mapGuardPost, loc, aiPlayerNum, mapStickyfoam, South);
 	weakAiBuildings.push_back(unit);
