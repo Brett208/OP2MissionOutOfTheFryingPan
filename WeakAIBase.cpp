@@ -9,13 +9,13 @@
 #include <vector>
 
 
-int GetTankCount();
+int GetDefensiveTankCount();
 std::vector<std::unique_ptr<OffensiveFightGroup>> offensiveFightGroups;
 std::vector<Unit> defensiveVehicleFactories;
 std::vector<Unit> weakAiBuildings;
 
 std::vector<TargetTankCount> offensiveTankCount{
-	TargetTankCount {map_id::mapLynx, map_id::mapMicrowave, 0}
+	TargetTankCount {map_id::mapLynx, map_id::mapMicrowave, 5}
 };
 
 Export void AddTankWeakAIBase()
@@ -36,8 +36,6 @@ void UpdateWeakAIBase()
 
 void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
 {
-	offensiveTankCount[0].count = GetTankCount();
-
 	LOCATION currentLoc = initBaseLoc;
 	LOCATION vechStartLoc(initBaseLoc.x + 4, initBaseLoc.y + 4);
 	MAP_RECT miningIdleRect(initBaseLoc.x - 4, initBaseLoc.y, initBaseLoc.x + 6, initBaseLoc.y + 4);
@@ -128,11 +126,11 @@ void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
 	MAP_RECT guardedRect(68 + X_, 122 + Y_, 85 + X_, 140 + Y_);
 
 	const std::vector<TargetTankCount> targetTanks{
-		TargetTankCount{map_id::mapLynx, map_id::mapMicrowave, 3},
-		TargetTankCount{map_id::mapLynx, map_id::mapESG, 3},
-		TargetTankCount{map_id::mapLynx, map_id::mapEMP, 3},
-		TargetTankCount{map_id::mapLynx, map_id::mapRPG, 3},
-		TargetTankCount{map_id::mapLynx, map_id::mapStickyfoam, 3}
+		TargetTankCount{map_id::mapLynx, map_id::mapMicrowave, GetDefensiveTankCount()},
+		TargetTankCount{map_id::mapLynx, map_id::mapESG, GetDefensiveTankCount()},
+		TargetTankCount{map_id::mapLynx, map_id::mapEMP, GetDefensiveTankCount()},
+		TargetTankCount{map_id::mapLynx, map_id::mapRPG, GetDefensiveTankCount()},
+		TargetTankCount{map_id::mapLynx, map_id::mapStickyfoam, GetDefensiveTankCount()}
 	};
 
 	DefensiveFightGroup defensiveFightGroup(aiPlayerNum, HumanPlayerCount());
@@ -148,19 +146,19 @@ void CreateInitialAIBuilding(Unit& unit, map_id unitType, LOCATION loc, PlayerNu
 	weakAiBuildings.push_back(unit);
 }
 
-int GetTankCount()
+int GetDefensiveTankCount()
 {
 	int humanPlayerCount = HumanPlayerCount();
 	switch (humanPlayerCount)
 	{
 	case 2: {
-		return 5;
+		return 3;
 	}
 	case 3: {
-		return 8;
+		return 5;
 	}
 	default: {
-		return 12;
+		return 8;
 	}
 	}
 }
