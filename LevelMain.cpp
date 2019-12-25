@@ -103,6 +103,8 @@ void AIInitialization()
 	Player[aiIndex].GoAI();
 	Player[aiIndex].SetColorNumber(GetAIColor());
 	Player[aiIndex].GoPlymouth();
+	Player[aiIndex].SetOre(5'000);
+	Player[aiIndex].SetRareOre(3'000);
 	BuildAIBase(aiIndex, AIWeakBaseLoc);
 }
 
