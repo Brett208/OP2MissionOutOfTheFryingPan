@@ -181,8 +181,3 @@ void recordBuildings(BuildingGroup& buildingGroup)
 	buildingGroup.RecordBuilding(LOCATION(70 + X_, 125 + Y_), mapDIRT, mapNone);
 	buildingGroup.RecordBuilding(LOCATION(66 + X_, 128 + Y_), mapDIRT, mapNone);
 }
-
-
-
-
-
