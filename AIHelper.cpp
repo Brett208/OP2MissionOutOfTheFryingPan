@@ -1,8 +1,15 @@
-#include <vector>
 #include "AIHelper.h"
 #include "HFL/Source/HFL.h"
 #include "OP2Helper/OP2Helper.h"
 #include "Outpost2DLL/Outpost2DLL.h"
+
+void CreateAIBuilding(Unit& unit, map_id unitType, LOCATION loc, PlayerNum aiPlayerNum, map_id Cargo,
+	std::vector<Unit>& buildings)
+{
+	const UnitDirection rotation = UnitDirection::South;
+	TethysGame::CreateUnit(unit, unitType, loc, aiPlayerNum, Cargo, rotation);
+	buildings.push_back(unit);
+}
 
 void SetupBuildingGroup(BuildingGroup& buildingGroup, Unit& structureFactory, Unit& vehicleFactory, 
 	std::vector<Unit>& buildings,  PlayerNum aiPlayerNum, MAP_RECT idleRect) {
