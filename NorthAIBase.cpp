@@ -3,12 +3,11 @@
 #include "AIPlayer.h"
 #include "HFL/Source/HFL.h"
 #include "OP2Helper/OP2Helper.h"
-#include "Outpost2DLL/Outpost2DLL.h"
 #include <vector>
 
 std::vector<Unit>buildings;
 
-void BuildNorthAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc) 
+void BuildNorthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc) 
 { 
 	LOCATION vechStartLoc(initBaseLoc.x + 4, initBaseLoc.y + 4);
 	MAP_RECT miningIdleRect(initBaseLoc.x - 4, initBaseLoc.y, initBaseLoc.x + 6, initBaseLoc.y + 4);
