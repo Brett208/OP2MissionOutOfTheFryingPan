@@ -10,7 +10,8 @@ std::vector<Unit>buildings;
 void BuildNorthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc) 
 { 
 	LOCATION vechStartLoc(initBaseLoc.x + 4, initBaseLoc.y + 4);
-	MAP_RECT miningIdleRect(initBaseLoc.x - 4, initBaseLoc.y, initBaseLoc.x + 6, initBaseLoc.y + 4);
+	LOCATION commonOreLoc(225 + X_, 113 + Y_);
+	MAP_RECT miningIdleRect(commonOreLoc.x - 4, commonOreLoc.y, commonOreLoc.x + 6, commonOreLoc.y + 4);
 	MAP_RECT buidlingIdleRect(initBaseLoc.x - 6, initBaseLoc.y, initBaseLoc.x + 8, initBaseLoc.y + 6);
 	Unit unit;
 
@@ -33,11 +34,11 @@ void BuildNorthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 	CreateAIBuilding(unit, mapVehicleFactory, LOCATION(239 + X_, 112 + Y_), aiPlayerNum, map_id::mapNone, buildings);
 
 	Unit commonSmelter;
-	CreateAIBuilding(commonSmelter, mapCommonOreSmelter, LOCATION(221 + X_, 109 + Y_), aiPlayerNum, map_id::mapNone, buildings);
+	CreateAIBuilding(commonSmelter, mapCommonOreSmelter,LOCATION(commonOreLoc.x + 4, commonOreLoc.y - 4), aiPlayerNum, map_id::mapNone, buildings);
 	Unit secondCommonSmelter;
-	CreateAIBuilding(commonSmelter, mapCommonOreSmelter, LOCATION(226 + X_, 109 + Y_), aiPlayerNum, map_id::mapNone, buildings);
+	CreateAIBuilding(commonSmelter, mapCommonOreSmelter, LOCATION(commonOreLoc.x - 1, commonOreLoc.y - 4), aiPlayerNum, map_id::mapNone, buildings);
 	Unit commonMine;
-	LOCATION commonOreLoc(225 + X_, 113 + Y_);
+	
 	TethysGame::CreateBeacon(map_id::mapMiningBeacon, commonOreLoc.x, commonOreLoc.y, BeaconTypes::OreTypeCommon, Yield::Bar3, Variant::Variant3);
 	CreateAIBuilding(commonMine, mapCommonOreMine, commonOreLoc, aiPlayerNum, map_id::mapNone, buildings);
 
@@ -52,4 +53,7 @@ void BuildNorthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 
 	CreateTubeLine(LOCATION(244 + X_, 103 + Y_), LOCATION(244 + X_, 122 + Y_));
 	CreateTubeLine(LOCATION(237 + X_, 110 + Y_), LOCATION(228 + X_, 110 + Y_));	
+
+	MiningGroup miningGroup;
+	SetupMiningGroup(miningGroup, commonMine, commonSmelter, miningIdleRect, 3, aiPlayerNum);
 }
