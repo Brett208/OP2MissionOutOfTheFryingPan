@@ -41,32 +41,32 @@ void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
 	MAP_RECT miningIdleRect(initBaseLoc.x - 4, initBaseLoc.y, initBaseLoc.x + 6, initBaseLoc.y + 4);
 	MAP_RECT buidlingIdleRect(initBaseLoc.x - 6, initBaseLoc.y, initBaseLoc.x + 8, initBaseLoc.y + 6);
 	Unit unit;
-	
+
 	CreateAIBuilding(unit, mapCommandCenter, initBaseLoc, aiPlayerNum, map_id::mapNone, weakAiBuildings);//ComandCenter
-	
+
 	currentLoc.x = initBaseLoc.x + 5;
 	Unit structureFactory;
 	CreateAIBuilding(structureFactory, map_id::mapStructureFactory, currentLoc, aiPlayerNum, map_id::mapNone, weakAiBuildings);
-	
+
 	currentLoc.x = initBaseLoc.x + 2;
 	currentLoc.y = initBaseLoc.y - 4;
 	CreateAIBuilding(unit, mapResidence, currentLoc, aiPlayerNum, map_id::mapNone, weakAiBuildings);
-	
+
 	currentLoc.x = initBaseLoc.x - 2;
 	CreateAIBuilding(unit, mapAgridome, currentLoc, aiPlayerNum, map_id::mapNone, weakAiBuildings);
-	
+
 	currentLoc.x = initBaseLoc.x - 6;
 	CreateAIBuilding(unit, mapDIRT, currentLoc, aiPlayerNum, map_id::mapNone, weakAiBuildings);
 
 	currentLoc.x = initBaseLoc.x + 5;
 	CreateAIBuilding(unit, mapMedicalCenter, currentLoc, aiPlayerNum, map_id::mapNone, weakAiBuildings);
-	
+
 	currentLoc.x = initBaseLoc.x - 5;
 	currentLoc.y = initBaseLoc.y;
 	Unit commonSmelter;
 	CreateAIBuilding(commonSmelter, mapCommonOreSmelter, currentLoc, aiPlayerNum, map_id::mapNone, weakAiBuildings);
 	weakAiBuildings.push_back(commonSmelter);
-	
+
 	currentLoc.x = initBaseLoc.x - 10;
 	Unit secondCommonSmelter;
 	CreateAIBuilding(secondCommonSmelter, mapCommonOreSmelter, currentLoc, aiPlayerNum, map_id::mapNone, weakAiBuildings);
@@ -119,7 +119,7 @@ void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
 	BuildingGroup buildingGroup;
 	SetupBuildingGroup(buildingGroup, structureFactory, defenseVehicleFactory, weakAiBuildings, aiPlayerNum, buidlingIdleRect);
 	recordBuildings(buildingGroup);
-	
+
 
 	MiningGroup miningGroup;
 	SetupMiningGroup(miningGroup, commonMine, commonSmelter, miningIdleRect, 3, aiPlayerNum);
