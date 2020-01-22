@@ -106,10 +106,10 @@ void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
 	currentLoc.x += + 3;
 	CreateAIBuilding(unit, mapTokamak, currentLoc, aiPlayerNum, map_id::mapNone, weakAiBuildings);
 
-	createGuardPostCluster(aiPlayerNum, LOCATION(88 + X_, 127 + Y_), weakAiBuildings);
-	createGuardPostCluster(aiPlayerNum, LOCATION(80 + X_, 118 + Y_), weakAiBuildings);
-	createGuardPostCluster(aiPlayerNum, LOCATION(85 + X_, 138 + Y_), weakAiBuildings);
-	createGuardPostCluster(aiPlayerNum, LOCATION(80 + X_, 152 + Y_), weakAiBuildings);
+	CreateGuardPostCluster(aiPlayerNum, LOCATION(88 + X_, 127 + Y_), weakAiBuildings);
+	CreateGuardPostCluster(aiPlayerNum, LOCATION(80 + X_, 118 + Y_), weakAiBuildings);
+	CreateGuardPostCluster(aiPlayerNum, LOCATION(85 + X_, 138 + Y_), weakAiBuildings);
+	CreateGuardPostCluster(aiPlayerNum, LOCATION(80 + X_, 152 + Y_), weakAiBuildings);
 
 	CreateTubeLine(initBaseLoc + LOCATION(0, -3), initBaseLoc + LOCATION(0, -1));
 	CreateTubeLine(initBaseLoc + LOCATION(0, 1), initBaseLoc + LOCATION(0, 5));
@@ -118,7 +118,7 @@ void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
 
 	BuildingGroup buildingGroup;
 	SetupBuildingGroup(buildingGroup, structureFactory, defenseVehicleFactory, weakAiBuildings, aiPlayerNum, buidlingIdleRect);
-	recordBuildings(buildingGroup);
+	RecordBuildings(buildingGroup);
 
 
 	MiningGroup miningGroup;
@@ -158,7 +158,7 @@ int GetDefensiveTankCount()
 	}
 }
 
-void createGuardPostCluster(PlayerNum aiPlayerNum, LOCATION loc) {
+void CreateGuardPostCluster(PlayerNum aiPlayerNum, LOCATION loc) {
 	
 	Unit unit;
 	TethysGame::CreateUnit(unit, mapGuardPost, loc, aiPlayerNum, mapEMP, South);
@@ -174,7 +174,7 @@ void createGuardPostCluster(PlayerNum aiPlayerNum, LOCATION loc) {
 	weakAiBuildings.push_back(unit);
 }
 
-void recordBuildings(BuildingGroup& buildingGroup)
+void RecordBuildings(BuildingGroup& buildingGroup)
 {
 	buildingGroup.RecordBuilding(LOCATION(74 + X_, 125 + Y_), mapAgridome, mapNone);
 	buildingGroup.RecordBuilding(LOCATION(78 + X_, 125 + Y_), mapResidence, mapNone);

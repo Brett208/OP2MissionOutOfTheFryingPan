@@ -6,5 +6,5 @@
 void UpdateWeakAIBase();
 Export void AddTankWeakAIBase();
 void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc);
-void createGuardPostCluster(PlayerNum aiPlayerNum, LOCATION loc);
-void recordBuildings(BuildingGroup& buildingGroup);
+void CreateGuardPostCluster(PlayerNum aiPlayerNum, LOCATION loc);
+void RecordBuildings(BuildingGroup& buildingGroup);
