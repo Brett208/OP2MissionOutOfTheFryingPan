@@ -66,7 +66,6 @@ void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
 	currentLoc.y = initBaseLoc.y;
 	Unit commonSmelter;
 	CreateAIBuilding(commonSmelter, mapCommonOreSmelter, currentLoc, aiPlayerNum, map_id::mapNone, weakAiBuildings);
-	weakAiBuildings.push_back(commonSmelter);
 
 	Unit thirdCommonSmelter;
 	currentLoc.x = initBaseLoc.x - 15;
@@ -75,7 +74,6 @@ void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
 	currentLoc.x = initBaseLoc.x - 10;
 	Unit secondCommonSmelter;
 	CreateAIBuilding(secondCommonSmelter, mapCommonOreSmelter, currentLoc, aiPlayerNum, map_id::mapNone, weakAiBuildings);
-	weakAiBuildings.push_back(secondCommonSmelter);
 
 	currentLoc.y = initBaseLoc.y + 4;
 	Unit commonMine;
