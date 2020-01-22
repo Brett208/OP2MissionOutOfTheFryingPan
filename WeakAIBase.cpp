@@ -1,5 +1,6 @@
 #include "WeakAIBase.h"
 #include "DefensiveFightGroup.h"
+#include "OffensiveFightGroup.h"
 #include "AIHelper.h"
 #include "AIPlayer.h"
 #include "HFL/Source/HFL.h"

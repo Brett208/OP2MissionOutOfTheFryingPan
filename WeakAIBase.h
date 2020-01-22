@@ -1,6 +1,5 @@
 #pragma once
 
-#include "OffensiveFightGroup.h"
 #include "Outpost2DLL/Outpost2DLL.h"
 
 void UpdateWeakAIBase();
