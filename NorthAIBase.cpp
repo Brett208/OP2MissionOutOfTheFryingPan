@@ -38,7 +38,7 @@ void BuildNorthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 	Unit secondCommonSmelter;
 	CreateAIBuilding(commonSmelter, mapCommonOreSmelter, LOCATION(commonOreLoc.x - 1, commonOreLoc.y - 4), aiPlayerNum, map_id::mapNone, buildings);
 	Unit commonMine;
-	
+
 	TethysGame::CreateBeacon(map_id::mapMiningBeacon, commonOreLoc.x, commonOreLoc.y, BeaconTypes::OreTypeCommon, Yield::Bar3, Variant::Variant3);
 	CreateAIBuilding(commonMine, mapCommonOreMine, commonOreLoc, aiPlayerNum, map_id::mapNone, buildings);
 

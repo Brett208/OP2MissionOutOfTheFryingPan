@@ -166,7 +166,6 @@ Export void AIProc()
 {
 	CheckMorale();
 	UpdateWeakAIBase();
-	
 }
 
 

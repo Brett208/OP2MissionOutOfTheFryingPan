@@ -99,6 +99,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="NorthAIBase.cpp" />
     <ClCompile Include="WeakAIBase.cpp" />
     <ClCompile Include="AIHelper.cpp" />
     <ClCompile Include="AIPlayer.cpp" />
@@ -112,6 +113,7 @@
     <ClCompile Include="VolcanoHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="NorthAIBase.h" />
     <ClInclude Include="WeakAIBase.h" />
     <ClInclude Include="AIHelper.h" />
     <ClInclude Include="AIPlayer.h" />
