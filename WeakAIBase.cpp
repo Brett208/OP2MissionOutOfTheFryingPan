@@ -127,8 +127,8 @@ void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
 
 
 	MiningGroup miningGroup;
-	SetupMiningGroup(miningGroup, commonMine, commonSmelter, miningIdleRect, 3, aiPlayerNum);
-	SetupMiningGroup(miningGroup, commonMine, secondCommonSmelter, miningIdleRect, 3, aiPlayerNum);
+	SetupMiningGroup(miningGroup, commonMine, commonSmelter, miningIdleRect, 2, aiPlayerNum);
+	SetupMiningGroup(miningGroup, commonMine, secondCommonSmelter, miningIdleRect, 2, aiPlayerNum);
 	SetupMiningGroup(miningGroup, commonMine, thirdCommonSmelter, miningIdleRect, 2, aiPlayerNum);
 
 	MAP_RECT guardedRect(68 + X_, 122 + Y_, 85 + X_, 140 + Y_);
