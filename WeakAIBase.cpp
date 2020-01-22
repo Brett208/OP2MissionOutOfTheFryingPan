@@ -158,6 +158,22 @@ int GetDefensiveTankCount()
 	}
 }
 
+void createGuardPostCluster(PlayerNum aiPlayerNum, LOCATION loc) {
+	
+	Unit unit;
+	TethysGame::CreateUnit(unit, mapGuardPost, loc, aiPlayerNum, mapEMP, South);
+	weakAiBuildings.push_back(unit);
+
+	loc.y += 2;
+	TethysGame::CreateUnit(unit, mapGuardPost, loc, aiPlayerNum, mapESG, South);
+	weakAiBuildings.push_back(unit);
+
+	loc.x += 2;
+	loc.y -= 1;
+	TethysGame::CreateUnit(unit, mapGuardPost, loc, aiPlayerNum, mapStickyfoam, South);
+	weakAiBuildings.push_back(unit);
+}
+
 void recordBuildings(BuildingGroup& buildingGroup)
 {
 	buildingGroup.RecordBuilding(LOCATION(74 + X_, 125 + Y_), mapAgridome, mapNone);
