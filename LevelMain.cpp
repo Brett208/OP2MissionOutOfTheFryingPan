@@ -168,7 +168,6 @@ Export void AIProc()
 	UpdateWeakAIBase();
 }
 
-
 Export void SpawnBlight()
 {
 	const LOCATION blightSpawnLoc(1 + X_, 255 + Y_);
@@ -176,7 +175,6 @@ Export void SpawnBlight()
 	TethysGame::SetMicrobeSpreadSpeed(60);
 	AddMapMessage("The Blight is Approaching", blightSpawnLoc, 152, PlayerAll);
 }
-
 
 Export void CreateDisaster()
 {
