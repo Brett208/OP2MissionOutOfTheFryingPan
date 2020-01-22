@@ -8,6 +8,10 @@ void OffensiveFightGroup::Initialize(MAP_RECT guardedRect, std::vector<Unit> veh
 
 void OffensiveFightGroup::CreateTank(map_id type, map_id turret)
 {
+	if (GetFightGroupCount() == targetCount) {
+		return;
+	}
+	
 	auto& vehicleFactory = vehicleFactories[TethysGame::GetRand(vehicleFactories.size())];
 
 	if (vehicleFactory.IsLive() && !vehicleFactory.isEMPed()) {
