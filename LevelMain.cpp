@@ -3,6 +3,7 @@
 #include "Outpost2DLL/Outpost2DLL.h"
 #include "WeakAIBase.h"
 #include "NorthAIBase.h"
+#include "SouthAIBase.h"
 #include "DisasterHelper.h"
 #include "AIPlayer.h"
 #include "PlayerInitialization.h"
@@ -101,6 +102,7 @@ void AIInitialization()
 {
 	LOCATION AIWeakBaseLoc(76 + X_, 132 + Y_);
 	LOCATION AINorthBaseLoc(244 + X_, 122 + Y_);
+	LOCATION AISouthBaseLoc(242  + X_, 170 + Y_);
 	PlayerNum aiIndex = GetAIIndex();
 	Player[aiIndex].GoAI();
 	Player[aiIndex].SetColorNumber(GetAIColor());
@@ -109,6 +111,7 @@ void AIInitialization()
 	Player[aiIndex].SetRareOre(3'000);
 	BuildAIBase(aiIndex, AIWeakBaseLoc);
 	BuildNorthAIBase(aiIndex, AINorthBaseLoc);
+	BuildSouthAIBase(aiIndex, AISouthBaseLoc);
 }
 
 void InitializeDisasterHelper()

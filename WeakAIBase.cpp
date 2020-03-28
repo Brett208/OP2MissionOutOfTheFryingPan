@@ -116,6 +116,7 @@ void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
 	CreateGuardPostCluster(aiPlayerNum, LOCATION(80 + X_, 152 + Y_), weakAiBuildings);
 	CreateGuardPostCluster(aiPlayerNum, LOCATION(66 + X_, 152 + Y_), weakAiBuildings);
 
+
 	CreateTubeLine(initBaseLoc + LOCATION(0, -3), initBaseLoc + LOCATION(0, -1));
 	CreateTubeLine(initBaseLoc + LOCATION(0, 1), initBaseLoc + LOCATION(0, 5));
 	CreateTubeLine(initBaseLoc + LOCATION(-2, 0), initBaseLoc + LOCATION(-1, 0));
