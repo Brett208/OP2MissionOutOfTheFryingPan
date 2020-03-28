@@ -7,7 +7,7 @@
 void CreateAIBuilding(Unit& unit, map_id unitType, LOCATION loc, PlayerNum aiPlayerNum, map_id Cargo,
 	std::vector<Unit>& buildings);
 
-void createGuardPostCluster(PlayerNum aiPlayerNum, LOCATION loc, std::vector<Unit>& buildings);
+void CreateGuardPostCluster(PlayerNum aiPlayerNum, LOCATION loc, std::vector<Unit>& buildings);
 
 void SetupBuildingGroup(BuildingGroup& buildingGroup, Unit& structreFactory, Unit& vehicleFactory,
 	std::vector<Unit>& buildings, PlayerNum aiPlayerNum, MAP_RECT idleRect);
