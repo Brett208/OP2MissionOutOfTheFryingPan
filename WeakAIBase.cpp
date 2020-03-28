@@ -1,5 +1,6 @@
 #include "WeakAIBase.h"
 #include "DefensiveFightGroup.h"
+#include "OffensiveFightGroup.h"
 #include "AIHelper.h"
 #include "AIPlayer.h"
 #include "HFL/Source/HFL.h"
@@ -65,12 +66,14 @@ void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
 	currentLoc.y = initBaseLoc.y;
 	Unit commonSmelter;
 	CreateAIBuilding(commonSmelter, mapCommonOreSmelter, currentLoc, aiPlayerNum, map_id::mapNone, weakAiBuildings);
-	weakAiBuildings.push_back(commonSmelter);
+
+	Unit thirdCommonSmelter;
+	currentLoc.x = initBaseLoc.x - 15;
+	CreateAIBuilding(thirdCommonSmelter, mapCommonOreSmelter, currentLoc, aiPlayerNum, map_id::mapNone, weakAiBuildings);
 
 	currentLoc.x = initBaseLoc.x - 10;
 	Unit secondCommonSmelter;
 	CreateAIBuilding(secondCommonSmelter, mapCommonOreSmelter, currentLoc, aiPlayerNum, map_id::mapNone, weakAiBuildings);
-	weakAiBuildings.push_back(secondCommonSmelter);
 
 	currentLoc.y = initBaseLoc.y + 4;
 	Unit commonMine;
@@ -107,9 +110,12 @@ void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
 	CreateAIBuilding(unit, mapTokamak, currentLoc, aiPlayerNum, map_id::mapNone, weakAiBuildings);
 
 	CreateGuardPostCluster(aiPlayerNum, LOCATION(88 + X_, 127 + Y_), weakAiBuildings);
+	CreateGuardPostCluster(aiPlayerNum, LOCATION(68 + X_, 118 + Y_), weakAiBuildings);
 	CreateGuardPostCluster(aiPlayerNum, LOCATION(80 + X_, 118 + Y_), weakAiBuildings);
 	CreateGuardPostCluster(aiPlayerNum, LOCATION(85 + X_, 138 + Y_), weakAiBuildings);
 	CreateGuardPostCluster(aiPlayerNum, LOCATION(80 + X_, 152 + Y_), weakAiBuildings);
+	CreateGuardPostCluster(aiPlayerNum, LOCATION(66 + X_, 152 + Y_), weakAiBuildings);
+
 
 	CreateTubeLine(initBaseLoc + LOCATION(0, -3), initBaseLoc + LOCATION(0, -1));
 	CreateTubeLine(initBaseLoc + LOCATION(0, 1), initBaseLoc + LOCATION(0, 5));
@@ -118,12 +124,13 @@ void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
 
 	BuildingGroup buildingGroup;
 	SetupBuildingGroup(buildingGroup, structureFactory, defenseVehicleFactory, weakAiBuildings, aiPlayerNum, buidlingIdleRect);
-	recordBuildings(buildingGroup);
+	RecordBuildings(buildingGroup);
 
 
 	MiningGroup miningGroup;
-	SetupMiningGroup(miningGroup, commonMine, commonSmelter, miningIdleRect, 3, aiPlayerNum);
-	SetupMiningGroup(miningGroup, commonMine, secondCommonSmelter, miningIdleRect, 3, aiPlayerNum);
+	SetupMiningGroup(miningGroup, commonMine, commonSmelter, miningIdleRect, 2, aiPlayerNum);
+	SetupMiningGroup(miningGroup, commonMine, secondCommonSmelter, miningIdleRect, 2, aiPlayerNum);
+	SetupMiningGroup(miningGroup, commonMine, thirdCommonSmelter, miningIdleRect, 2, aiPlayerNum);
 
 	MAP_RECT guardedRect(68 + X_, 122 + Y_, 85 + X_, 140 + Y_);
 
@@ -158,23 +165,7 @@ int GetDefensiveTankCount()
 	}
 }
 
-void createGuardPostCluster(PlayerNum aiPlayerNum, LOCATION loc) {
-	
-	Unit unit;
-	TethysGame::CreateUnit(unit, mapGuardPost, loc, aiPlayerNum, mapEMP, South);
-	weakAiBuildings.push_back(unit);
-
-	loc.y += 2;
-	TethysGame::CreateUnit(unit, mapGuardPost, loc, aiPlayerNum, mapESG, South);
-	weakAiBuildings.push_back(unit);
-
-	loc.x += 2;
-	loc.y -= 1;
-	TethysGame::CreateUnit(unit, mapGuardPost, loc, aiPlayerNum, mapStickyfoam, South);
-	weakAiBuildings.push_back(unit);
-}
-
-void recordBuildings(BuildingGroup& buildingGroup)
+void RecordBuildings(BuildingGroup& buildingGroup)
 {
 	buildingGroup.RecordBuilding(LOCATION(74 + X_, 125 + Y_), mapAgridome, mapNone);
 	buildingGroup.RecordBuilding(LOCATION(78 + X_, 125 + Y_), mapResidence, mapNone);
