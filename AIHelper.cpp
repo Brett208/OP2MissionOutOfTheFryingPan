@@ -11,7 +11,7 @@ void CreateAIBuilding(Unit& unit, map_id unitType, LOCATION loc, PlayerNum aiPla
 	buildings.push_back(unit);
 }
 
-void createGuardPostCluster(PlayerNum aiPlayerNum, LOCATION loc, std::vector<Unit>& buildings) 
+void CreateGuardPostCluster(PlayerNum aiPlayerNum, LOCATION loc, std::vector<Unit>& buildings) 
 {
 	Unit unit;
 	TethysGame::CreateUnit(unit, mapGuardPost, loc, aiPlayerNum, mapEMP, South);
