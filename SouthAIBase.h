@@ -1,5 +1,6 @@
 #pragma once
 #include "Outpost2DLL/Outpost2DLL.h"
+#include <vector>
 
 void BuildSouthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc);
-void BuildGuardPosterCluster(PlayerNum aiPlayerNum, const LOCATION center);
+void CreateGuardPosterClusters(PlayerNum aiPlayerNum, const LOCATION center, std::vector<Unit>& southBuildings);

@@ -3,26 +3,25 @@
 #include "AIPlayer.h"
 #include "HFL/Source/HFL.h"
 #include "OP2Helper/OP2Helper.h"
-#include <vector>
 
-std::vector<Unit>southBuildings;
+
+
 
 void BuildSouthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 {
-	
+	std::vector<Unit>southBuildings;
 	LOCATION vechStartLoc(initBaseLoc.x + 4, initBaseLoc.y + 4);
 	//LOCATION commonOreLoc(225 + X_, 113 + Y_);
 	//MAP_RECT miningIdleRect(commonOreLoc.x - 4, commonOreLoc.y, commonOreLoc.x + 6, commonOreLoc.y + 4);
 	MAP_RECT buidlingIdleRect(initBaseLoc.x - 10, initBaseLoc.y - 7, initBaseLoc.x - 1, initBaseLoc.y - 3);
 	Unit unit;
 
-	BuildGuardPosterCluster(aiPlayerNum, LOCATION(246 + X_, 133 + Y_));
+	CreateGuardPosterClusters(aiPlayerNum, LOCATION(246 + X_, 133 + Y_), southBuildings);
 
 	CreateAIBuilding(unit, mapCommandCenter, initBaseLoc, aiPlayerNum, mapNone, southBuildings);
 	/*Unit structureFactory;
 	CreateAIBuilding(structureFactory, map_id::mapStructureFactory, LOCATION(244 + X_, 100 + Y_), aiPlayerNum, map_id::mapNone, southBuildings);
 
-	
 	CreateAIBuilding(unit, mapAdvancedResidence, LOCATION(239 + X_, 100 + Y_), aiPlayerNum, map_id::mapNone, southBuildings);
 	CreateAIBuilding(unit, mapAdvancedResidence, LOCATION(239 + X_, 104 + Y_), aiPlayerNum, map_id::mapNone, southBuildings);
 	CreateAIBuilding(unit, mapMedicalCenter, LOCATION(236 + X_, 100 + Y_), aiPlayerNum, map_id::mapNone, southBuildings);
@@ -61,10 +60,10 @@ void BuildSouthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 	SetupMiningGroup(miningGroup, commonMine, commonSmelter, miningIdleRect, 3, aiPlayerNum);*/
 }
 
-void BuildGuardPosterCluster(PlayerNum aiPlayerNum, const LOCATION center)
+void CreateGuardPosterClusters(PlayerNum aiPlayerNum, const LOCATION center, std::vector<Unit>& southBuildings)
 {
-	createGuardPostCluster(aiPlayerNum, LOCATION(center.x, center.y), southBuildings);
-	createGuardPostCluster(aiPlayerNum, LOCATION(center.x + 6, center.y), southBuildings);
-	createGuardPostCluster(aiPlayerNum, LOCATION(center.x - 6, center.y), southBuildings);
-	createGuardPostCluster(aiPlayerNum, LOCATION(center.x - 12, center.y), southBuildings);
+	CreateGuardPostCluster(aiPlayerNum, LOCATION(center.x, center.y), southBuildings);
+	CreateGuardPostCluster(aiPlayerNum, LOCATION(center.x + 6, center.y), southBuildings);
+	CreateGuardPostCluster(aiPlayerNum, LOCATION(center.x - 6, center.y), southBuildings);
+	CreateGuardPostCluster(aiPlayerNum, LOCATION(center.x - 12, center.y), southBuildings);
 }
