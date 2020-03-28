@@ -5,10 +5,9 @@
 #include "OP2Helper/OP2Helper.h"
 #include <vector>
 
-std::vector<Unit>buildings;
-
 void BuildNorthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc) 
 { 
+	std::vector<Unit>buildings;
 	LOCATION vechStartLoc(initBaseLoc.x + 4, initBaseLoc.y + 4);
 	LOCATION commonOreLoc(225 + X_, 113 + Y_);
 	MAP_RECT miningIdleRect(commonOreLoc.x - 4, commonOreLoc.y, commonOreLoc.x + 6, commonOreLoc.y + 4);
