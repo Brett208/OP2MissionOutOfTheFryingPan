@@ -102,7 +102,7 @@ void AIInitialization()
 {
 	LOCATION AIWeakBaseLoc(76 + X_, 132 + Y_);
 	LOCATION AINorthBaseLoc(244 + X_, 122 + Y_);
-	LOCATION AISouthBaseLoc(242  + X_, 170 + Y_);
+	LOCATION AISouthBaseLoc(242  + X_, 162 + Y_);
 	PlayerNum aiIndex = GetAIIndex();
 	Player[aiIndex].GoAI();
 	Player[aiIndex].SetColorNumber(GetAIColor());
