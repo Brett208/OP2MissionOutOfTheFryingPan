@@ -19,8 +19,8 @@ void BuildNorthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 	CreateAIBuilding(structureFactory, map_id::mapStructureFactory, LOCATION(244 + X_ ,100 + Y_), aiPlayerNum, map_id::mapNone, buildings);
 
 	CreateAIBuilding(unit, mapStandardLab, LOCATION(244 + X_, 105 + Y_), aiPlayerNum, map_id::mapNone, buildings);
-	CreateAIBuilding(unit, mapAdvancedResidence, LOCATION(239 + X_, 100 + Y_), aiPlayerNum, map_id::mapNone, buildings);
-	CreateAIBuilding(unit, mapAdvancedResidence, LOCATION(239 + X_, 104 + Y_), aiPlayerNum, map_id::mapNone, buildings);
+	CreateAIBuilding(unit, mapReinforcedResidence, LOCATION(239 + X_, 100 + Y_), aiPlayerNum, map_id::mapNone, buildings);
+	CreateAIBuilding(unit, mapReinforcedResidence, LOCATION(239 + X_, 103 + Y_), aiPlayerNum, map_id::mapNone, buildings);
 	CreateAIBuilding(unit, mapMedicalCenter, LOCATION(236 + X_, 100 + Y_), aiPlayerNum, map_id::mapNone, buildings);
 	CreateAIBuilding(unit, mapAgridome, LOCATION(235 + X_, 103 + Y_), aiPlayerNum, map_id::mapNone, buildings);
 	CreateAIBuilding(unit, mapDIRT, LOCATION(248 + X_, 100 + Y_), aiPlayerNum, map_id::mapNone, buildings);
