@@ -7,5 +7,3 @@ void AIInitialization();
 int HumanPlayerCount();
 PlayerNum GetAIIndex();
 PlayerColor GetAIColor(bool allowBlack = false);
-
-
