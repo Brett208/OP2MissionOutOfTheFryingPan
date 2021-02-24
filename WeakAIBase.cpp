@@ -19,12 +19,6 @@ std::vector<TargetTankCount> offensiveTankCount{
 	TargetTankCount {map_id::mapLynx, map_id::mapMicrowave, 5}
 };
 
-Export void AddTankWeakAIBase()
-{
-	auto& offensiveFightGroup = offensiveFightGroups[TethysGame::GetRand(offensiveFightGroups.size())];
-	offensiveFightGroup->CreateTank(mapLynx, mapMicrowave);	
-}
-
 void UpdateWeakAIBase()
 {
 	for (auto& offensiveFightGroup : offensiveFightGroups) {

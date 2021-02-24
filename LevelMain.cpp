@@ -160,7 +160,6 @@ Export int InitProc()
 	CreateMicrobeWallLine(LOCATION(39 + X_, 126 + Y_), LOCATION(64 + X_, 126 + Y_));
 	AddVictoryConditions();
 	Trigger BlightTrigger = CreateTimeTrigger(true, true, 1, 1, "SpawnBlight");
-	Trigger AddTank = CreateTimeTrigger(true, false, 1000, 1001, "AddTankWeakAIBase");
 	
 	return true;
 }
