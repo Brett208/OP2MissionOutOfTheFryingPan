@@ -41,10 +41,10 @@ void BuildNorthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 	TethysGame::CreateBeacon(map_id::mapMiningBeacon, commonOreLoc.x, commonOreLoc.y, BeaconTypes::OreTypeCommon, Yield::Bar3, Variant::Variant3);
 	CreateAIBuilding(commonMine, mapCommonOreMine, commonOreLoc, aiPlayerNum, map_id::mapNone, buildings);
 
-	CreateGuardPostCluster(aiPlayerNum, LOCATION(251 + X_, 90 + Y_), buildings);
 	CreateGuardPostCluster(aiPlayerNum, LOCATION(243 + X_, 90 + Y_), buildings);
 	CreateGuardPostCluster(aiPlayerNum, LOCATION(235 + X_, 90 + Y_), buildings);
 	CreateGuardPostCluster(aiPlayerNum, LOCATION(227 + X_, 90 + Y_), buildings);
+	CreateGuardPostCluster(aiPlayerNum, LOCATION(219 + X_, 90 + Y_), buildings);
 
 	CreateGuardPostCluster(aiPlayerNum, LOCATION(238 + X_, 121 + Y_), buildings);
 	CreateGuardPostCluster(aiPlayerNum, LOCATION(248 + X_, 121 + Y_), buildings);
