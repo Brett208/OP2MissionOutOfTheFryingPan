@@ -40,12 +40,20 @@ void BuildSouthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 
 	Unit commonSmelter;
 	CreateAIBuilding(commonSmelter, mapCommonOreSmelter, LOCATION(commonOreLoc.x + 2, commonOreLoc.y - 4), aiPlayerNum, map_id::mapNone, southBuildings);
-	Unit secondCommonSmelter;
-	CreateAIBuilding(secondCommonSmelter, mapCommonOreSmelter, LOCATION(commonOreLoc.x - 3, commonOreLoc.y - 4), aiPlayerNum, map_id::mapNone, southBuildings);
+	Unit commonSmelter2;
+	CreateAIBuilding(commonSmelter2, mapCommonOreSmelter, LOCATION(commonOreLoc.x - 3, commonOreLoc.y - 4), aiPlayerNum, map_id::mapNone, southBuildings);
 	Unit commonMine;
 
 	TethysGame::CreateBeacon(map_id::mapMiningBeacon, commonOreLoc.x, commonOreLoc.y, BeaconTypes::OreTypeCommon, Yield::Bar3, Variant::Variant3);
 	CreateAIBuilding(commonMine, mapCommonOreMine, commonOreLoc, aiPlayerNum, map_id::mapNone, southBuildings);
+
+	Unit rareSmelter;
+	Unit rareSmelter2;
+	LOCATION rareOreLoc(252 + X_, 175 + Y_);
+	//CreateAIBuilding(rareSmelter, mapCommonOreSmelter, rareOreLoc.x - 10)
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, rareOreLoc.x, rareOreLoc.y, OreTypeRare, Yield::Bar3, Variant3);
+	Unit rareMine;
+	CreateAIBuilding(rareMine, mapCommonOreMine, rareOreLoc, aiPlayerNum, map_id::mapNone, southBuildings);
 
 	CreateGuardPostCluster(aiPlayerNum, LOCATION(214 + X_, 181 + Y_), southBuildings);
 	CreateGuardPostCluster(aiPlayerNum, LOCATION(220 + X_, 185 + Y_), southBuildings);
@@ -66,7 +74,7 @@ void BuildSouthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 
 	MiningGroup miningGroup;
 	SetupMiningGroup(miningGroup, commonMine, commonSmelter, commonMiningIdleRect, 2, aiPlayerNum);
-	SetupMiningGroup(miningGroup, commonMine, secondCommonSmelter, commonMiningIdleRect, 2, aiPlayerNum);
+	SetupMiningGroup(miningGroup, commonMine, commonSmelter2, commonMiningIdleRect, 2, aiPlayerNum);
 }
 
 void CreateGuardPosterClusters(PlayerNum aiPlayerNum, const LOCATION center, std::vector<Unit>& southBuildings)
