@@ -56,7 +56,7 @@
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <PostBuildEvent>
-      <Command>if defined Outpost2Path (xcopy /y /d "$(TargetPath)" "$(Outpost2Path)\") else (echo Outpost2Path environment variable not defined. Skipping Post Build Copy.)</Command>
+      <Command>if defined Outpost2Path (xcopy /y /d "$(TargetPath)" "$(Outpost2Path)\maps\OutOfTheFryingPan") else (echo Outpost2Path environment variable not defined. Skipping Post Build Copy.)</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Copying DLL to game folder</Message>
@@ -80,7 +80,7 @@
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <PostBuildEvent>
-      <Command>if defined Outpost2Path (xcopy /y /d "$(TargetPath)" "$(Outpost2Path)\") else (echo Outpost2Path environment variable not defined. Skipping Post Build Copy.)</Command>
+      <Command>if defined Outpost2Path (xcopy /y /d "$(TargetPath)" "$(Outpost2Path)\maps\OutOfTheFryingPan") else (echo Outpost2Path environment variable not defined. Skipping Post Build Copy.)</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Copying DLL to game folder</Message>
