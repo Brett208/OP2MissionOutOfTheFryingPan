@@ -52,6 +52,27 @@ void SetupBuildingGroup(BuildingGroup& buildingGroup, Unit& structureFactory, Un
 	}
 }
 
+void CreateRareMineGroup3Bar(LOCATION beaconLocation, PlayerNum playerNum, std::vector<Unit>& buildings)
+{
+	TethysGame::CreateBeacon(mapMiningBeacon, beaconLocation.x, beaconLocation.y, OreTypeRare, Bar3, Variant3);
+	
+	Unit mine;
+	CreateAIBuilding(mine, mapCommonOreMine, beaconLocation, playerNum, buildings);
+
+	Unit smelter;
+	Unit smelter2;
+	CreateAIBuilding(smelter, mapRareOreSmelter, beaconLocation + LOCATION(-2, -4), playerNum, buildings);
+	CreateAIBuilding(smelter2, mapRareOreSmelter, beaconLocation + LOCATION(3, -4), playerNum, buildings);
+	LOCATION tubeStart = LOCATION(smelter2.Location() + LOCATION(3, 0));
+	CreateTubeLine(tubeStart, tubeStart + LOCATION(11, 0));
+
+	MAP_RECT miningIdleRect(beaconLocation.x - 5, beaconLocation.y - 5, beaconLocation.x + 5, beaconLocation.y + 5);
+
+	MiningGroup miningGroup;
+	SetupMiningGroup(miningGroup, mine, smelter, miningIdleRect, 3, playerNum);
+	SetupMiningGroup(miningGroup, mine, smelter, miningIdleRect, 3, playerNum);
+}
+
 void SetupMiningGroup(MiningGroup& miningGroupOut, Unit& mine, Unit& smelter, 
 	MAP_RECT& oreIdleRect, int truckCount, PlayerNum aiPlayerNum)
 {

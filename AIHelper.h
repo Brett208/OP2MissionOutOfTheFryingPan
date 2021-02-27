@@ -11,5 +11,8 @@ void CreateGuardPostCluster(PlayerNum aiPlayerNum, LOCATION loc, std::vector<Uni
 void SetupBuildingGroup(BuildingGroup& buildingGroup, Unit& structreFactory, Unit& vehicleFactory,
 	std::vector<Unit>& buildings, PlayerNum aiPlayerNum, MAP_RECT idleRect);
 
+// Creates 2 smelters north of the mining beacon
+void CreateRareMineGroup3Bar(LOCATION beaconLocation, PlayerNum playerNum, std::vector<Unit>& buildings);
+
 void SetupMiningGroup(MiningGroup& miningGroupOut, Unit& mine, Unit& smelter, 
 	MAP_RECT& oreIdleRect, int truckCount, PlayerNum aiPlayerNum);

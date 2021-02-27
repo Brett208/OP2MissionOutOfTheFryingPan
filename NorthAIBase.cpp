@@ -14,9 +14,6 @@ void BuildNorthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 	MAP_RECT buidlingIdleRect(initBaseLoc.x - 6, initBaseLoc.y, initBaseLoc.x + 8, initBaseLoc.y + 6);
 	Unit unit;
 
-	LOCATION rareOreLoc(225 + X_, 123 + Y_);
-	MAP_RECT rareMiningIdleRect(rareOreLoc.x - 5, rareOreLoc.y - 5, rareOreLoc.x + 5, rareOreLoc.y + 5);
-
 	CreateAIBuilding(unit, mapCommandCenter, initBaseLoc, aiPlayerNum, buildings);
 	Unit structureFactory;
 	CreateAIBuilding(structureFactory, map_id::mapStructureFactory, LOCATION(244 + X_, 100 + Y_), aiPlayerNum, buildings);
@@ -44,15 +41,8 @@ void BuildNorthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 	Unit commonMine;
 	CreateAIBuilding(commonMine, mapCommonOreMine, commonOreLoc, aiPlayerNum, buildings);
 
-	TethysGame::CreateBeacon(mapMiningBeacon, rareOreLoc.x, rareOreLoc.y, OreTypeRare, Bar3, Variant3);
-	Unit rareMine;
-	CreateAIBuilding(rareMine, mapCommonOreMine, rareOreLoc, aiPlayerNum, buildings);
-
-	Unit rareSmelter;
-	Unit rareSmelter2;
-	CreateAIBuilding(rareSmelter, mapRareOreSmelter, rareOreLoc + LOCATION(-2, -4), aiPlayerNum, buildings);
-	CreateAIBuilding(rareSmelter2, mapRareOreSmelter, rareOreLoc + LOCATION(3, -4), aiPlayerNum, buildings);
-	LOCATION tubeStart = LOCATION(rareSmelter2.Location() + LOCATION(3, 0));
+	CreateRareMineGroup3Bar(LOCATION(225 + X_, 123 + Y_), aiPlayerNum, buildings);
+	LOCATION tubeStart = LOCATION(buildings.back().Location() + LOCATION(3, 0));
 	CreateTubeLine(tubeStart, tubeStart + LOCATION(11, 0));
 
 	CreateGuardPostCluster(aiPlayerNum, LOCATION(243 + X_, 90 + Y_), buildings);
@@ -73,7 +63,4 @@ void BuildNorthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 	MiningGroup miningGroup;
 	SetupMiningGroup(miningGroup, commonMine, commonSmelter, commonMiningIdleRect, 3, aiPlayerNum);
 	SetupMiningGroup(miningGroup, commonMine, commonSmelter2, commonMiningIdleRect, 3, aiPlayerNum);
-
-	SetupMiningGroup(miningGroup, rareMine, rareSmelter, rareMiningIdleRect, 3, aiPlayerNum);
-	SetupMiningGroup(miningGroup, rareMine, rareSmelter2, rareMiningIdleRect, 3, aiPlayerNum);
 }

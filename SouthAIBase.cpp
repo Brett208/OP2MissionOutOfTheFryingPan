@@ -6,7 +6,7 @@
 
 void BuildSouthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 {
-	std::vector<Unit>southBuildings;
+	std::vector<Unit> southBuildings;
 	LOCATION vechStartLoc(initBaseLoc.x + 4, initBaseLoc.y + 4);
 	LOCATION commonOreLoc(247 + X_, 189 + Y_);
 	MAP_RECT commonMiningIdleRect(commonOreLoc.x - 4, commonOreLoc.y, commonOreLoc.x + 6, commonOreLoc.y + 4);
@@ -47,13 +47,9 @@ void BuildSouthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 	TethysGame::CreateBeacon(map_id::mapMiningBeacon, commonOreLoc.x, commonOreLoc.y, BeaconTypes::OreTypeCommon, Yield::Bar3, Variant::Variant3);
 	CreateAIBuilding(commonMine, mapCommonOreMine, commonOreLoc, aiPlayerNum, southBuildings);
 
-	Unit rareSmelter;
-	Unit rareSmelter2;
-	LOCATION rareOreLoc(252 + X_, 175 + Y_);
-	//CreateAIBuilding(rareSmelter, mapCommonOreSmelter, rareOreLoc.x - 10)
-	TethysGame::CreateBeacon(map_id::mapMiningBeacon, rareOreLoc.x, rareOreLoc.y, OreTypeRare, Yield::Bar3, Variant3);
-	Unit rareMine;
-	CreateAIBuilding(rareMine, mapCommonOreMine, rareOreLoc, aiPlayerNum, southBuildings);
+	CreateRareMineGroup3Bar(LOCATION(251 + X_, 175 + Y_), aiPlayerNum, southBuildings);
+	LOCATION tubeStartLoc = southBuildings[southBuildings.size() - 2].Location() - LOCATION(3, 0);
+	CreateTubeLine(tubeStartLoc, tubeStartLoc - LOCATION(4, 0));
 
 	CreateGuardPostCluster(aiPlayerNum, LOCATION(214 + X_, 181 + Y_), southBuildings);
 	CreateGuardPostCluster(aiPlayerNum, LOCATION(220 + X_, 185 + Y_), southBuildings);
