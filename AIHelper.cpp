@@ -3,6 +3,11 @@
 #include "OP2Helper/OP2Helper.h"
 #include "Outpost2DLL/Outpost2DLL.h"
 
+namespace {
+	void CreateMiningGroup(LOCATION beaconLocation, PlayerNum playerNum, 
+		std::vector<Unit>& buildings, BeaconTypes beaconType, Yield yield);
+}
+
 void CreateAIBuilding(Unit& unit, map_id unitType, LOCATION loc, PlayerNum aiPlayerNum, std::vector<Unit>& buildings)
 {
 	const UnitDirection rotation = UnitDirection::South;
@@ -52,25 +57,38 @@ void SetupBuildingGroup(BuildingGroup& buildingGroup, Unit& structureFactory, Un
 	}
 }
 
+void CreateCommonMineGroup3Bar(LOCATION beaconLocation, PlayerNum playerNum, std::vector<Unit>& buildings)
+{
+	CreateMiningGroup(beaconLocation, playerNum, buildings, BeaconTypes::OreTypeCommon, Yield::Bar3);
+}
+
 void CreateRareMineGroup3Bar(LOCATION beaconLocation, PlayerNum playerNum, std::vector<Unit>& buildings)
 {
-	TethysGame::CreateBeacon(mapMiningBeacon, beaconLocation.x, beaconLocation.y, OreTypeRare, Bar3, Variant3);
-	
-	Unit mine;
-	CreateAIBuilding(mine, mapCommonOreMine, beaconLocation, playerNum, buildings);
+	CreateMiningGroup(beaconLocation, playerNum, buildings, BeaconTypes::OreTypeRare, Yield::Bar3);
+}
 
-	Unit smelter;
-	Unit smelter2;
-	CreateAIBuilding(smelter, mapRareOreSmelter, beaconLocation + LOCATION(-2, -4), playerNum, buildings);
-	CreateAIBuilding(smelter2, mapRareOreSmelter, beaconLocation + LOCATION(3, -4), playerNum, buildings);
-	LOCATION tubeStart = LOCATION(smelter2.Location() + LOCATION(3, 0));
-	CreateTubeLine(tubeStart, tubeStart + LOCATION(11, 0));
+namespace {
+	void CreateMiningGroup(LOCATION beaconLocation, PlayerNum playerNum, std::vector<Unit>& buildings, BeaconTypes beaconType, Yield yield)
+	{
+		TethysGame::CreateBeacon(mapMiningBeacon, beaconLocation.x, beaconLocation.y, beaconType, yield, Variant3);
 
-	MAP_RECT miningIdleRect(beaconLocation.x - 5, beaconLocation.y - 5, beaconLocation.x + 5, beaconLocation.y + 5);
+		Unit mine;
+		// Outpost 2 bug, you create both common and rare ore mines using the mapCommonOreMine enum
+		CreateAIBuilding(mine, mapCommonOreMine, beaconLocation, playerNum, buildings);
 
-	MiningGroup miningGroup;
-	SetupMiningGroup(miningGroup, mine, smelter, miningIdleRect, 3, playerNum);
-	SetupMiningGroup(miningGroup, mine, smelter, miningIdleRect, 3, playerNum);
+		map_id smelterType = beaconType == BeaconTypes::OreTypeCommon ? mapCommonOreSmelter : mapRareOreSmelter;
+
+		Unit smelter;
+		Unit smelter2;
+		CreateAIBuilding(smelter, smelterType, beaconLocation + LOCATION(-2, -4), playerNum, buildings);
+		CreateAIBuilding(smelter2, smelterType, beaconLocation + LOCATION(3, -4), playerNum, buildings);
+
+		MAP_RECT miningIdleRect(beaconLocation.x - 5, beaconLocation.y - 5, beaconLocation.x + 5, beaconLocation.y + 5);
+
+		MiningGroup miningGroup;
+		SetupMiningGroup(miningGroup, mine, smelter, miningIdleRect, 3, playerNum);
+		SetupMiningGroup(miningGroup, mine, smelter, miningIdleRect, 3, playerNum);
+	}
 }
 
 void SetupMiningGroup(MiningGroup& miningGroupOut, Unit& mine, Unit& smelter, 

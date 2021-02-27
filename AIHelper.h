@@ -12,6 +12,9 @@ void SetupBuildingGroup(BuildingGroup& buildingGroup, Unit& structreFactory, Uni
 	std::vector<Unit>& buildings, PlayerNum aiPlayerNum, MAP_RECT idleRect);
 
 // Creates 2 smelters north of the mining beacon
+void CreateCommonMineGroup3Bar(LOCATION beaconLocation, PlayerNum playerNum, std::vector<Unit>& buildings);
+
+// Creates 2 smelters north of the mining beacon
 void CreateRareMineGroup3Bar(LOCATION beaconLocation, PlayerNum playerNum, std::vector<Unit>& buildings);
 
 void SetupMiningGroup(MiningGroup& miningGroupOut, Unit& mine, Unit& smelter, 

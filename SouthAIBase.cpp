@@ -8,8 +8,6 @@ void BuildSouthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 {
 	std::vector<Unit> southBuildings;
 	LOCATION vechStartLoc(initBaseLoc.x + 4, initBaseLoc.y + 4);
-	LOCATION commonOreLoc(247 + X_, 189 + Y_);
-	MAP_RECT commonMiningIdleRect(commonOreLoc.x - 4, commonOreLoc.y, commonOreLoc.x + 6, commonOreLoc.y + 4);
 	MAP_RECT buidlingIdleRect(initBaseLoc.x - 10, initBaseLoc.y - 7, initBaseLoc.x - 1, initBaseLoc.y - 3);
 	Unit unit;
 
@@ -38,14 +36,7 @@ void BuildSouthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 	CreateAIBuilding(vehicleFactory, mapVehicleFactory, LOCATION(250 + X_, initBaseLoc.y), aiPlayerNum, southBuildings);
 	CreateAIBuilding(defensiveVehicleFactory, mapVehicleFactory, LOCATION(250 + X_, initBaseLoc.y - 4), aiPlayerNum, southBuildings);
 
-	Unit commonSmelter;
-	CreateAIBuilding(commonSmelter, mapCommonOreSmelter, LOCATION(commonOreLoc.x + 2, commonOreLoc.y - 4), aiPlayerNum, southBuildings);
-	Unit commonSmelter2;
-	CreateAIBuilding(commonSmelter2, mapCommonOreSmelter, LOCATION(commonOreLoc.x - 3, commonOreLoc.y - 4), aiPlayerNum, southBuildings);
-	Unit commonMine;
-
-	TethysGame::CreateBeacon(map_id::mapMiningBeacon, commonOreLoc.x, commonOreLoc.y, BeaconTypes::OreTypeCommon, Yield::Bar3, Variant::Variant3);
-	CreateAIBuilding(commonMine, mapCommonOreMine, commonOreLoc, aiPlayerNum, southBuildings);
+	CreateCommonMineGroup3Bar(LOCATION(247 + X_, 188 + Y_), aiPlayerNum, southBuildings);
 
 	CreateRareMineGroup3Bar(LOCATION(251 + X_, 175 + Y_), aiPlayerNum, southBuildings);
 	LOCATION tubeStartLoc = southBuildings[southBuildings.size() - 2].Location() - LOCATION(3, 0);
@@ -67,10 +58,6 @@ void BuildSouthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 	CreateTubeLine(LOCATION(initBaseLoc.x, 175 + Y_), LOCATION(initBaseLoc.x, 183 + Y_));
 
 	CreateTubeLine(LOCATION(initBaseLoc.x + 2, initBaseLoc.y), LOCATION(247 + X_, initBaseLoc.y));
-
-	MiningGroup miningGroup;
-	SetupMiningGroup(miningGroup, commonMine, commonSmelter, commonMiningIdleRect, 2, aiPlayerNum);
-	SetupMiningGroup(miningGroup, commonMine, commonSmelter2, commonMiningIdleRect, 2, aiPlayerNum);
 }
 
 void CreateGuardPosterClusters(PlayerNum aiPlayerNum, const LOCATION center, std::vector<Unit>& southBuildings)
