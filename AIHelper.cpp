@@ -8,42 +8,42 @@ namespace {
 		std::vector<Unit>& buildings, BeaconTypes beaconType, Yield yield);
 }
 
-void CreateAIBuilding(Unit& unit, map_id unitType, LOCATION loc, PlayerNum aiPlayerNum, std::vector<Unit>& buildings)
+void CreateAIBuilding(Unit& unit, map_id unitType, LOCATION loc, PlayerNum playerNum, std::vector<Unit>& buildings)
 {
 	const UnitDirection rotation = UnitDirection::South;
-	TethysGame::CreateUnit(unit, unitType, loc, aiPlayerNum, mapNone, rotation);
+	TethysGame::CreateUnit(unit, unitType, loc, playerNum, mapNone, rotation);
 	buildings.push_back(unit);
 }
 
-void CreateGuardPostCluster(PlayerNum aiPlayerNum, LOCATION loc, std::vector<Unit>& buildings) 
+void CreateGuardPostCluster(PlayerNum playerNum, LOCATION loc, std::vector<Unit>& buildings) 
 {
 	Unit unit;
-	TethysGame::CreateUnit(unit, mapGuardPost, loc, aiPlayerNum, mapEMP, South);
+	TethysGame::CreateUnit(unit, mapGuardPost, loc, playerNum, mapEMP, South);
 	buildings.push_back(unit);
 
 	loc.y += 2;
-	TethysGame::CreateUnit(unit, mapGuardPost, loc, aiPlayerNum, mapESG, South);
+	TethysGame::CreateUnit(unit, mapGuardPost, loc, playerNum, mapESG, South);
 	buildings.push_back(unit);
 
 	loc.x += 2;
 	loc.y -= 1;
-	TethysGame::CreateUnit(unit, mapGuardPost, loc, aiPlayerNum, mapStickyfoam, South);
+	TethysGame::CreateUnit(unit, mapGuardPost, loc, playerNum, mapStickyfoam, South);
 	buildings.push_back(unit);
 }
 
 void SetupBuildingGroup(BuildingGroup& buildingGroup, Unit& structureFactory, Unit& vehicleFactory, 
-	std::vector<Unit>& buildings,  PlayerNum aiPlayerNum, MAP_RECT idleRect) {
+	std::vector<Unit>& buildings, PlayerNum playerNum, MAP_RECT idleRect) {
 	
-	buildingGroup = CreateBuildingGroup(Player[aiPlayerNum]);
+	buildingGroup = CreateBuildingGroup(Player[playerNum]);
 
 	Unit unit;
-	TethysGame::CreateUnit(unit,map_id::mapConVec, idleRect.RandPt(), aiPlayerNum, mapNone, South);
+	TethysGame::CreateUnit(unit,map_id::mapConVec, idleRect.RandPt(), playerNum, mapNone, South);
 	unit.DoSetLights(true);
 	buildingGroup.TakeUnit(unit);
-	TethysGame::CreateUnit(unit, map_id::mapConVec, idleRect.RandPt(), aiPlayerNum, mapNone, South);
+	TethysGame::CreateUnit(unit, map_id::mapConVec, idleRect.RandPt(), playerNum, mapNone, South);
 	unit.DoSetLights(true);
 	buildingGroup.TakeUnit(unit);
-	TethysGame::CreateUnit(unit, map_id::mapEarthworker, idleRect.RandPt(), aiPlayerNum, mapNone, South);
+	TethysGame::CreateUnit(unit, map_id::mapEarthworker, idleRect.RandPt(), playerNum, mapNone, South);
 	unit.DoSetLights(true);
 	buildingGroup.TakeUnit(unit);
 
@@ -92,9 +92,9 @@ namespace {
 }
 
 void SetupMiningGroup(MiningGroup& miningGroupOut, Unit& mine, Unit& smelter, 
-	MAP_RECT& oreIdleRect, int truckCount, PlayerNum aiPlayerNum)
+	MAP_RECT& oreIdleRect, int truckCount, PlayerNum playerNum)
 {
-	miningGroupOut = CreateMiningGroup(Player[aiPlayerNum]);
+	miningGroupOut = CreateMiningGroup(Player[playerNum]);
 
 	//const LOCATION smelterLoc = smelter.Location();
 	miningGroupOut.Setup(mine, smelter, oreIdleRect);
@@ -102,7 +102,7 @@ void SetupMiningGroup(MiningGroup& miningGroupOut, Unit& mine, Unit& smelter,
 	Unit truck;
 	for (int i = 0; i < truckCount; ++i)
 	{
-		TethysGame::CreateUnit(truck, map_id::mapCargoTruck, oreIdleRect.RandPt(), aiPlayerNum, map_id::mapNone, South);
+		TethysGame::CreateUnit(truck, map_id::mapCargoTruck, oreIdleRect.RandPt(), playerNum, map_id::mapNone, South);
 		truck.DoSetLights(true);
 		miningGroupOut.TakeUnit(truck);
 	}
