@@ -4,8 +4,7 @@
 #include "Outpost2DLL/Outpost2DLL.h"
 #include <vector>
 
-void CreateAIBuilding(Unit& unit, map_id unitType, LOCATION loc, PlayerNum aiPlayerNum, map_id Cargo,
-	std::vector<Unit>& buildings);
+void CreateAIBuilding(Unit& unit, map_id unitType, LOCATION loc, PlayerNum aiPlayerNum, std::vector<Unit>& buildings);
 
 void CreateGuardPostCluster(PlayerNum aiPlayerNum, LOCATION loc, std::vector<Unit>& buildings);
 

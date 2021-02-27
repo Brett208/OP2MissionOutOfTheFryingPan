@@ -17,41 +17,41 @@ void BuildNorthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 	LOCATION rareOreLoc(225 + X_, 123 + Y_);
 	MAP_RECT rareMiningIdleRect(rareOreLoc.x - 5, rareOreLoc.y - 5, rareOreLoc.x + 5, rareOreLoc.y + 5);
 
-	CreateAIBuilding(unit, mapCommandCenter, initBaseLoc, aiPlayerNum, mapNone, buildings);
+	CreateAIBuilding(unit, mapCommandCenter, initBaseLoc, aiPlayerNum, buildings);
 	Unit structureFactory;
-	CreateAIBuilding(structureFactory, map_id::mapStructureFactory, LOCATION(244 + X_, 100 + Y_), aiPlayerNum, map_id::mapNone, buildings);
+	CreateAIBuilding(structureFactory, map_id::mapStructureFactory, LOCATION(244 + X_, 100 + Y_), aiPlayerNum, buildings);
 
-	CreateAIBuilding(unit, mapStandardLab, LOCATION(244 + X_, 105 + Y_), aiPlayerNum, map_id::mapNone, buildings);
-	CreateAIBuilding(unit, mapReinforcedResidence, LOCATION(239 + X_, 100 + Y_), aiPlayerNum, map_id::mapNone, buildings);
-	CreateAIBuilding(unit, mapReinforcedResidence, LOCATION(239 + X_, 103 + Y_), aiPlayerNum, map_id::mapNone, buildings);
-	CreateAIBuilding(unit, mapMedicalCenter, LOCATION(236 + X_, 100 + Y_), aiPlayerNum, map_id::mapNone, buildings);
-	CreateAIBuilding(unit, mapAgridome, LOCATION(235 + X_, 103 + Y_), aiPlayerNum, map_id::mapNone, buildings);
-	CreateAIBuilding(unit, mapDIRT, LOCATION(248 + X_, 100 + Y_), aiPlayerNum, map_id::mapNone, buildings);
-	CreateAIBuilding(unit, mapDIRT, LOCATION(248 + X_, 103 + Y_), aiPlayerNum, map_id::mapNone, buildings);
-	CreateAIBuilding(unit, mapMHDGenerator, LOCATION(220 + X_, 101 + Y_), aiPlayerNum, map_id::mapNone, buildings);
-	CreateAIBuilding(unit, mapMHDGenerator, LOCATION(224 + X_, 101 + Y_), aiPlayerNum, map_id::mapNone, buildings);
+	CreateAIBuilding(unit, mapStandardLab, LOCATION(244 + X_, 105 + Y_), aiPlayerNum, buildings);
+	CreateAIBuilding(unit, mapReinforcedResidence, LOCATION(239 + X_, 100 + Y_), aiPlayerNum, buildings);
+	CreateAIBuilding(unit, mapReinforcedResidence, LOCATION(239 + X_, 103 + Y_), aiPlayerNum, buildings);
+	CreateAIBuilding(unit, mapMedicalCenter, LOCATION(236 + X_, 100 + Y_), aiPlayerNum, buildings);
+	CreateAIBuilding(unit, mapAgridome, LOCATION(235 + X_, 103 + Y_), aiPlayerNum, buildings);
+	CreateAIBuilding(unit, mapDIRT, LOCATION(248 + X_, 100 + Y_), aiPlayerNum, buildings);
+	CreateAIBuilding(unit, mapDIRT, LOCATION(248 + X_, 103 + Y_), aiPlayerNum, buildings);
+	CreateAIBuilding(unit, mapMHDGenerator, LOCATION(220 + X_, 101 + Y_), aiPlayerNum, buildings);
+	CreateAIBuilding(unit, mapMHDGenerator, LOCATION(224 + X_, 101 + Y_), aiPlayerNum,  buildings);
 
 	Unit vehicleFactory;
-	CreateAIBuilding(vehicleFactory, mapVehicleFactory, LOCATION(244 + X_, 112 + Y_), aiPlayerNum, map_id::mapNone, buildings);
-	CreateAIBuilding(unit, mapVehicleFactory, LOCATION(239 + X_, 112 + Y_), aiPlayerNum, map_id::mapNone, buildings);
+	CreateAIBuilding(vehicleFactory, mapVehicleFactory, LOCATION(244 + X_, 112 + Y_), aiPlayerNum, buildings);
+	CreateAIBuilding(unit, mapVehicleFactory, LOCATION(239 + X_, 112 + Y_), aiPlayerNum, buildings);
 
 	Unit commonSmelter;
 	Unit commonSmelter2;
-	CreateAIBuilding(commonSmelter, mapCommonOreSmelter, LOCATION(commonOreLoc.x + 4, commonOreLoc.y - 4), aiPlayerNum, mapNone, buildings);
-	CreateAIBuilding(commonSmelter2, mapCommonOreSmelter, LOCATION(commonOreLoc.x - 1, commonOreLoc.y - 4), aiPlayerNum, mapNone, buildings);
+	CreateAIBuilding(commonSmelter, mapCommonOreSmelter, LOCATION(commonOreLoc.x + 4, commonOreLoc.y - 4), aiPlayerNum, buildings);
+	CreateAIBuilding(commonSmelter2, mapCommonOreSmelter, LOCATION(commonOreLoc.x - 1, commonOreLoc.y - 4), aiPlayerNum, buildings);
 
 	TethysGame::CreateBeacon(mapMiningBeacon, commonOreLoc.x, commonOreLoc.y, OreTypeCommon, Bar3, Variant3);
 	Unit commonMine;
-	CreateAIBuilding(commonMine, mapCommonOreMine, commonOreLoc, aiPlayerNum, mapNone, buildings);
+	CreateAIBuilding(commonMine, mapCommonOreMine, commonOreLoc, aiPlayerNum, buildings);
 
 	TethysGame::CreateBeacon(mapMiningBeacon, rareOreLoc.x, rareOreLoc.y, OreTypeRare, Bar3, Variant3);
 	Unit rareMine;
-	CreateAIBuilding(rareMine, mapCommonOreMine, rareOreLoc, aiPlayerNum, mapNone, buildings);
+	CreateAIBuilding(rareMine, mapCommonOreMine, rareOreLoc, aiPlayerNum, buildings);
 
 	Unit rareSmelter;
 	Unit rareSmelter2;
-	CreateAIBuilding(rareSmelter, mapRareOreSmelter, rareOreLoc + LOCATION(-2, -4), aiPlayerNum, mapNone, buildings);
-	CreateAIBuilding(rareSmelter2, mapRareOreSmelter, rareOreLoc + LOCATION(3, -4), aiPlayerNum, mapNone, buildings);
+	CreateAIBuilding(rareSmelter, mapRareOreSmelter, rareOreLoc + LOCATION(-2, -4), aiPlayerNum, buildings);
+	CreateAIBuilding(rareSmelter2, mapRareOreSmelter, rareOreLoc + LOCATION(3, -4), aiPlayerNum, buildings);
 	LOCATION tubeStart = LOCATION(rareSmelter2.Location() + LOCATION(3, 0));
 	CreateTubeLine(tubeStart, tubeStart + LOCATION(11, 0));
 

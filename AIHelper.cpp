@@ -3,11 +3,10 @@
 #include "OP2Helper/OP2Helper.h"
 #include "Outpost2DLL/Outpost2DLL.h"
 
-void CreateAIBuilding(Unit& unit, map_id unitType, LOCATION loc, PlayerNum aiPlayerNum, map_id Cargo,
-	std::vector<Unit>& buildings)
+void CreateAIBuilding(Unit& unit, map_id unitType, LOCATION loc, PlayerNum aiPlayerNum, std::vector<Unit>& buildings)
 {
 	const UnitDirection rotation = UnitDirection::South;
-	TethysGame::CreateUnit(unit, unitType, loc, aiPlayerNum, Cargo, rotation);
+	TethysGame::CreateUnit(unit, unitType, loc, aiPlayerNum, mapNone, rotation);
 	buildings.push_back(unit);
 }
 
