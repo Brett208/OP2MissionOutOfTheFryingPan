@@ -6,46 +6,41 @@
 
 void BuildSouthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 {
-	std::vector<Unit>southBuildings;
+	std::vector<Unit> southBuildings;
 	LOCATION vechStartLoc(initBaseLoc.x + 4, initBaseLoc.y + 4);
-	LOCATION commonOreLoc(247 + X_, 189 + Y_);
-	MAP_RECT commonMiningIdleRect(commonOreLoc.x - 4, commonOreLoc.y, commonOreLoc.x + 6, commonOreLoc.y + 4);
 	MAP_RECT buidlingIdleRect(initBaseLoc.x - 10, initBaseLoc.y - 7, initBaseLoc.x - 1, initBaseLoc.y - 3);
 	Unit unit;
 
 	CreateGuardPosterClusters(aiPlayerNum, LOCATION(242 + X_, 135 + Y_), southBuildings);
 
-	CreateAIBuilding(unit, mapCommandCenter, initBaseLoc, aiPlayerNum, mapNone, southBuildings);
+	CreateAIBuilding(unit, mapCommandCenter, initBaseLoc, aiPlayerNum, southBuildings);
 
 	Unit structureFactory;
-	CreateAIBuilding(structureFactory, map_id::mapStructureFactory, LOCATION(242 + X_, 175 + Y_), aiPlayerNum, map_id::mapNone, southBuildings);
-	CreateAIBuilding(unit, mapReinforcedResidence, LOCATION(237 + X_, 174 + Y_), aiPlayerNum, map_id::mapNone, southBuildings);
-	CreateAIBuilding(unit, mapReinforcedResidence, LOCATION(237 + X_, 177 + Y_), aiPlayerNum, map_id::mapNone, southBuildings);
-	CreateAIBuilding(unit, mapMedicalCenter, LOCATION(234 + X_, 174 + Y_), aiPlayerNum, map_id::mapNone, southBuildings);
-	CreateAIBuilding(unit, mapMedicalCenter, LOCATION(234 + X_, 177 + Y_), aiPlayerNum, map_id::mapNone, southBuildings);
-	CreateAIBuilding(unit, mapAgridome, LOCATION(230 + X_, 174 + Y_), aiPlayerNum, map_id::mapNone, southBuildings);
-	CreateAIBuilding(unit, mapAgridome, LOCATION(230 + X_, 177 + Y_), aiPlayerNum, map_id::mapNone, southBuildings);
-	CreateAIBuilding(unit, mapDIRT, LOCATION(226 + X_, 174 + Y_), aiPlayerNum, map_id::mapNone, southBuildings);
-	CreateAIBuilding(unit, mapDIRT, LOCATION(226 + X_, 177 + Y_), aiPlayerNum, map_id::mapNone, southBuildings);
+	CreateAIBuilding(structureFactory, map_id::mapStructureFactory, LOCATION(242 + X_, 175 + Y_), aiPlayerNum, southBuildings);
+	CreateAIBuilding(unit, mapReinforcedResidence, LOCATION(237 + X_, 174 + Y_), aiPlayerNum, southBuildings);
+	CreateAIBuilding(unit, mapReinforcedResidence, LOCATION(237 + X_, 177 + Y_), aiPlayerNum, southBuildings);
+	CreateAIBuilding(unit, mapMedicalCenter, LOCATION(234 + X_, 174 + Y_), aiPlayerNum, southBuildings);
+	CreateAIBuilding(unit, mapMedicalCenter, LOCATION(234 + X_, 177 + Y_), aiPlayerNum, southBuildings);
+	CreateAIBuilding(unit, mapAgridome, LOCATION(230 + X_, 174 + Y_), aiPlayerNum, southBuildings);
+	CreateAIBuilding(unit, mapAgridome, LOCATION(230 + X_, 177 + Y_), aiPlayerNum, southBuildings);
+	CreateAIBuilding(unit, mapDIRT, LOCATION(226 + X_, 174 + Y_), aiPlayerNum, southBuildings);
+	CreateAIBuilding(unit, mapDIRT, LOCATION(226 + X_, 177 + Y_), aiPlayerNum, southBuildings);
 
-	CreateAIBuilding(unit, mapMHDGenerator, LOCATION(252 + X_, 148 + Y_), aiPlayerNum, map_id::mapNone, southBuildings);
-	CreateAIBuilding(unit, mapMHDGenerator, LOCATION(252 + X_, 152 + Y_), aiPlayerNum, map_id::mapNone, southBuildings);
+	CreateAIBuilding(unit, mapMHDGenerator, LOCATION(252 + X_, 148 + Y_), aiPlayerNum, southBuildings);
+	CreateAIBuilding(unit, mapMHDGenerator, LOCATION(252 + X_, 152 + Y_), aiPlayerNum, southBuildings);
 
-	CreateAIBuilding(unit, mapAdvancedLab, LOCATION(initBaseLoc.x, 152 + Y_), aiPlayerNum, map_id::mapNone, southBuildings);
+	CreateAIBuilding(unit, mapAdvancedLab, LOCATION(initBaseLoc.x, 152 + Y_), aiPlayerNum, southBuildings);
 
 	Unit vehicleFactory;
 	Unit defensiveVehicleFactory;
-	CreateAIBuilding(vehicleFactory, mapVehicleFactory, LOCATION(250 + X_, initBaseLoc.y), aiPlayerNum, map_id::mapNone, southBuildings);
-	CreateAIBuilding(defensiveVehicleFactory, mapVehicleFactory, LOCATION(250 + X_, initBaseLoc.y - 4), aiPlayerNum, map_id::mapNone, southBuildings);
+	CreateAIBuilding(vehicleFactory, mapVehicleFactory, LOCATION(250 + X_, initBaseLoc.y), aiPlayerNum, southBuildings);
+	CreateAIBuilding(defensiveVehicleFactory, mapVehicleFactory, LOCATION(250 + X_, initBaseLoc.y - 4), aiPlayerNum, southBuildings);
 
-	Unit commonSmelter;
-	CreateAIBuilding(commonSmelter, mapCommonOreSmelter, LOCATION(commonOreLoc.x + 2, commonOreLoc.y - 4), aiPlayerNum, map_id::mapNone, southBuildings);
-	Unit secondCommonSmelter;
-	CreateAIBuilding(secondCommonSmelter, mapCommonOreSmelter, LOCATION(commonOreLoc.x - 3, commonOreLoc.y - 4), aiPlayerNum, map_id::mapNone, southBuildings);
-	Unit commonMine;
+	CreateCommonMineGroup3Bar(LOCATION(247 + X_, 188 + Y_), aiPlayerNum, southBuildings);
 
-	TethysGame::CreateBeacon(map_id::mapMiningBeacon, commonOreLoc.x, commonOreLoc.y, BeaconTypes::OreTypeCommon, Yield::Bar3, Variant::Variant3);
-	CreateAIBuilding(commonMine, mapCommonOreMine, commonOreLoc, aiPlayerNum, map_id::mapNone, southBuildings);
+	CreateRareMineGroup3Bar(LOCATION(251 + X_, 175 + Y_), aiPlayerNum, southBuildings);
+	LOCATION tubeStartLoc = southBuildings[southBuildings.size() - 2].Location() - LOCATION(3, 0);
+	CreateTubeLine(tubeStartLoc, tubeStartLoc - LOCATION(4, 0));
 
 	CreateGuardPostCluster(aiPlayerNum, LOCATION(214 + X_, 181 + Y_), southBuildings);
 	CreateGuardPostCluster(aiPlayerNum, LOCATION(220 + X_, 185 + Y_), southBuildings);
@@ -63,10 +58,6 @@ void BuildSouthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 	CreateTubeLine(LOCATION(initBaseLoc.x, 175 + Y_), LOCATION(initBaseLoc.x, 183 + Y_));
 
 	CreateTubeLine(LOCATION(initBaseLoc.x + 2, initBaseLoc.y), LOCATION(247 + X_, initBaseLoc.y));
-
-	MiningGroup miningGroup;
-	SetupMiningGroup(miningGroup, commonMine, commonSmelter, commonMiningIdleRect, 2, aiPlayerNum);
-	SetupMiningGroup(miningGroup, commonMine, secondCommonSmelter, commonMiningIdleRect, 2, aiPlayerNum);
 }
 
 void CreateGuardPosterClusters(PlayerNum aiPlayerNum, const LOCATION center, std::vector<Unit>& southBuildings)

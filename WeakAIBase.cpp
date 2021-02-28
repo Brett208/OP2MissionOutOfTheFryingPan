@@ -37,47 +37,47 @@ void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
 	MAP_RECT buidlingIdleRect(initBaseLoc.x - 6, initBaseLoc.y, initBaseLoc.x + 8, initBaseLoc.y + 6);
 	Unit unit;
 
-	CreateAIBuilding(unit, mapCommandCenter, initBaseLoc, aiPlayerNum, map_id::mapNone, weakAiBuildings);//ComandCenter
+	CreateAIBuilding(unit, mapCommandCenter, initBaseLoc, aiPlayerNum, weakAiBuildings);//ComandCenter
 
 	currentLoc.x = initBaseLoc.x + 5;
 	Unit structureFactory;
-	CreateAIBuilding(structureFactory, map_id::mapStructureFactory, currentLoc, aiPlayerNum, map_id::mapNone, weakAiBuildings);
+	CreateAIBuilding(structureFactory, map_id::mapStructureFactory, currentLoc, aiPlayerNum, weakAiBuildings);
 
 	currentLoc.x = initBaseLoc.x + 2;
 	currentLoc.y = initBaseLoc.y - 4;
-	CreateAIBuilding(unit, mapResidence, currentLoc, aiPlayerNum, map_id::mapNone, weakAiBuildings);
+	CreateAIBuilding(unit, mapResidence, currentLoc, aiPlayerNum, weakAiBuildings);
 
 	currentLoc.x = initBaseLoc.x - 2;
-	CreateAIBuilding(unit, mapAgridome, currentLoc, aiPlayerNum, map_id::mapNone, weakAiBuildings);
+	CreateAIBuilding(unit, mapAgridome, currentLoc, aiPlayerNum, weakAiBuildings);
 
 	currentLoc.x = initBaseLoc.x - 6;
-	CreateAIBuilding(unit, mapDIRT, currentLoc, aiPlayerNum, map_id::mapNone, weakAiBuildings);
+	CreateAIBuilding(unit, mapDIRT, currentLoc, aiPlayerNum, weakAiBuildings);
 
 	currentLoc.x = initBaseLoc.x + 5;
-	CreateAIBuilding(unit, mapMedicalCenter, currentLoc, aiPlayerNum, map_id::mapNone, weakAiBuildings);
+	CreateAIBuilding(unit, mapMedicalCenter, currentLoc, aiPlayerNum, weakAiBuildings);
 
 	currentLoc.x = initBaseLoc.x - 5;
 	currentLoc.y = initBaseLoc.y;
 	Unit commonSmelter;
-	CreateAIBuilding(commonSmelter, mapCommonOreSmelter, currentLoc, aiPlayerNum, map_id::mapNone, weakAiBuildings);
+	CreateAIBuilding(commonSmelter, mapCommonOreSmelter, currentLoc, aiPlayerNum, weakAiBuildings);
 
 	Unit thirdCommonSmelter;
 	currentLoc.x = initBaseLoc.x - 15;
-	CreateAIBuilding(thirdCommonSmelter, mapCommonOreSmelter, currentLoc, aiPlayerNum, map_id::mapNone, weakAiBuildings);
+	CreateAIBuilding(thirdCommonSmelter, mapCommonOreSmelter, currentLoc, aiPlayerNum, weakAiBuildings);
 
 	currentLoc.x = initBaseLoc.x - 10;
 	Unit secondCommonSmelter;
-	CreateAIBuilding(secondCommonSmelter, mapCommonOreSmelter, currentLoc, aiPlayerNum, map_id::mapNone, weakAiBuildings);
+	CreateAIBuilding(secondCommonSmelter, mapCommonOreSmelter, currentLoc, aiPlayerNum, weakAiBuildings);
 
 	currentLoc.y = initBaseLoc.y + 4;
 	Unit commonMine;
 	TethysGame::CreateBeacon(map_id::mapMiningBeacon, currentLoc.x, currentLoc.y, BeaconTypes::OreTypeCommon, Yield::Bar2, Variant::Variant3);
-	CreateAIBuilding(commonMine, mapCommonOreMine, currentLoc, aiPlayerNum, map_id::mapNone, weakAiBuildings);
+	CreateAIBuilding(commonMine, mapCommonOreMine, currentLoc, aiPlayerNum, weakAiBuildings);
 
 	currentLoc.x = initBaseLoc.x;
 	currentLoc.y = initBaseLoc.y + 5;
 	Unit defenseVehicleFactory;
-	CreateAIBuilding(defenseVehicleFactory, map_id::mapVehicleFactory, currentLoc, aiPlayerNum, map_id::mapNone, weakAiBuildings);
+	CreateAIBuilding(defenseVehicleFactory, map_id::mapVehicleFactory, currentLoc, aiPlayerNum, weakAiBuildings);
 	defensiveVehicleFactories.push_back(defenseVehicleFactory);
 
 	currentLoc.y = initBaseLoc.y + 9;
@@ -87,7 +87,7 @@ void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
 
 	for (int i = 0; i < HumanPlayerCount() - 1; ++i)
 	{
-		CreateAIBuilding(offenseVehicleFactory, mapVehicleFactory, currentLoc, aiPlayerNum, map_id::mapNone, weakAiBuildings);
+		CreateAIBuilding(offenseVehicleFactory, mapVehicleFactory, currentLoc, aiPlayerNum, weakAiBuildings);
 
 		OffensiveFightGroup offensiveFightGroup(aiPlayerNum, HumanPlayerCount());
 		offensiveFightGroup.Initialize(offensiveGuardedRect, { offenseVehicleFactory }, offensiveTankCount);
@@ -98,10 +98,10 @@ void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
 
 	currentLoc.x = initBaseLoc.x - 12;
 	currentLoc.y = initBaseLoc.y + 16;
-	CreateAIBuilding(unit, mapTokamak, currentLoc, aiPlayerNum, map_id::mapNone, weakAiBuildings);
+	CreateAIBuilding(unit, mapTokamak, currentLoc, aiPlayerNum, weakAiBuildings);
 
 	currentLoc.x += + 3;
-	CreateAIBuilding(unit, mapTokamak, currentLoc, aiPlayerNum, map_id::mapNone, weakAiBuildings);
+	CreateAIBuilding(unit, mapTokamak, currentLoc, aiPlayerNum, weakAiBuildings);
 
 	CreateGuardPostCluster(aiPlayerNum, LOCATION(88 + X_, 127 + Y_), weakAiBuildings);
 	CreateGuardPostCluster(aiPlayerNum, LOCATION(68 + X_, 118 + Y_), weakAiBuildings);
