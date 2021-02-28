@@ -34,7 +34,7 @@ void CreateGuardPostCluster(PlayerNum playerNum, LOCATION loc, std::vector<Unit>
 void SetupBuildingGroup(BuildingGroup& buildingGroup, Unit& structureFactory, Unit& vehicleFactory, 
 	std::vector<Unit>& buildings, PlayerNum playerNum) {
 	
-	MAP_RECT vehicleIdleRect(structureFactory.Location(), structureFactory.Location() + LOCATION(6, 6));
+	MAP_RECT vehicleIdleRect(structureFactory.Location(), structureFactory.Location());
 	vehicleIdleRect.Inflate(5, 5);
 
 	buildingGroup = CreateBuildingGroup(Player[playerNum]);

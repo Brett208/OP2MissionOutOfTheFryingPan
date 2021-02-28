@@ -14,7 +14,6 @@ void BuildNorthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 	Unit structureFactory;
 	CreateAIBuilding(structureFactory, map_id::mapStructureFactory, LOCATION(244 + X_, 100 + Y_), aiPlayerNum, buildings);
 
-	CreateAIBuilding(unit, mapStandardLab, LOCATION(244 + X_, 105 + Y_), aiPlayerNum, buildings);
 	CreateAIBuilding(unit, mapReinforcedResidence, LOCATION(239 + X_, 100 + Y_), aiPlayerNum, buildings);
 	CreateAIBuilding(unit, mapReinforcedResidence, LOCATION(239 + X_, 103 + Y_), aiPlayerNum, buildings);
 	CreateAIBuilding(unit, mapMedicalCenter, LOCATION(236 + X_, 100 + Y_), aiPlayerNum, buildings);
@@ -23,12 +22,17 @@ void BuildNorthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 	CreateAIBuilding(unit, mapDIRT, LOCATION(248 + X_, 103 + Y_), aiPlayerNum, buildings);
 	CreateAIBuilding(unit, mapNursery, LOCATION(252 + X_, 100 + Y_), aiPlayerNum, buildings);
 	CreateAIBuilding(unit, mapUniversity, LOCATION(252 + X_, 103 + Y_), aiPlayerNum, buildings);
+	CreateAIBuilding(unit, mapStandardLab, LOCATION(248 + X_, 100 + Y_), aiPlayerNum, buildings);
+	
 	CreateAIBuilding(unit, mapMHDGenerator, LOCATION(220 + X_, 101 + Y_), aiPlayerNum, buildings);
 	CreateAIBuilding(unit, mapMHDGenerator, LOCATION(224 + X_, 101 + Y_), aiPlayerNum,  buildings);
 
 	Unit vehicleFactory;
 	CreateAIBuilding(vehicleFactory, mapVehicleFactory, LOCATION(244 + X_, 112 + Y_), aiPlayerNum, buildings);
 	CreateAIBuilding(unit, mapVehicleFactory, LOCATION(239 + X_, 112 + Y_), aiPlayerNum, buildings);
+
+	CreateTubeLine(LOCATION(241 + X_, 112 + Y_), LOCATION(252 + X_, 112+ Y_));
+	CreateAIBuilding(unit, mapAdvancedLab, LOCATION(253 + X_, 112 + Y_), aiPlayerNum, buildings);
 
 	CreateCommonMineGroup3Bar(LOCATION(225 + X_, 112 + Y_), aiPlayerNum, buildings);
 

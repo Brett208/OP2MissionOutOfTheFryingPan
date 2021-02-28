@@ -109,6 +109,9 @@ void AIInitialization()
 	Player[aiIndex].GoPlymouth();
 	Player[aiIndex].SetOre(5'000);
 	Player[aiIndex].SetRareOre(3'000);
+	Player[aiIndex].SetKids(200);
+	Player[aiIndex].SetWorkers(200);
+	Player[aiIndex].SetScientists(200);
 	BuildAIBase(aiIndex, AIWeakBaseLoc);
 	BuildNorthAIBase(aiIndex, AINorthBaseLoc);
 	BuildSouthAIBase(aiIndex, AISouthBaseLoc);
