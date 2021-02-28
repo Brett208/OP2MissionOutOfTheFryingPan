@@ -37,7 +37,7 @@ void SetupBuildingGroup(BuildingGroup& buildingGroup, Unit& structureFactory, Un
 	buildingGroup = CreateBuildingGroup(Player[playerNum]);
 
 	Unit unit;
-	TethysGame::CreateUnit(unit,map_id::mapConVec, idleRect.RandPt(), playerNum, mapNone, South);
+	TethysGame::CreateUnit(unit, map_id::mapConVec, idleRect.RandPt(), playerNum, mapNone, South);
 	unit.DoSetLights(true);
 	buildingGroup.TakeUnit(unit);
 	TethysGame::CreateUnit(unit, map_id::mapConVec, idleRect.RandPt(), playerNum, mapNone, South);
