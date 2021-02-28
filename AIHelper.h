@@ -9,7 +9,7 @@ void CreateAIBuilding(Unit& unit, map_id unitType, LOCATION loc, PlayerNum playe
 void CreateGuardPostCluster(PlayerNum playerNum, LOCATION loc, std::vector<Unit>& buildings);
 
 void SetupBuildingGroup(BuildingGroup& buildingGroup, Unit& structreFactory, Unit& vehicleFactory,
-	std::vector<Unit>& buildings, PlayerNum playerNum, MAP_RECT idleRect);
+	std::vector<Unit>& buildings, PlayerNum playerNum);
 
 // Creates 2 smelters north of the mining beacon
 void CreateCommonMineGroup3Bar(LOCATION beaconLocation, PlayerNum playerNum, std::vector<Unit>& buildings);
@@ -17,5 +17,4 @@ void CreateCommonMineGroup3Bar(LOCATION beaconLocation, PlayerNum playerNum, std
 // Creates 2 smelters north of the mining beacon
 void CreateRareMineGroup3Bar(LOCATION beaconLocation, PlayerNum playerNum, std::vector<Unit>& buildings);
 
-void SetupMiningGroup(MiningGroup& miningGroupOut, Unit& mine, Unit& smelter, 
-	MAP_RECT& oreIdleRect, int truckCount, PlayerNum playerNum);
+void SetupMiningGroup(MiningGroup& miningGroupOut, Unit& mine, Unit& smelter, int truckCount, PlayerNum playerNum);

@@ -32,24 +32,27 @@ void CreateGuardPostCluster(PlayerNum playerNum, LOCATION loc, std::vector<Unit>
 }
 
 void SetupBuildingGroup(BuildingGroup& buildingGroup, Unit& structureFactory, Unit& vehicleFactory, 
-	std::vector<Unit>& buildings, PlayerNum playerNum, MAP_RECT idleRect) {
+	std::vector<Unit>& buildings, PlayerNum playerNum) {
 	
+	MAP_RECT vehicleIdleRect(structureFactory.Location(), structureFactory.Location() + LOCATION(6, 6));
+	vehicleIdleRect.Inflate(5, 5);
+
 	buildingGroup = CreateBuildingGroup(Player[playerNum]);
 
 	Unit unit;
-	TethysGame::CreateUnit(unit, map_id::mapConVec, idleRect.RandPt(), playerNum, mapNone, South);
+	TethysGame::CreateUnit(unit, map_id::mapConVec, vehicleIdleRect.RandPt(), playerNum, mapNone, South);
 	unit.DoSetLights(true);
 	buildingGroup.TakeUnit(unit);
-	TethysGame::CreateUnit(unit, map_id::mapConVec, idleRect.RandPt(), playerNum, mapNone, South);
+	TethysGame::CreateUnit(unit, map_id::mapConVec, vehicleIdleRect.RandPt(), playerNum, mapNone, South);
 	unit.DoSetLights(true);
 	buildingGroup.TakeUnit(unit);
-	TethysGame::CreateUnit(unit, map_id::mapEarthworker, idleRect.RandPt(), playerNum, mapNone, South);
+	TethysGame::CreateUnit(unit, map_id::mapEarthworker, vehicleIdleRect.RandPt(), playerNum, mapNone, South);
 	unit.DoSetLights(true);
 	buildingGroup.TakeUnit(unit);
 
 	buildingGroup.TakeUnit(structureFactory);
 	buildingGroup.TakeUnit(vehicleFactory);
-	buildingGroup.SetRect(idleRect);
+	buildingGroup.SetRect(vehicleIdleRect);
 
 	for (Unit building : buildings)
 	{
@@ -83,20 +86,19 @@ namespace {
 		CreateAIBuilding(smelter, smelterType, beaconLocation + LOCATION(-2, -4), playerNum, buildings);
 		CreateAIBuilding(smelter2, smelterType, beaconLocation + LOCATION(3, -4), playerNum, buildings);
 
-		MAP_RECT miningIdleRect(beaconLocation.x - 5, beaconLocation.y - 5, beaconLocation.x + 5, beaconLocation.y + 5);
-
 		MiningGroup miningGroup;
-		SetupMiningGroup(miningGroup, mine, smelter, miningIdleRect, 3, playerNum);
-		SetupMiningGroup(miningGroup, mine, smelter, miningIdleRect, 3, playerNum);
+		SetupMiningGroup(miningGroup, mine, smelter, 3, playerNum);
+		SetupMiningGroup(miningGroup, mine, smelter, 3, playerNum);
 	}
 }
 
-void SetupMiningGroup(MiningGroup& miningGroupOut, Unit& mine, Unit& smelter, 
-	MAP_RECT& oreIdleRect, int truckCount, PlayerNum playerNum)
+void SetupMiningGroup(MiningGroup& miningGroupOut, Unit& mine, Unit& smelter, int truckCount, PlayerNum playerNum)
 {
 	miningGroupOut = CreateMiningGroup(Player[playerNum]);
 
-	//const LOCATION smelterLoc = smelter.Location();
+	MAP_RECT oreIdleRect(smelter.Location(), smelter.Location());
+	oreIdleRect.Inflate(5, 5);
+
 	miningGroupOut.Setup(mine, smelter, oreIdleRect);
 
 	Unit truck;

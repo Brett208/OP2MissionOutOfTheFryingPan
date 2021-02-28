@@ -21,8 +21,8 @@ void BuildNorthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 	CreateAIBuilding(unit, mapAgridome, LOCATION(235 + X_, 103 + Y_), aiPlayerNum, buildings);
 	CreateAIBuilding(unit, mapDIRT, LOCATION(248 + X_, 100 + Y_), aiPlayerNum, buildings);
 	CreateAIBuilding(unit, mapDIRT, LOCATION(248 + X_, 103 + Y_), aiPlayerNum, buildings);
-	CreateAIBuilding(unit, mapNursery, LOCATION(251 + X_, 100 + Y_), aiPlayerNum, buildings);
-	CreateAIBuilding(unit, mapUniversity, LOCATION(251 + X_, 103 + Y_), aiPlayerNum, buildings);
+	CreateAIBuilding(unit, mapNursery, LOCATION(252 + X_, 100 + Y_), aiPlayerNum, buildings);
+	CreateAIBuilding(unit, mapUniversity, LOCATION(252 + X_, 103 + Y_), aiPlayerNum, buildings);
 	CreateAIBuilding(unit, mapMHDGenerator, LOCATION(220 + X_, 101 + Y_), aiPlayerNum, buildings);
 	CreateAIBuilding(unit, mapMHDGenerator, LOCATION(224 + X_, 101 + Y_), aiPlayerNum,  buildings);
 
@@ -52,6 +52,5 @@ void BuildNorthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 	CreateTubeLine(LOCATION(237 + X_, 110 + Y_), LOCATION(228 + X_, 110 + Y_));
 
 	BuildingGroup buildingGroup;
-	MAP_RECT buidlingIdleRect(initBaseLoc.x - 6, initBaseLoc.y, initBaseLoc.x + 8, initBaseLoc.y + 6);
-	SetupBuildingGroup(buildingGroup, structureFactory, vehicleFactory, buildings, aiPlayerNum, buidlingIdleRect);
+	SetupBuildingGroup(buildingGroup, structureFactory, vehicleFactory, buildings, aiPlayerNum);
 }

@@ -60,8 +60,7 @@ void BuildSouthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 	CreateTubeLine(LOCATION(initBaseLoc.x + 2, initBaseLoc.y), LOCATION(247 + X_, initBaseLoc.y));
 
 	BuildingGroup buildingGroup;
-	MAP_RECT buidlingIdleRect(initBaseLoc.x - 10, initBaseLoc.y - 7, initBaseLoc.x - 1, initBaseLoc.y - 3);
-	SetupBuildingGroup(buildingGroup, structureFactory, vehicleFactory, buildings, aiPlayerNum, buidlingIdleRect);
+	SetupBuildingGroup(buildingGroup, structureFactory, vehicleFactory, buildings, aiPlayerNum);
 }
 
 void CreateGuardPosterClusters(PlayerNum aiPlayerNum, const LOCATION center, std::vector<Unit>& southBuildings)
