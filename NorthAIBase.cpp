@@ -1,12 +1,16 @@
 #include "NorthAIBase.h"
+#include "DefensiveFightGroup.h"
 #include "AIHelper.h"
 #include "AIPlayer.h"
+#include "StrongBasesShared.h"
 #include "HFL/Source/HFL.h"
 #include "OP2Helper/OP2Helper.h"
 #include <vector>
 
+
 void BuildNorthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc) 
 { 
+	std::vector<Unit> defensiveVehicleFactories;
 	std::vector<Unit> buildings;
 	Unit unit;
 
@@ -30,6 +34,7 @@ void BuildNorthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 	Unit vehicleFactory;
 	CreateAIBuilding(vehicleFactory, mapVehicleFactory, LOCATION(244 + X_, 112 + Y_), aiPlayerNum, buildings);
 	CreateAIBuilding(unit, mapVehicleFactory, LOCATION(239 + X_, 112 + Y_), aiPlayerNum, buildings);
+	defensiveVehicleFactories.push_back(unit);
 
 	CreateTubeLine(LOCATION(241 + X_, 112 + Y_), LOCATION(252 + X_, 112+ Y_));
 	CreateAIBuilding(unit, mapAdvancedLab, LOCATION(253 + X_, 112 + Y_), aiPlayerNum, buildings);
@@ -57,4 +62,8 @@ void BuildNorthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 
 	BuildingGroup buildingGroup;
 	SetupBuildingGroup(buildingGroup, structureFactory, vehicleFactory, buildings, aiPlayerNum);
+
+	MAP_RECT defensiveRectPerimeter({ 214 + X_, 78 + Y_ }, { 235 + X_, 91 + Y_ });
+	MAP_RECT defensiveRectInBase({ 217 + X_, 96 + Y_ }, { 255 + X_, 131 + Y_ });
+	SetupDefensiveFightGroups(aiPlayerNum, defensiveVehicleFactories, defensiveRectPerimeter, defensiveRectInBase);
 }

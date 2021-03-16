@@ -1,11 +1,13 @@
 #include "SouthAIBase.h"
 #include "AIHelper.h"
 #include "AIPlayer.h"
+#include "StrongBasesShared.h"
 #include "HFL/Source/HFL.h"
 #include "OP2Helper/OP2Helper.h"
 
 void BuildSouthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 {
+	std::vector<Unit> defensiveVehicleFactories;
 	std::vector<Unit> buildings;
 	Unit unit;
 
@@ -33,9 +35,9 @@ void BuildSouthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 	CreateAIBuilding(unit, mapAdvancedLab, LOCATION(initBaseLoc.x, 152 + Y_), aiPlayerNum, buildings);
 
 	Unit vehicleFactory;
-	Unit defensiveVehicleFactory;
 	CreateAIBuilding(vehicleFactory, mapVehicleFactory, LOCATION(250 + X_, initBaseLoc.y), aiPlayerNum, buildings);
-	CreateAIBuilding(defensiveVehicleFactory, mapVehicleFactory, LOCATION(250 + X_, initBaseLoc.y - 4), aiPlayerNum, buildings);
+	CreateAIBuilding(unit, mapVehicleFactory, LOCATION(250 + X_, initBaseLoc.y - 4), aiPlayerNum, buildings);
+	defensiveVehicleFactories.push_back(unit);
 
 	CreateCommonMineGroup3Bar(LOCATION(247 + X_, 188 + Y_), aiPlayerNum, buildings);
 
@@ -43,11 +45,11 @@ void BuildSouthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 	LOCATION tubeStartLoc = buildings[buildings.size() - 2].Location() - LOCATION(3, 0);
 	CreateTubeLine(tubeStartLoc, tubeStartLoc - LOCATION(4, 0));
 
-	CreateGuardPostCluster(aiPlayerNum, LOCATION(214 + X_, 181 + Y_), buildings);
-	CreateGuardPostCluster(aiPlayerNum, LOCATION(220 + X_, 185 + Y_), buildings);
-	CreateGuardPostCluster(aiPlayerNum, LOCATION(226 + X_, 189 + Y_), buildings);
-	CreateGuardPostCluster(aiPlayerNum, LOCATION(232 + X_, 193 + Y_), buildings);
-	CreateGuardPostCluster(aiPlayerNum, LOCATION(238 + X_, 197 + Y_), buildings);
+	CreateGuardPostCluster(aiPlayerNum, LOCATION(210 + X_, 181 + Y_), buildings);
+	CreateGuardPostCluster(aiPlayerNum, LOCATION(216 + X_, 185 + Y_), buildings);
+	CreateGuardPostCluster(aiPlayerNum, LOCATION(222 + X_, 189 + Y_), buildings);
+	CreateGuardPostCluster(aiPlayerNum, LOCATION(228 + X_, 193 + Y_), buildings);
+	CreateGuardPostCluster(aiPlayerNum, LOCATION(234 + X_, 197 + Y_), buildings);
 
 	CreateGuardPostCluster(aiPlayerNum, LOCATION(initBaseLoc.x - 5, initBaseLoc.y - 2), buildings);
 	CreateGuardPostCluster(aiPlayerNum, LOCATION(initBaseLoc.x, initBaseLoc.y + 2), buildings);
@@ -62,6 +64,10 @@ void BuildSouthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 
 	BuildingGroup buildingGroup;
 	SetupBuildingGroup(buildingGroup, structureFactory, vehicleFactory, buildings, aiPlayerNum);
+
+	MAP_RECT defensiveRectPerimeter({ 189 + X_, 181 + Y_ }, { 205 + X_, 217 + Y_ });
+	MAP_RECT defensiveRectInBase({ 218 + X_, 143 + Y_ }, { 256 + X_, 192 + Y_ });
+	SetupDefensiveFightGroups(aiPlayerNum, defensiveVehicleFactories, defensiveRectPerimeter, defensiveRectInBase);
 }
 
 void CreateGuardPosterClusters(PlayerNum aiPlayerNum, const LOCATION center, std::vector<Unit>& southBuildings)
