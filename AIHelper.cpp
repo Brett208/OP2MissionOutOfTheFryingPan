@@ -88,7 +88,7 @@ namespace {
 
 		MiningGroup miningGroup;
 		SetupMiningGroup(miningGroup, mine, smelter, 3, playerNum);
-		SetupMiningGroup(miningGroup, mine, smelter, 3, playerNum);
+		SetupMiningGroup(miningGroup, mine, smelter2, 3, playerNum);
 	}
 }
 
