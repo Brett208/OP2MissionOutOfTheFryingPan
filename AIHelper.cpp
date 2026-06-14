@@ -32,7 +32,7 @@ void CreateGuardPostCluster(PlayerNum playerNum, LOCATION loc, std::vector<Unit>
 }
 
 void SetupBuildingGroup(BuildingGroup& buildingGroup, Unit& structureFactory, Unit& vehicleFactory, 
-	std::vector<Unit>& buildings, PlayerNum playerNum) {
+	std::vector<Unit>& buildings, PlayerNum playerNum, BuildingGroupOptions buildingGroupOptions) {
 	
 	MAP_RECT vehicleIdleRect(structureFactory.Location(), structureFactory.Location());
 	vehicleIdleRect.Inflate(5, 5);
@@ -40,15 +40,18 @@ void SetupBuildingGroup(BuildingGroup& buildingGroup, Unit& structureFactory, Un
 	buildingGroup = CreateBuildingGroup(Player[playerNum]);
 
 	Unit unit;
-	TethysGame::CreateUnit(unit, map_id::mapConVec, vehicleIdleRect.RandPt(), playerNum, mapNone, South);
-	unit.DoSetLights(true);
-	buildingGroup.TakeUnit(unit);
-	TethysGame::CreateUnit(unit, map_id::mapConVec, vehicleIdleRect.RandPt(), playerNum, mapNone, South);
-	unit.DoSetLights(true);
-	buildingGroup.TakeUnit(unit);
-	TethysGame::CreateUnit(unit, map_id::mapEarthworker, vehicleIdleRect.RandPt(), playerNum, mapNone, South);
-	unit.DoSetLights(true);
-	buildingGroup.TakeUnit(unit);
+	for (int i = 0; i < buildingGroupOptions.conVecCount; ++i)
+	{
+		TethysGame::CreateUnit(unit, map_id::mapConVec, vehicleIdleRect.RandPt(), playerNum, mapNone, South);
+		unit.DoSetLights(true);
+		buildingGroup.TakeUnit(unit);
+	}
+	for (int i = 0; i < buildingGroupOptions.earthworkerCount; ++i)
+	{
+		TethysGame::CreateUnit(unit, map_id::mapEarthworker, vehicleIdleRect.RandPt(), playerNum, mapNone, South);
+		unit.DoSetLights(true);
+		buildingGroup.TakeUnit(unit);
+	}
 
 	buildingGroup.TakeUnit(structureFactory);
 	buildingGroup.TakeUnit(vehicleFactory);

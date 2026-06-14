@@ -65,7 +65,15 @@ void BuildSouthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 	CreateTubeLine(LOCATION(initBaseLoc.x + 2, initBaseLoc.y), LOCATION(247 + X_, initBaseLoc.y));
 
 	BuildingGroup buildingGroup;
-	SetupBuildingGroup(buildingGroup, structureFactory, vehicleFactory, buildings, aiPlayerNum);
+	SetupBuildingGroup(buildingGroup, structureFactory, vehicleFactory, buildings, aiPlayerNum, BuildingGroupOptions{ 1, 2 });
+
+	RecordTubeLine(buildingGroup, LOCATION(241 + X_, 183 + Y_), LOCATION(241 + X_, 202 + Y_));
+	RecordTubeLine(buildingGroup, LOCATION(235 + X_, 196 + Y_), LOCATION(241 + X_, 196 + Y_));
+	RecordTubeLine(buildingGroup, LOCATION(229 + X_, 192 + Y_), LOCATION(235 + X_, 195 + Y_));
+	RecordTubeLine(buildingGroup, LOCATION(223 + X_, 188 + Y_), LOCATION(229 + X_, 191 + Y_));
+	RecordTubeLine(buildingGroup, LOCATION(217 + X_, 184 + Y_), LOCATION(223 + X_, 187 + Y_));
+	RecordTubeLine(buildingGroup, LOCATION(211 + X_, 180 + Y_), LOCATION(217 + X_, 185 + Y_));
+	RecordTubeLine(buildingGroup, LOCATION(217 + X_, 179 + Y_), LOCATION(223 + X_, 179 + Y_));
 
 	MAP_RECT defensiveRectPerimeter({ 189 + X_, 181 + Y_ }, { 205 + X_, 217 + Y_ });
 	MAP_RECT defensiveRectInBase({ 218 + X_, 143 + Y_ }, { 256 + X_, 192 + Y_ });

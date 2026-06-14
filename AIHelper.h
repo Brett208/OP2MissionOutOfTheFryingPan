@@ -4,12 +4,18 @@
 #include "Outpost2DLL/Outpost2DLL.h"
 #include <vector>
 
+struct BuildingGroupOptions
+{
+	int conVecCount = 2;
+	int earthworkerCount = 1;
+};
+
 void CreateAIBuilding(Unit& unit, map_id unitType, LOCATION loc, PlayerNum playerNum, std::vector<Unit>& buildings);
 
 void CreateGuardPostCluster(PlayerNum playerNum, LOCATION loc, std::vector<Unit>& buildings);
 
-void SetupBuildingGroup(BuildingGroup& buildingGroup, Unit& structreFactory, Unit& vehicleFactory,
-	std::vector<Unit>& buildings, PlayerNum playerNum);
+void SetupBuildingGroup(BuildingGroup& buildingGroup, Unit& structureFactory, Unit& vehicleFactory,
+	std::vector<Unit>& buildings, PlayerNum playerNum, BuildingGroupOptions buildingGroupOptions = BuildingGroupOptions());
 
 // Creates 2 smelters north of the mining beacon
 void CreateCommonMineGroup3Bar(LOCATION beaconLocation, PlayerNum playerNum, std::vector<Unit>& buildings);
