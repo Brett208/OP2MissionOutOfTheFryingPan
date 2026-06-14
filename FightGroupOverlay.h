@@ -36,7 +36,7 @@ protected:
 	
 	void BasicAttack();
 	FightGroup GetFightGroup();
-	int targetCount;
+	int targetCount = 0;
 
 private:
 	MAP_RECT guardedRect;

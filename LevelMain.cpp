@@ -40,7 +40,7 @@ const int disastersAndMoraleTimer = 20'000;
 
 
 
-void FreeMorale(int playerIndex)
+static void FreeMorale(int playerIndex)
 {
 	Unit unit;
 	moraleFree[playerIndex] = true;
@@ -48,7 +48,7 @@ void FreeMorale(int playerIndex)
 	TethysGame::AddMessage(unit, "Morale is wavering, Good Luck Commander!", playerIndex, SoundID::sndMessage2);
 }
 
-void CheckMorale()
+static void CheckMorale()
 {
 	for (int i = 0; i < HumanPlayerCount(); ++i) {
 		if (moraleFree[i]) {
@@ -73,7 +73,7 @@ void CheckMorale()
 	}
 }
 
-void AddVictoryConditions()
+static void AddVictoryConditions()
 {
 	Trigger trigger;
 
@@ -117,7 +117,7 @@ void AIInitialization()
 	BuildSouthAIBase(aiIndex, AISouthBaseLoc);
 }
 
-void InitializeDisasterHelper()
+static void InitializeDisasterHelper()
 {
 	disasterHelper.SetMapProperties(LOCATION(80, 0), LOCATION(256, 256), false);
 }
@@ -193,7 +193,7 @@ Export void CreateDisaster()
 
 Export void NoResponseToTrigger() {}	//Optional function export, supposed to be empty
 
-bool VechicleFactoryExists(const LOCATION& location)
+static bool VehicleFactoryExists(const LOCATION& location)
 {
 	LocationEnumerator locEnum(location);
 
