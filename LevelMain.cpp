@@ -163,6 +163,8 @@ Export int InitProc()
 	CreateMicrobeWallLine(LOCATION(39 + X_, 126 + Y_), LOCATION(64 + X_, 126 + Y_));
 	AddVictoryConditions();
 	Trigger BlightTrigger = CreateTimeTrigger(true, true, 1, 1, "SpawnBlight");
+
+	Trigger FirstAttackTrigger = CreateTimeTrigger(true, true, 25'000, "WeakBaseAttackTrigger");
 	
 	return true;
 }
@@ -179,6 +181,11 @@ Export void SpawnBlight()
 	GameMap::SetVirusUL(blightSpawnLoc, 1); // Spawn the blight
 	TethysGame::SetMicrobeSpreadSpeed(60);
 	AddMapMessage("The Blight is Approaching", blightSpawnLoc, 152, PlayerAll);
+}
+
+Export void WeakBaseAttackTrigger()
+{
+	weakBaseCanAttack = true;
 }
 
 Export void CreateDisaster()

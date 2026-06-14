@@ -10,6 +10,7 @@
 #include <vector>
 
 
+bool weakBaseCanAttack = false;
 int GetDefensiveTankCount();
 std::vector<std::unique_ptr<OffensiveFightGroup>> offensiveFightGroups;
 std::vector<Unit> defensiveVehicleFactories;
@@ -23,7 +24,7 @@ void UpdateWeakAIBase()
 {
 	for (auto& offensiveFightGroup : offensiveFightGroups) {
 		offensiveFightGroup->UpdateTaskedFightGroups();
-		if (offensiveFightGroup->IsFull()) {
+		if (offensiveFightGroup->IsFull() && weakBaseCanAttack) {
 			offensiveFightGroup->Attack(offensiveTankCount);
 		}
 	}
