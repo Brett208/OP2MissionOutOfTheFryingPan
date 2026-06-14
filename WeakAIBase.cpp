@@ -103,12 +103,14 @@ void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
 	currentLoc.x += +3;
 	CreateAIBuilding(unit, mapTokamak, currentLoc, aiPlayerNum, weakAiBuildings);
 
-	CreateGuardPostCluster(aiPlayerNum, LOCATION(88 + X_, 127 + Y_), weakAiBuildings);
+	CreateGuardPostCluster(aiPlayerNum, LOCATION(88 + X_, 125 + Y_), weakAiBuildings);
 	CreateGuardPostCluster(aiPlayerNum, LOCATION(68 + X_, 118 + Y_), weakAiBuildings);
 	CreateGuardPostCluster(aiPlayerNum, LOCATION(80 + X_, 118 + Y_), weakAiBuildings);
-	CreateGuardPostCluster(aiPlayerNum, LOCATION(85 + X_, 138 + Y_), weakAiBuildings);
-	CreateGuardPostCluster(aiPlayerNum, LOCATION(80 + X_, 152 + Y_), weakAiBuildings);
-	CreateGuardPostCluster(aiPlayerNum, LOCATION(66 + X_, 152 + Y_), weakAiBuildings);
+	CreateGuardPostCluster(aiPlayerNum, LOCATION(87 + X_, 133 + Y_), weakAiBuildings);
+	CreateGuardPostCluster(aiPlayerNum, LOCATION(82 + X_, 152 + Y_), weakAiBuildings);
+	CreateGuardPostCluster(aiPlayerNum, LOCATION(72 + X_, 156 + Y_), weakAiBuildings);
+	CreateGuardPostCluster(aiPlayerNum, LOCATION(85 + X_, 143 + Y_), weakAiBuildings);
+	CreateGuardPostCluster(aiPlayerNum, LOCATION(62 + X_, 161 + Y_), weakAiBuildings);
 
 
 	CreateTubeLine(initBaseLoc + LOCATION(0, -3), initBaseLoc + LOCATION(0, -1));

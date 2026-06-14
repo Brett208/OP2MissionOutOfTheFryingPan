@@ -54,6 +54,7 @@ void BuildNorthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 	CreateGuardPostCluster(aiPlayerNum, LOCATION(238 + X_, 121 + Y_), buildings);
 	CreateGuardPostCluster(aiPlayerNum, LOCATION(248 + X_, 121 + Y_), buildings);
 	CreateGuardPostCluster(aiPlayerNum, LOCATION(243 + X_, 116 + Y_), buildings);
+	CreateGuardPostCluster(aiPlayerNum, LOCATION(243 + X_, 124 + Y_), buildings);
 
 	TethysGame::CreateWallOrTube(242 + X_, 122 + Y_, 0, map_id::mapTube);
 	TethysGame::CreateWallOrTube(247 + X_, 122 + Y_, 0, map_id::mapTube);

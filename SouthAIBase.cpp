@@ -51,6 +51,7 @@ void BuildSouthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 	CreateGuardPostCluster(aiPlayerNum, LOCATION(222 + X_, 189 + Y_), buildings);
 	CreateGuardPostCluster(aiPlayerNum, LOCATION(228 + X_, 193 + Y_), buildings);
 	CreateGuardPostCluster(aiPlayerNum, LOCATION(234 + X_, 197 + Y_), buildings);
+	CreateGuardPostCluster(aiPlayerNum, LOCATION(239 + X_, 202 + Y_), buildings);
 
 	CreateGuardPostCluster(aiPlayerNum, LOCATION(initBaseLoc.x - 5, initBaseLoc.y - 2), buildings);
 	CreateGuardPostCluster(aiPlayerNum, LOCATION(initBaseLoc.x, initBaseLoc.y + 2), buildings);
