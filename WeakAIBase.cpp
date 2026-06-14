@@ -93,11 +93,14 @@ void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
 		currentLoc.y += + 4;
 	}
 
-	currentLoc.x = initBaseLoc.x - 12;
+	currentLoc.x = initBaseLoc.x - 15;
 	currentLoc.y = initBaseLoc.y + 16;
 	CreateAIBuilding(unit, mapTokamak, currentLoc, aiPlayerNum, weakAiBuildings);
 
 	currentLoc.x += + 3;
+	CreateAIBuilding(unit, mapTokamak, currentLoc, aiPlayerNum, weakAiBuildings);
+
+	currentLoc.x += +3;
 	CreateAIBuilding(unit, mapTokamak, currentLoc, aiPlayerNum, weakAiBuildings);
 
 	CreateGuardPostCluster(aiPlayerNum, LOCATION(88 + X_, 127 + Y_), weakAiBuildings);

@@ -29,6 +29,7 @@ void BuildSouthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 	CreateAIBuilding(unit, mapNursery, LOCATION(223 + X_, 174 + Y_), aiPlayerNum, buildings);
 	CreateAIBuilding(unit, mapUniversity, LOCATION(223 + X_, 177 + Y_), aiPlayerNum, buildings);
 
+	CreateAIBuilding(unit, mapMHDGenerator, LOCATION(252 + X_, 144 + Y_), aiPlayerNum, buildings);
 	CreateAIBuilding(unit, mapMHDGenerator, LOCATION(252 + X_, 148 + Y_), aiPlayerNum, buildings);
 	CreateAIBuilding(unit, mapMHDGenerator, LOCATION(252 + X_, 152 + Y_), aiPlayerNum, buildings);
 
