@@ -45,7 +45,7 @@ void FreeMorale(int playerIndex)
 	Unit unit;
 	moraleFree[playerIndex] = true;
 	TethysGame::FreeMoraleLevel(playerIndex);
-	TethysGame::AddMessage(unit, "Morale is waivering, Good Luck Commander!", playerIndex, SoundID::sndMessage2);
+	TethysGame::AddMessage(unit, "Morale is wavering, Good Luck Commander!", playerIndex, SoundID::sndMessage2);
 }
 
 void CheckMorale()
@@ -142,7 +142,7 @@ Export int InitProc()
 
 	TethysGame::ForceMoraleGood(PlayerNum::PlayerAll);
 	
-	// To stablize Blight force night cycle always active
+	// To stabilize the spread of the Blight, force night cycle always active
 	TethysGame::SetDaylightEverywhere(false);
 	TethysGame::SetDaylightMoves(true);
 	GameMap::SetInitialLightLevel(TethysGame::GetRand(128));

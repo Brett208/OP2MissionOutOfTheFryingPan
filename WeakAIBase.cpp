@@ -34,7 +34,7 @@ void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
 	LOCATION currentLoc = initBaseLoc;
 	Unit unit;
 
-	CreateAIBuilding(unit, mapCommandCenter, initBaseLoc, aiPlayerNum, weakAiBuildings);//ComandCenter
+	CreateAIBuilding(unit, mapCommandCenter, initBaseLoc, aiPlayerNum, weakAiBuildings);
 
 	currentLoc.x = initBaseLoc.x + 5;
 	Unit structureFactory;

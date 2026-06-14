@@ -131,6 +131,10 @@
   <ItemGroup>
     <ResourceCompile Include="OutOfTheFryingPan.rc" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include=".editorconfig" />
+    <None Include="exclusion.dic" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
