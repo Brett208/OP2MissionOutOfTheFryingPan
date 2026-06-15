@@ -4,6 +4,12 @@
 #include "Outpost2DLL/Outpost2DLL.h"
 #include <vector>
 
+struct GuardPostData
+{
+	LOCATION relativeLoc;
+	map_id weapon;
+};
+
 struct BuildingGroupOptions
 {
 	int conVecCount = 2;
@@ -12,7 +18,9 @@ struct BuildingGroupOptions
 
 void CreateAIBuilding(Unit& unit, map_id unitType, LOCATION loc, PlayerNum playerNum, std::vector<Unit>& buildings);
 
-void CreateGuardPostCluster(PlayerNum playerNum, LOCATION loc, std::vector<Unit>& buildings);
+void CreateGuardPostCluster(PlayerNum playerNum, LOCATION loc, const std::vector<GuardPostData>& guardPosts, std::vector<Unit>& buildings);
+
+void RecordGuardPostCluster(LOCATION loc, const std::vector<GuardPostData>& guardPosts, BuildingGroup& buildingGroup);
 
 void SetupBuildingGroup(BuildingGroup& buildingGroup, Unit& structureFactory, Unit& vehicleFactory,
 	std::vector<Unit>& buildings, PlayerNum playerNum, BuildingGroupOptions buildingGroupOptions = BuildingGroupOptions());

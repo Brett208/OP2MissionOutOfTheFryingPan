@@ -15,20 +15,23 @@ void CreateAIBuilding(Unit& unit, map_id unitType, LOCATION loc, PlayerNum playe
 	buildings.push_back(unit);
 }
 
-void CreateGuardPostCluster(PlayerNum playerNum, LOCATION loc, std::vector<Unit>& buildings) 
+void CreateGuardPostCluster(PlayerNum playerNum, LOCATION loc, const std::vector<GuardPostData>& guardPosts, std::vector<Unit>& buildings) 
 {
 	Unit unit;
-	TethysGame::CreateUnit(unit, mapGuardPost, loc, playerNum, mapEMP, South);
-	buildings.push_back(unit);
+	for (const auto& guardPostData : guardPosts)
+	{
+		TethysGame::CreateUnit(unit, mapGuardPost, loc + guardPostData.relativeLoc, playerNum, guardPostData.weapon, South);
+		buildings.push_back(unit);
+	}
+}
 
-	loc.y += 2;
-	TethysGame::CreateUnit(unit, mapGuardPost, loc, playerNum, mapESG, South);
-	buildings.push_back(unit);
-
-	loc.x += 2;
-	loc.y -= 1;
-	TethysGame::CreateUnit(unit, mapGuardPost, loc, playerNum, mapStickyfoam, South);
-	buildings.push_back(unit);
+void RecordGuardPostCluster(LOCATION loc, const std::vector<GuardPostData>& guardPosts, BuildingGroup& buildingGroup)
+{
+	Unit unit;
+	for (const auto& guardPostData : guardPosts)
+	{
+		buildingGroup.RecordBuilding(loc + guardPostData.relativeLoc, mapGuardPost, guardPostData.weapon);
+	}
 }
 
 void SetupBuildingGroup(BuildingGroup& buildingGroup, Unit& structureFactory, Unit& vehicleFactory, 

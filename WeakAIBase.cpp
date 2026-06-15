@@ -8,6 +8,7 @@
 #include "Outpost2DLL/Outpost2DLL.h"
 #include <memory>
 #include <vector>
+#include "AIBaseShared.h"
 
 
 bool weakBaseCanAttack = false;
@@ -30,7 +31,7 @@ void UpdateWeakAIBase()
 	}
 }
 
-void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
+void BuildAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 {
 	LOCATION currentLoc = initBaseLoc;
 	Unit unit;
@@ -104,15 +105,14 @@ void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc)
 	currentLoc.x += +3;
 	CreateAIBuilding(unit, mapTokamak, currentLoc, aiPlayerNum, weakAiBuildings);
 
-	CreateGuardPostCluster(aiPlayerNum, LOCATION(88 + X_, 125 + Y_), weakAiBuildings);
-	CreateGuardPostCluster(aiPlayerNum, LOCATION(68 + X_, 118 + Y_), weakAiBuildings);
-	CreateGuardPostCluster(aiPlayerNum, LOCATION(80 + X_, 118 + Y_), weakAiBuildings);
-	CreateGuardPostCluster(aiPlayerNum, LOCATION(87 + X_, 133 + Y_), weakAiBuildings);
-	CreateGuardPostCluster(aiPlayerNum, LOCATION(82 + X_, 152 + Y_), weakAiBuildings);
-	CreateGuardPostCluster(aiPlayerNum, LOCATION(72 + X_, 156 + Y_), weakAiBuildings);
-	CreateGuardPostCluster(aiPlayerNum, LOCATION(85 + X_, 143 + Y_), weakAiBuildings);
-	CreateGuardPostCluster(aiPlayerNum, LOCATION(62 + X_, 161 + Y_), weakAiBuildings);
-
+	CreatePlymouthGuardPostCluster(LOCATION(88 + X_, 125 + Y_), weakAiBuildings);
+	CreatePlymouthGuardPostCluster(LOCATION(68 + X_, 118 + Y_), weakAiBuildings);
+	CreatePlymouthGuardPostCluster(LOCATION(80 + X_, 118 + Y_), weakAiBuildings);
+	CreatePlymouthGuardPostCluster(LOCATION(87 + X_, 133 + Y_), weakAiBuildings);
+	CreatePlymouthGuardPostCluster(LOCATION(82 + X_, 152 + Y_), weakAiBuildings);
+	CreatePlymouthGuardPostCluster(LOCATION(72 + X_, 156 + Y_), weakAiBuildings);
+	CreatePlymouthGuardPostCluster(LOCATION(85 + X_, 143 + Y_), weakAiBuildings);
+	CreatePlymouthGuardPostCluster(LOCATION(62 + X_, 161 + Y_), weakAiBuildings);
 
 	CreateTubeLine(initBaseLoc + LOCATION(0, -3), initBaseLoc + LOCATION(0, -1));
 	CreateTubeLine(initBaseLoc + LOCATION(0, 1), initBaseLoc + LOCATION(0, 5));

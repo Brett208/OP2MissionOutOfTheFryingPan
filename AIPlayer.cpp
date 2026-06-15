@@ -24,30 +24,30 @@ PlayerNum GetAIIndex()
 	throw std::runtime_error("No AI player detected");
 }
 
-	//Note: Scenario must have 5 or fewer human players to work.
-	PlayerColor GetAIColor(bool allowBlack)
-	{
-		int totalColors = 6;
-		if (allowBlack) {
-			totalColors++;
-		}
-
-		std::vector<int> availableColors;
-		for (int i = 0; i < totalColors; ++i) {
-			availableColors.push_back(i);
-		}
-
-		for (int i = 0; i < TethysGame::NoPlayers() - 1; ++i)
-		{
-			availableColors.erase(
-				std::remove(availableColors.begin(), availableColors.end(), ExtPlayer[i].GetColorNumber()), availableColors.end());
-		}
-
-		if (availableColors.size() == 0) {
-			return PlayerColor::PlayerBlue;
-		}
-
-		const int colorIndex = TethysGame::GetRand(availableColors.size());
-
-		return static_cast<PlayerColor>(availableColors[colorIndex]);
+//Note: Scenario must have 5 or fewer human players to work.
+PlayerColor GetAIColor(bool allowBlack)
+{
+	int totalColors = 6;
+	if (allowBlack) {
+		totalColors++;
 	}
+
+	std::vector<int> availableColors;
+	for (int i = 0; i < totalColors; ++i) {
+		availableColors.push_back(i);
+	}
+
+	for (int i = 0; i < TethysGame::NoPlayers() - 1; ++i)
+	{
+		availableColors.erase(
+			std::remove(availableColors.begin(), availableColors.end(), ExtPlayer[i].GetColorNumber()), availableColors.end());
+	}
+
+	if (availableColors.size() == 0) {
+		return PlayerColor::PlayerBlue;
+	}
+
+	const int colorIndex = TethysGame::GetRand(availableColors.size());
+
+	return static_cast<PlayerColor>(availableColors[colorIndex]);
+}

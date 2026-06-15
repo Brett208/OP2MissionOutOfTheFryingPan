@@ -98,6 +98,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AIBaseShared.cpp" />
     <ClCompile Include="NorthAIBase.cpp" />
     <ClCompile Include="SouthAIBase.cpp" />
     <ClCompile Include="StrongBasesShared.cpp" />
@@ -114,6 +115,7 @@
     <ClCompile Include="VolcanoHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AIBaseShared.h" />
     <ClInclude Include="NorthAIBase.h" />
     <ClInclude Include="SouthAIBase.h" />
     <ClInclude Include="StrongBasesShared.h" />

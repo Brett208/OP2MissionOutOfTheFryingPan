@@ -1,6 +1,7 @@
 #include "HFL/Source/HFL.h"
 #include "OP2Helper/OP2Helper.h"
 #include "Outpost2DLL/Outpost2DLL.h"
+#include "AIBaseShared.h"
 #include "WeakAIBase.h"
 #include "NorthAIBase.h"
 #include "SouthAIBase.h"
@@ -112,6 +113,7 @@ void AIInitialization()
 	Player[aiIndex].SetKids(200);
 	Player[aiIndex].SetWorkers(200);
 	Player[aiIndex].SetScientists(200);
+	SetAIIndex(aiIndex);
 	BuildAIBase(aiIndex, AIWeakBaseLoc);
 	BuildNorthAIBase(aiIndex, AINorthBaseLoc);
 	BuildSouthAIBase(aiIndex, AISouthBaseLoc);
@@ -162,8 +164,8 @@ Export int InitProc()
 	CreateMicrobeWallLine(LOCATION(39 + X_, 99 + Y_), LOCATION(64 + X_, 99 + Y_));
 	CreateMicrobeWallLine(LOCATION(39 + X_, 126 + Y_), LOCATION(64 + X_, 126 + Y_));
 	AddVictoryConditions();
-	Trigger BlightTrigger = CreateTimeTrigger(true, true, 1, 1, "SpawnBlight");
 
+	Trigger BlightTrigger = CreateTimeTrigger(true, true, 1, 1, "SpawnBlight");
 	Trigger FirstAttackTrigger = CreateTimeTrigger(true, true, 25'000, "WeakBaseAttackTrigger");
 	
 	return true;
