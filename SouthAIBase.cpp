@@ -34,6 +34,20 @@ void BuildSouthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 	CreateAIBuilding(unit, mapMHDGenerator, LOCATION(252 + X_, 148 + Y_), aiPlayerNum, buildings);
 	CreateAIBuilding(unit, mapMHDGenerator, LOCATION(252 + X_, 152 + Y_), aiPlayerNum, buildings);
 
+	if (HumanPlayerCount() >= 5)
+	{
+		CreateAIBuilding(unit, mapSpaceport, LOCATION(227 + X_, 154 + Y_), aiPlayerNum, buildings);
+	}
+	if (HumanPlayerCount() >= 4)
+	{
+		CreateAIBuilding(unit, mapSpaceport, LOCATION(227 + X_, 159 + Y_), aiPlayerNum, buildings);
+	}
+	if (HumanPlayerCount() >= 3)
+	{
+		CreateAIBuilding(unit, mapSpaceport, LOCATION(227 + X_, 164 + Y_), aiPlayerNum, buildings);
+		CreateTubeLine(LOCATION(227 + X_, 167 + Y_), LOCATION(227 + X_, 172 + Y_));
+	}
+
 	CreateAIBuilding(unit, mapAdvancedLab, LOCATION(initBaseLoc.x, 152 + Y_), aiPlayerNum, buildings);
 
 	Unit vehicleFactory;

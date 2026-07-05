@@ -37,6 +37,16 @@ void BuildNorthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 	CreateTubeLine(LOCATION(241 + X_, 112 + Y_), LOCATION(252 + X_, 112+ Y_));
 	CreateAIBuilding(unit, mapAdvancedLab, LOCATION(253 + X_, 112 + Y_), aiPlayerNum, buildings);
 
+	CreateTubeLine(LOCATION(232 + X_, 120 + Y_), LOCATION(232 + X_, 126 + Y_));
+	if (HumanPlayerCount() >= 2)
+	{
+		CreateAIBuilding(unit, mapSpaceport, LOCATION(226 + X_, 129 + Y_), aiPlayerNum, buildings);
+	}
+	if (HumanPlayerCount() >= 1)
+	{
+		CreateAIBuilding(unit, mapSpaceport, LOCATION(232 + X_, 129 + Y_), aiPlayerNum, buildings);
+	}
+
 	BuildingGroup buildingGroup;
 	SetupBuildingGroup(buildingGroup, structureFactory, vehicleFactory, buildings, aiPlayerNum, BuildingGroupOptions{ 1, 2 });
 
