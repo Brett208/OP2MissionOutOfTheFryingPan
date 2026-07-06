@@ -14,7 +14,7 @@
 #include <algorithm>
 
 // Required data exports  (Description, Map, TechTree, GameType, NumPlayers, TechLvl, number of AI)
-ExportLevelDetailsFullEx("4P, SRV, 'Out Of The Frying Pan'", "FryingPan.map", "survtech.txt", MultiSpaceRace, 5, 12, false, 1);
+ExportLevelDetailsFullEx("5P, SRV, 'Out Of The Frying Pan'", "FryingPan.map", "survtech.txt", MultiSpaceRace, 6, 12, false, 1);
 
 DisasterHelper disasterHelper;
 
@@ -130,7 +130,7 @@ Export int InitProc()
 
 	if (TethysGame::CanHaveDisasters())
 	{
-		Trigger DisasterTimeTrig = CreateTimeTrigger(true, false, 2000, 4500, "CreateDisaster"); //Set time in ticks (marks / 100)
+		Trigger DisasterTimeTrig = CreateTimeTrigger(true, false, 2000, 4500, "CreateDisaster"); // 1 mark = 100 ticks
 	}
 
 	if (TethysGame::UsesMorale()) {

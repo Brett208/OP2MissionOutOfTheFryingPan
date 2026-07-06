@@ -110,7 +110,7 @@ void BuildAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 	CreatePlymouthGuardPostCluster(LOCATION(80 + X_, 118 + Y_), weakAiBuildings);
 	CreatePlymouthGuardPostCluster(LOCATION(87 + X_, 133 + Y_), weakAiBuildings);
 	CreatePlymouthGuardPostCluster(LOCATION(82 + X_, 152 + Y_), weakAiBuildings);
-	CreatePlymouthGuardPostCluster(LOCATION(72 + X_, 156 + Y_), weakAiBuildings);
+	CreatePlymouthGuardPostCluster(LOCATION(73 + X_, 158 + Y_), weakAiBuildings);
 	CreatePlymouthGuardPostCluster(LOCATION(85 + X_, 143 + Y_), weakAiBuildings);
 	CreatePlymouthGuardPostCluster(LOCATION(62 + X_, 161 + Y_), weakAiBuildings);
 
