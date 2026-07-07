@@ -10,11 +10,12 @@ void SelectInitialUnit(int index, const LOCATION& Location, PlayerNum playerNumb
 map_id GetInitialWeapon(PlayerNum playerNumber);
 void CreateInitialUnit(Unit& unit, map_id unitType, const LOCATION& loc, PlayerNum playerNumber, map_id Cargo);
 
-const std::array<LOCATION, 4> playerStartLocs{
+const std::array<LOCATION, 5> playerStartLocs{
 	LOCATION(147 + X_, 110 + Y_),
 	LOCATION(172 + X_, 110 + Y_),
 	LOCATION(141 + X_, 148 + Y_),
 	LOCATION(158 + X_, 133 + Y_),
+	LOCATION(186 + X_, 131 + Y_),
 };
 
 const ResourceSet resourceSet{
