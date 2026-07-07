@@ -51,9 +51,22 @@ void BuildSouthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 	CreateAIBuilding(unit, mapAdvancedLab, LOCATION(initBaseLoc.x, 152 + Y_), aiPlayerNum, buildings);
 
 	Unit vehicleFactory;
-	CreateAIBuilding(vehicleFactory, mapVehicleFactory, LOCATION(250 + X_, initBaseLoc.y), aiPlayerNum, buildings);
-	CreateAIBuilding(unit, mapVehicleFactory, LOCATION(250 + X_, initBaseLoc.y - 4), aiPlayerNum, buildings);
-	defensiveVehicleFactories.push_back(unit);
+	CreateAIBuilding(vehicleFactory, mapVehicleFactory, LOCATION(249 + X_, initBaseLoc.y), aiPlayerNum, buildings);
+	if (HumanPlayerCount() >= 5)
+	{
+		CreateAIBuilding(unit, mapVehicleFactory, LOCATION(249 + X_, initBaseLoc.y - 4), aiPlayerNum, buildings);
+		defensiveVehicleFactories.push_back(unit);
+	}
+	if (HumanPlayerCount() >= 4)
+	{
+		CreateAIBuilding(unit, mapVehicleFactory, LOCATION(249 + X_, initBaseLoc.y + 4), aiPlayerNum, buildings);
+		defensiveVehicleFactories.push_back(unit);
+	}
+	if (HumanPlayerCount() >= 3)
+	{
+		CreateAIBuilding(unit, mapVehicleFactory, LOCATION(254 + X_, initBaseLoc.y), aiPlayerNum, buildings);
+		defensiveVehicleFactories.push_back(unit);
+	}
 
 	CreateCommonMineGroup3Bar(LOCATION(247 + X_, 188 + Y_), aiPlayerNum, buildings);
 

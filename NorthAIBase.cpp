@@ -31,8 +31,21 @@ void BuildNorthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 
 	Unit vehicleFactory;
 	CreateAIBuilding(vehicleFactory, mapVehicleFactory, LOCATION(244 + X_, 112 + Y_), aiPlayerNum, buildings);
-	CreateAIBuilding(unit, mapVehicleFactory, LOCATION(239 + X_, 112 + Y_), aiPlayerNum, buildings);
-	defensiveVehicleFactories.push_back(unit);
+	if (HumanPlayerCount() >= 5)
+	{
+		CreateAIBuilding(unit, mapVehicleFactory, LOCATION(244 + X_, 108 + Y_), aiPlayerNum, buildings);
+		defensiveVehicleFactories.push_back(unit);
+	}
+	if (HumanPlayerCount() >= 4)
+	{
+		CreateAIBuilding(unit, mapVehicleFactory, LOCATION(234 + X_, 112 + Y_), aiPlayerNum, buildings);
+		defensiveVehicleFactories.push_back(unit);
+	}
+	if (HumanPlayerCount() >= 3)
+	{
+		CreateAIBuilding(unit, mapVehicleFactory, LOCATION(239 + X_, 112 + Y_), aiPlayerNum, buildings);
+		defensiveVehicleFactories.push_back(unit);
+	}
 
 	CreateTubeLine(LOCATION(241 + X_, 112 + Y_), LOCATION(252 + X_, 112+ Y_));
 	CreateAIBuilding(unit, mapAdvancedLab, LOCATION(253 + X_, 112 + Y_), aiPlayerNum, buildings);
@@ -77,7 +90,7 @@ void BuildNorthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 	TethysGame::CreateWallOrTube(247 + X_, 122 + Y_, 0, map_id::mapTube);
 
 	CreateTubeLine(LOCATION(244 + X_, 103 + Y_), LOCATION(244 + X_, 122 + Y_));
-	CreateTubeLine(LOCATION(237 + X_, 110 + Y_), LOCATION(228 + X_, 110 + Y_));
+	CreateTubeLine(LOCATION(231 + X_, 108 + Y_), LOCATION(243 + X_, 108 + Y_));
 
 	MAP_RECT defensiveRectPerimeter({ 214 + X_, 78 + Y_ }, { 235 + X_, 91 + Y_ });
 	MAP_RECT defensiveRectInBase({ 217 + X_, 96 + Y_ }, { 255 + X_, 131 + Y_ });
