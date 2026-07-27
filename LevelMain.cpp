@@ -164,8 +164,8 @@ Export int InitProc()
 	AddVictoryConditions();
 
 	Trigger BlightTrigger = CreateTimeTrigger(true, true, 1, 1, "SpawnBlight");
-	Trigger FirstAttackTrigger = CreateTimeTrigger(true, true, 25'000, "WeakBaseAttackTrigger");
-	
+	Trigger FirstAttackTrigger = CreateTimeTrigger(true, true, 2500, "WeakBaseAttackTrigger"); // Time should be 25'000.  Smaller number for debugging purposes.
+
 	return true;
 }
 
@@ -185,7 +185,7 @@ Export void SpawnBlight()
 
 Export void WeakBaseAttackTrigger()
 {
-	weakBaseCanAttack = true;
+	AllowWeakAIBaseAttack();
 }
 
 Export void CreateDisaster()
