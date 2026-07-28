@@ -1,15 +1,15 @@
 #include "HFL/Source/HFL.h"
 #include "OP2Helper/OP2Helper.h"
 #include "Outpost2DLL/Outpost2DLL.h"
-#include "AIBaseShared.h"
-#include "WeakAIBase.h"
-#include "NorthAIBase.h"
-#include "SouthAIBase.h"
+#include "AIBases/AIBaseShared.h"
+#include "AIBases/WeakAIBase.h"
+#include "AIBases/NorthAIBase.h"
+#include "AIBases/SouthAIBase.h"
 #include "DisasterHelper.h"
 #include "AIPlayer.h"
 #include "PlayerInitialization.h"
 #include "VolcanoHelper.h"
-#include "OffensiveFightGroup.h"
+#include "FightGroups/OffensiveFightGroup.h"
 #include <vector>
 #include <algorithm>
 
@@ -164,8 +164,8 @@ Export int InitProc()
 	AddVictoryConditions();
 
 	Trigger BlightTrigger = CreateTimeTrigger(true, true, 1, 1, "SpawnBlight");
-	Trigger FirstAttackTrigger = CreateTimeTrigger(true, true, 25'000, "WeakBaseAttackTrigger");
-	
+	Trigger FirstAttackTrigger = CreateTimeTrigger(true, true, 2500, "WeakBaseAttackTrigger"); // Time should be 25'000.  Smaller number for debugging purposes.
+
 	return true;
 }
 
@@ -185,7 +185,7 @@ Export void SpawnBlight()
 
 Export void WeakBaseAttackTrigger()
 {
-	weakBaseCanAttack = true;
+	AllowWeakAIBaseAttack();
 }
 
 Export void CreateDisaster()

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "AIHelper.h"
+#include "../AIHelper.h"
 #include "Outpost2DLL/Outpost2DLL.h"
 #include <vector>
 
