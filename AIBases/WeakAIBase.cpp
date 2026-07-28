@@ -1,15 +1,15 @@
 #include "WeakAIBase.h"
-#include "DefensiveFightGroup.h"
-#include "OffensiveFightGroup.h"
-#include "AIHelper.h"
-#include "AIPlayer.h"
+#include "../FightGroups/DefensiveFightGroup.h"
+#include "../FightGroups/OffensiveFightGroup.h"
+#include "../AIHelper.h"
+#include "../AIPlayer.h"
 #include "HFL/Source/HFL.h"
 #include "OP2Helper/OP2Helper.h"
 #include "Outpost2DLL/Outpost2DLL.h"
 #include <memory>
 #include <vector>
 #include "AIBaseShared.h"
-#include "BaseOffensiveFightGroupManager.h"
+#include "../FightGroups/BaseOffensiveFightGroupManager.h"
 
 
 int GetDefensiveTankCount();

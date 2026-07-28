@@ -98,36 +98,36 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AIBaseShared.cpp" />
-    <ClCompile Include="NorthAIBase.cpp" />
-    <ClCompile Include="BaseOffensiveFightGroupManager.cpp" />
-    <ClCompile Include="SouthAIBase.cpp" />
-    <ClCompile Include="StrongBasesShared.cpp" />
-    <ClCompile Include="WeakAIBase.cpp" />
+    <ClCompile Include="AIBases\AIBaseShared.cpp" />
+    <ClCompile Include="AIBases\NorthAIBase.cpp" />
+    <ClCompile Include="FightGroups\BaseOffensiveFightGroupManager.cpp" />
+    <ClCompile Include="AIBases\SouthAIBase.cpp" />
+    <ClCompile Include="AIBases\StrongBasesShared.cpp" />
+    <ClCompile Include="AIBases\WeakAIBase.cpp" />
     <ClCompile Include="AIHelper.cpp" />
     <ClCompile Include="AIPlayer.cpp" />
-    <ClCompile Include="DefensiveFightGroup.cpp" />
+    <ClCompile Include="FightGroups\DefensiveFightGroup.cpp" />
     <ClCompile Include="DisasterHelper.cpp" />
     <ClCompile Include="DllMain.cpp" />
-    <ClCompile Include="FightGroupOverlay.cpp" />
+    <ClCompile Include="FightGroups\FightGroupOverlay.cpp" />
     <ClCompile Include="LevelMain.cpp" />
-    <ClCompile Include="OffensiveFightGroup.cpp" />
+    <ClCompile Include="FightGroups\OffensiveFightGroup.cpp" />
     <ClCompile Include="PlayerInitialization.cpp" />
     <ClCompile Include="VolcanoHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AIBaseShared.h" />
-    <ClInclude Include="NorthAIBase.h" />
-    <ClInclude Include="BaseOffensiveFightGroupManager.h" />
-    <ClInclude Include="SouthAIBase.h" />
-    <ClInclude Include="StrongBasesShared.h" />
-    <ClInclude Include="WeakAIBase.h" />
+    <ClInclude Include="AIBases\AIBaseShared.h" />
+    <ClInclude Include="AIBases\NorthAIBase.h" />
+    <ClInclude Include="FightGroups\BaseOffensiveFightGroupManager.h" />
+    <ClInclude Include="AIBases\SouthAIBase.h" />
+    <ClInclude Include="AIBases\StrongBasesShared.h" />
+    <ClInclude Include="AIBases\WeakAIBase.h" />
     <ClInclude Include="AIHelper.h" />
     <ClInclude Include="AIPlayer.h" />
-    <ClInclude Include="DefensiveFightGroup.h" />
+    <ClInclude Include="FightGroups\DefensiveFightGroup.h" />
     <ClInclude Include="DisasterHelper.h" />
-    <ClInclude Include="FightGroupOverlay.h" />
-    <ClInclude Include="OffensiveFightGroup.h" />
+    <ClInclude Include="FightGroups\FightGroupOverlay.h" />
+    <ClInclude Include="FightGroups\OffensiveFightGroup.h" />
     <ClInclude Include="VolcanoHelper.h" />
     <ClInclude Include="PlayerInitialization.h" />
     <ClInclude Include="resource.h" />
