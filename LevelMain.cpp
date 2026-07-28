@@ -124,9 +124,75 @@ static void InitializeDisasterHelper()
 	disasterHelper.SetMapProperties(LOCATION(80, 0), LOCATION(256, 256), false);
 }
 
+static void InitializeMiningBeacons()
+{
+	// Beacons covered by Northern Blight-blocking lava flow (2-3 bar)
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 75  + TethysGame::GetRand(5) + X_, 4  + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeCommon, Bar3,                       VariantRandom);
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 44  + TethysGame::GetRand(5) + X_, 16 + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeRare,   Bar2,                       VariantRandom);
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 58  + TethysGame::GetRand(5) + X_, 55 + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeCommon, TethysGame::GetRand(2) + 1, VariantRandom);
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 54  + TethysGame::GetRand(5) + X_, 89 + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeCommon, TethysGame::GetRand(2) + 1, VariantRandom);
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 45  + TethysGame::GetRand(5) + X_, 94 + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeCommon, TethysGame::GetRand(2) + 1, VariantRandom);
+
+	// Beacons covered by Southern Blight-blocking lava flow (2-3 bar)
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 57  + TethysGame::GetRand(5) + X_, 128 + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeCommon, TethysGame::GetRand(2) + 1, VariantRandom);
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 45  + TethysGame::GetRand(5) + X_, 131 + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeCommon, TethysGame::GetRand(2) + 1, VariantRandom);
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 43  + TethysGame::GetRand(5) + X_, 155 + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeCommon, TethysGame::GetRand(2) + 1, VariantRandom);
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 87  + TethysGame::GetRand(5) + X_, 181 + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeCommon, TethysGame::GetRand(2) + 1, VariantRandom);
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 73  + TethysGame::GetRand(5) + X_, 183 + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeCommon, TethysGame::GetRand(2) + 1, VariantRandom);
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 96  + TethysGame::GetRand(5) + X_, 187 + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeRare,   Bar2,                       VariantRandom);
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 66  + TethysGame::GetRand(5) + X_, 211 + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeRare,   TethysGame::GetRand(2) + 1, VariantRandom);
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 70  + TethysGame::GetRand(5) + X_, 242 + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeCommon, Bar3,                       VariantRandom);
+
+	// Beacons guarded by Weak AI Base (2-3 bar)
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 70  + TethysGame::GetRand(5) + X_, 114 + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeCommon, TethysGame::GetRand(2) + 1, VariantRandom);
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 89  + TethysGame::GetRand(5) + X_, 130 + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeCommon, TethysGame::GetRand(2) + 1, VariantRandom);
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 66  + TethysGame::GetRand(5) + X_, 162 + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeCommon, TethysGame::GetRand(2) + 1, VariantRandom);
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 78  + TethysGame::GetRand(5) + X_, 142 + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeRare,   TethysGame::GetRand(2),     VariantRandom);
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 54  + TethysGame::GetRand(5) + X_, 151 + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeRare,   TethysGame::GetRand(2),     VariantRandom);
+
+	// Beacons in Northern plateau (1-3 bar)
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 181 + TethysGame::GetRand(5) + X_, 3   + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeCommon, TethysGame::GetRand(3) + 1, VariantRandom);
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 146 + TethysGame::GetRand(5) + X_, 9   + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeRare,   TethysGame::GetRand(3),     VariantRandom);
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 109 + TethysGame::GetRand(5) + X_, 13  + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeCommon, TethysGame::GetRand(3) + 1, VariantRandom);
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 112 + TethysGame::GetRand(5) + X_, 31  + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeCommon, TethysGame::GetRand(3) + 1, VariantRandom);
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 211 + TethysGame::GetRand(5) + X_, 32  + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeRare,   TethysGame::GetRand(3),     VariantRandom);
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 137 + TethysGame::GetRand(5) + X_, 35  + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeCommon, TethysGame::GetRand(3) + 1, VariantRandom);
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 173 + TethysGame::GetRand(5) + X_, 36  + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeCommon, TethysGame::GetRand(3) + 1, VariantRandom);
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 102 + TethysGame::GetRand(5) + X_, 54  + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeRare,   TethysGame::GetRand(3),     VariantRandom);
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 192 + TethysGame::GetRand(5) + X_, 61  + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeCommon, TethysGame::GetRand(3) + 1, VariantRandom);
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 175 + TethysGame::GetRand(5) + X_, 65  + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeCommon, TethysGame::GetRand(3) + 1, VariantRandom);
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 98  + TethysGame::GetRand(5) + X_, 84  + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeRare,   TethysGame::GetRand(3),     VariantRandom);
+
+	// Beacons in Southern plateau (1-3 bar)
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 100 + TethysGame::GetRand(5) + X_, 171 + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeCommon, TethysGame::GetRand(3) + 1, VariantRandom);
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 137 + TethysGame::GetRand(5) + X_, 181 + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeCommon, TethysGame::GetRand(3) + 1, VariantRandom);
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 167 + TethysGame::GetRand(5) + X_, 193 + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeRare,   TethysGame::GetRand(3),     VariantRandom);
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 113 + TethysGame::GetRand(5) + X_, 217 + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeCommon, TethysGame::GetRand(3) + 1, VariantRandom);
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 180 + TethysGame::GetRand(5) + X_, 226 + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeCommon, TethysGame::GetRand(3) + 1, VariantRandom);
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 153 + TethysGame::GetRand(5) + X_, 227 + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeRare,   TethysGame::GetRand(3),     VariantRandom);
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 140 + TethysGame::GetRand(5) + X_, 243 + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeCommon, TethysGame::GetRand(3) + 1, VariantRandom);
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 178 + TethysGame::GetRand(5) + X_, 247 + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeCommon, TethysGame::GetRand(3) + 1, VariantRandom);
+
+	// Beacons guarded by North AI Base (1-2 bar)
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 214 + TethysGame::GetRand(5) + X_, 76  + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeCommon, TethysGame::GetRand(2) + 1, VariantRandom);
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 244 + TethysGame::GetRand(5) + X_, 91  + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeCommon, TethysGame::GetRand(2) + 1, VariantRandom);
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 225 + TethysGame::GetRand(5) + X_, 101 + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeCommon, TethysGame::GetRand(2) + 1, VariantRandom);
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 248 + TethysGame::GetRand(5) + X_, 107 + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeRare,   Bar1,                       VariantRandom);
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 235 + TethysGame::GetRand(5) + X_, 126 + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeCommon, TethysGame::GetRand(2) + 1, VariantRandom);
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 250 + TethysGame::GetRand(5) + X_, 124 + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeCommon, TethysGame::GetRand(2) + 1, VariantRandom);
+
+	// Beacons guarded by South AI Base (1-2 bar)
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 240 + TethysGame::GetRand(5) + X_, 140 + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeRare, Bar1, VariantRandom);
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 216 + TethysGame::GetRand(5) + X_, 144 + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeCommon, TethysGame::GetRand(2) + 1, VariantRandom);
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 229 + TethysGame::GetRand(5) + X_, 156 + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeCommon, TethysGame::GetRand(2) + 1, VariantRandom);
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 216 + TethysGame::GetRand(5) + X_, 178 + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeCommon, TethysGame::GetRand(2) + 1, VariantRandom);
+	TethysGame::CreateBeacon(map_id::mapMiningBeacon, 247 + TethysGame::GetRand(5) + X_, 198 + TethysGame::GetRand(5) + Y_, BeaconTypes::OreTypeRare,   Bar1,                       VariantRandom);
+}
+
 Export int InitProc()
 {
 	InitializeDisasterHelper();
+	InitializeMiningBeacons();
 
 	if (TethysGame::CanHaveDisasters())
 	{
@@ -164,7 +230,7 @@ Export int InitProc()
 	AddVictoryConditions();
 
 	Trigger BlightTrigger = CreateTimeTrigger(true, true, 1, 1, "SpawnBlight");
-	Trigger FirstAttackTrigger = CreateTimeTrigger(true, true, 25'000, "WeakBaseAttackTrigger");
+	Trigger FirstAttackTrigger = CreateTimeTrigger(true, true, 2'500, "WeakBaseAttackTrigger"); // Should be 25'000 ticks for actual game, 2'500 for debugging first attack
 	
 	return true;
 }
