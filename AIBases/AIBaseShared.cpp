@@ -1,6 +1,6 @@
 #include "AIBaseShared.h"
-#include "AIHelper.h"
-#include "AIPlayer.h"
+#include "../AIHelper.h"
+#include "../AIPlayer.h"
 
 const std::vector<GuardPostData> guardPostCluster =
 {

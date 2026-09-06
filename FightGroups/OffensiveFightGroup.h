@@ -1,9 +1,11 @@
 #pragma once
 #include "FightGroupOverlay.h"
 #include "Outpost2DLL/Outpost2DLL.h"
+#include <string>
 #include <vector>
 
 
+// Encapsulates an AI Fight Group that could be created offscreen or by an onscreen AI base.
 class OffensiveFightGroup : public FightGroupOverlay
 {
 public:

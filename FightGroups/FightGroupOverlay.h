@@ -9,12 +9,16 @@ struct TargetTankCount
 	int count;
 };
 
+/// <summary>
+/// The virtual basis of a fight group that could be offensive or defensive in nature.
+/// </summary>
 class FightGroupOverlay
 {
 public:
 	FightGroupOverlay(PlayerNum aiPlayerNum, int humanPlayerCount);
 	virtual void Initialize(MAP_RECT guardedRect, std::vector<Unit> vehicleFactories);
 	bool IsFull();
+	int vehicleFactoryCount() { return vehicleFactories.size(); }
 	
 protected:
 	const PlayerNum aiPlayerNum;

@@ -1,34 +1,31 @@
 #include "WeakAIBase.h"
-#include "DefensiveFightGroup.h"
-#include "OffensiveFightGroup.h"
-#include "AIHelper.h"
-#include "AIPlayer.h"
+#include "../FightGroups/DefensiveFightGroup.h"
+#include "../FightGroups/OffensiveFightGroup.h"
+#include "../AIHelper.h"
+#include "../AIPlayer.h"
 #include "HFL/Source/HFL.h"
 #include "OP2Helper/OP2Helper.h"
 #include "Outpost2DLL/Outpost2DLL.h"
 #include <memory>
 #include <vector>
 #include "AIBaseShared.h"
+#include "../FightGroups/BaseOffensiveFightGroupManager.h"
 
 
-bool weakBaseCanAttack = false;
 int GetDefensiveTankCount();
-std::vector<std::unique_ptr<OffensiveFightGroup>> offensiveFightGroups;
 std::vector<Unit> defensiveVehicleFactories;
 std::vector<Unit> weakAiBuildings;
-
-std::vector<TargetTankCount> offensiveTankCount{
-	TargetTankCount {map_id::mapLynx, map_id::mapMicrowave, 5}
-};
+MAP_RECT offensiveTankStagingArea(80 + X_, 135 + Y_, 89 + X_, 145 + Y_);
+std::unique_ptr<BaseOffensiveFightGroupManager> offensiveFightGroups;
 
 void UpdateWeakAIBase()
 {
-	for (auto& offensiveFightGroup : offensiveFightGroups) {
-		offensiveFightGroup->UpdateTaskedFightGroups();
-		if (offensiveFightGroup->IsFull() && weakBaseCanAttack) {
-			offensiveFightGroup->Attack(offensiveTankCount);
-		}
-	}
+	offensiveFightGroups->Update();
+}
+
+void AllowWeakAIBaseAttack()
+{
+	offensiveFightGroups->EnableAttack();
 }
 
 void BuildAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
@@ -79,19 +76,20 @@ void BuildAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 	CreateAIBuilding(defenseVehicleFactory, map_id::mapVehicleFactory, currentLoc, aiPlayerNum, weakAiBuildings);
 	defensiveVehicleFactories.push_back(defenseVehicleFactory);
 
+	offensiveFightGroups = std::make_unique<BaseOffensiveFightGroupManager>(
+		GetAIIndex(),
+		HumanPlayerCount(),
+		std::vector<TargetTankCount>{ {mapLynx, mapMicrowave, 5} },
+		offensiveTankStagingArea
+	);
+
 	currentLoc.y = initBaseLoc.y + 9;
 	Unit offenseVehicleFactory;
-
-	MAP_RECT offensiveGuardedRect(80 + X_, 135 + Y_, 89 + X_, 145 + Y_);
 
 	for (int i = 0; i < HumanPlayerCount() - 1; ++i)
 	{
 		CreateAIBuilding(offenseVehicleFactory, mapVehicleFactory, currentLoc, aiPlayerNum, weakAiBuildings);
-
-		OffensiveFightGroup offensiveFightGroup(aiPlayerNum, HumanPlayerCount());
-		offensiveFightGroup.Initialize(offensiveGuardedRect, { offenseVehicleFactory }, offensiveTankCount);
-		offensiveFightGroups.push_back(std::make_unique<OffensiveFightGroup>(offensiveFightGroup));
-
+		offensiveFightGroups->AddFightGroup({ offenseVehicleFactory });
 		currentLoc.y += + 4;
 	}
 
@@ -143,6 +141,8 @@ void BuildAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 
 	defensiveFightGroup.Initialize(guardedRect, defensiveVehicleFactories);
 	defensiveFightGroup.Populate(targetTanks);
+
+	AddGameMessage(offensiveFightGroups->DebugMessage().c_str());
 }
 
 int GetDefensiveTankCount()

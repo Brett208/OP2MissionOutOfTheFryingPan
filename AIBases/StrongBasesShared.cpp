@@ -1,6 +1,6 @@
 #include "StrongBasesShared.h"
-#include "DefensiveFightGroup.h"
-#include "AIPlayer.h"
+#include "../FightGroups/DefensiveFightGroup.h"
+#include "../AIPlayer.h"
 
 namespace
 {

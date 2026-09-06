@@ -2,8 +2,8 @@
 
 #include "Outpost2DLL/Outpost2DLL.h"
 
-extern bool weakBaseCanAttack;
 
+void AllowWeakAIBaseAttack();
 void UpdateWeakAIBase();
 void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc);
 void RecordBuildings(BuildingGroup& buildingGroup);
