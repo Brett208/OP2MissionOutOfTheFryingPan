@@ -101,6 +101,7 @@
   <ItemGroup>
     <ClCompile Include="AIBases\AIBaseShared.cpp" />
     <ClCompile Include="AIBases\NorthAIBase.cpp" />
+    <ClCompile Include="Environment.cpp" />
     <ClCompile Include="FightGroups\BaseOffensiveFightGroupManager.cpp" />
     <ClCompile Include="AIBases\SouthAIBase.cpp" />
     <ClCompile Include="AIBases\StrongBasesShared.cpp" />
@@ -119,6 +120,7 @@
   <ItemGroup>
     <ClInclude Include="AIBases\AIBaseShared.h" />
     <ClInclude Include="AIBases\NorthAIBase.h" />
+    <ClInclude Include="Environment.h" />
     <ClInclude Include="FightGroups\BaseOffensiveFightGroupManager.h" />
     <ClInclude Include="AIBases\SouthAIBase.h" />
     <ClInclude Include="AIBases\StrongBasesShared.h" />

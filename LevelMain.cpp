@@ -10,6 +10,7 @@
 #include "PlayerInitialization.h"
 #include "VolcanoHelper.h"
 #include "FightGroups/OffensiveFightGroup.h"
+#include "Environment.h"
 #include <vector>
 #include <algorithm>
 
@@ -42,7 +43,7 @@ SongIds PlayList[] = {
 
 std::vector<bool> moraleFree; // If each player's morale is free
 const int disastersAndMoraleTimer = 20'000;
-
+bool hasBlightEnteredWestRegion = false;
 
 
 static void FreeMorale(int playerIndex)
@@ -312,6 +313,11 @@ Export void AIProc()
 {
 	CheckMorale();
 	UpdateWeakAIBase();
+
+	if (!hasBlightEnteredWestRegion && IsBlightInArea(MAP_RECT(86 + X_, 98 + Y_, 86 + X_, 131 + Y_)))
+	{
+		hasBlightEnteredWestRegion = true;
+	}
 }
 
 Export void SpawnBlight()
