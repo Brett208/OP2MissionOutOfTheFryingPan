@@ -177,48 +177,89 @@ static void InitializeMiningBeacons()
 
 	// Beacons guarded by Weak AI Base
 	CreateCommonBeacon(LOCATION(70, 114), Bar2, Bar3);
-	CreateCommonBeacon(LOCATION(89, 130), Bar2, Bar3);
-	CreateCommonBeacon(LOCATION(66, 162), Bar2, Bar3);
 	CreateRareBeacon(LOCATION(78, 142), Bar2, Bar3);
-	CreateRareBeacon(LOCATION(54, 151), Bar2, Bar3);
+	if (HumanPlayerCount() > 2)
+	{
+		CreateCommonBeacon(LOCATION(89, 130), Bar2, Bar3);
+	}
+	if (HumanPlayerCount() > 3)
+	{
+		CreateCommonBeacon(LOCATION(66, 162), Bar2, Bar3);
+		CreateRareBeacon(LOCATION(54, 151), Bar2, Bar3);
+	}
 
 	// Beacons in Northern plateau
 	CreateCommonBeacon(LOCATION(181, 3), Bar1, Bar2);
 	CreateRareBeacon(LOCATION(146, 9), Bar1, Bar2);
-	CreateCommonBeacon(LOCATION(109, 13), Bar1, Bar2);
-	CreateCommonBeacon(LOCATION(112, 31), Bar1, Bar2);
-	CreateRareBeacon(LOCATION(211, 32), Bar1, Bar2);
-	CreateCommonBeacon(LOCATION(137, 35), Bar1, Bar2);
-	CreateCommonBeacon(LOCATION(173, 36), Bar1, Bar2);
-	CreateRareBeacon(LOCATION(102, 54), Bar1, Bar2);
-	CreateCommonBeacon(LOCATION(192, 61), Bar1, Bar2);
-	CreateCommonBeacon(LOCATION(175, 65), Bar1, Bar2);
-	CreateRareBeacon(LOCATION(98, 84), Bar1, Bar2);
+
+	if (HumanPlayerCount() > 2)
+	{
+		CreateCommonBeacon(LOCATION(109, 13), Bar1, Bar2);
+		CreateCommonBeacon(LOCATION(112, 31), Bar1, Bar2);
+		CreateRareBeacon(LOCATION(211, 32), Bar1, Bar2);
+	}
+	if (HumanPlayerCount() > 3)
+	{
+		CreateCommonBeacon(LOCATION(137, 35), Bar1, Bar2);
+		CreateCommonBeacon(LOCATION(173, 36), Bar1, Bar2);
+		CreateRareBeacon(LOCATION(102, 54), Bar1, Bar2);
+	}
+	if (HumanPlayerCount() > 4)
+	{
+		CreateCommonBeacon(LOCATION(192, 61), Bar1, Bar2);
+		CreateCommonBeacon(LOCATION(175, 65), Bar1, Bar2);
+		CreateRareBeacon(LOCATION(98, 84), Bar1, Bar2);
+	}
 
 	// Beacons in Southern plateau
 	CreateCommonBeacon(LOCATION(100, 171), Bar1, Bar2);
-	CreateCommonBeacon(LOCATION(137, 181), Bar1, Bar2);
 	CreateRareBeacon(LOCATION(167, 193), Bar1, Bar2);
-	CreateCommonBeacon(LOCATION(113, 217), Bar1, Bar2);
-	CreateCommonBeacon(LOCATION(180, 226), Bar1, Bar2);
-	CreateRareBeacon(LOCATION(153, 227), Bar1, Bar2);
-	CreateCommonBeacon(LOCATION(140, 243), Bar1, Bar2);
-	CreateCommonBeacon(LOCATION(178, 247), Bar1, Bar2);
+	
+	if (HumanPlayerCount() > 2)
+	{
+		CreateCommonBeacon(LOCATION(137, 181), Bar1, Bar2);
+		CreateCommonBeacon(LOCATION(113, 217), Bar1, Bar2);
+	}
+	if(HumanPlayerCount() > 3)
+	{
+		CreateCommonBeacon(LOCATION(180, 226), Bar1, Bar2);
+		CreateRareBeacon(LOCATION(153, 227), Bar1, Bar2);
+	}
+	if (HumanPlayerCount() > 4)
+	{
+		CreateCommonBeacon(LOCATION(140, 243), Bar1, Bar2);
+		CreateCommonBeacon(LOCATION(178, 247), Bar1, Bar2);
+	}
+	
 
 	// Beacons guarded by North AI Base
 	CreateCommonBeacon(LOCATION(214, 76), Bar1, Bar2);
 	CreateCommonBeacon(LOCATION(244, 91), Bar1, Bar2);
-	CreateCommonBeacon(LOCATION(225, 101), Bar1, Bar2);
-	CreateRareBeacon(LOCATION(248, 107), Bar1, Bar2);
-	CreateCommonBeacon(LOCATION(235, 126), Bar1, Bar2);
-	CreateCommonBeacon(LOCATION(250, 124), Bar1, Bar2);
+
+	if (HumanPlayerCount() > 2)
+	{
+		CreateRareBeacon(LOCATION(248, 107), Bar1, Bar2);
+		CreateCommonBeacon(LOCATION(225, 101), Bar1, Bar2);
+	}
+	if (HumanPlayerCount() > 4)
+	{
+		CreateCommonBeacon(LOCATION(235, 126), Bar1, Bar2);
+		CreateCommonBeacon(LOCATION(250, 124), Bar1, Bar2);
+	}
 
 	// Beacons guarded by South AI Base
-	CreateRareBeacon(LOCATION(240, 140), Bar1, Bar2);
 	CreateCommonBeacon(LOCATION(216, 144), Bar1, Bar2);
 	CreateCommonBeacon(LOCATION(229, 156), Bar1, Bar2);
-	CreateCommonBeacon(LOCATION(216, 178), Bar1, Bar2);
-	CreateRareBeacon(LOCATION(247, 198), Bar1, Bar2);
+
+	if (HumanPlayerCount() > 2)
+	{
+		CreateRareBeacon(LOCATION(240, 140), Bar1, Bar2);
+		CreateCommonBeacon(LOCATION(216, 178), Bar1, Bar2);
+	}
+	if (HumanPlayerCount() > 3)
+	{
+		CreateRareBeacon(LOCATION(247, 198), Bar1, Bar2);
+	}
 }
 
 Export int InitProc()
@@ -267,7 +308,7 @@ Export int InitProc()
 	return true;
 }
 
-Export void AIProc() 
+Export void AIProc()
 {
 	CheckMorale();
 	UpdateWeakAIBase();
