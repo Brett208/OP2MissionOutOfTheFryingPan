@@ -2,7 +2,7 @@
 #include "HFL/Source/HFL.h"
 
 
-bool HasBlightReachedArea(MAP_RECT area)
+bool IsBlightInArea(MAP_RECT area)
 {
 	for (int x = area.x1; x <= area.x2; ++x)
 	{
