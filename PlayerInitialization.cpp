@@ -39,24 +39,12 @@ void InitializePlayers(int humanPlayerCount)
 		const int locationIndex = TethysGame::GetRand(initBaseLocs.size());
 		InitializePlayer(static_cast<PlayerNum>(i), initBaseLocs[locationIndex]);
 		initBaseLocs.erase(initBaseLocs.begin() + locationIndex);
-
-#if DEBUG
-		if (i == 0)
-		{
-			Player[i].MarkResearchComplete(TechID::techRareOreProcessing);
-			Player[i].MarkResearchComplete(TechID::techSpaceProgram);
-			Player[i].MarkResearchComplete(TechID::techEfficiencyEngineeringPlymouth);
-			Player[i].MarkResearchComplete(TechID::techEfficiencyEngineeringEden);
-			Unit unit;
-			TethysGame::CreateUnit(unit, mapSpaceport, LOCATION(10 + X_, 10 + Y_), i, mapNone, 0);
-			unit.SetCargo(mapSULV, mapNone);
-			unit.SetFactoryCargo(0, mapEDWARDSatellite, mapNone);
-			TethysGame::CreateUnit(unit, mapCommandCenter, LOCATION(10 + X_, 14 + Y_), i, mapNone, 0);
-			TethysGame::CreateUnit(unit, mapRareStorage, LOCATION(10 + X_, 17 + Y_), i, mapNone, 0);
-			Player[i].SetRareOre(5'000);
-		}
-#endif
 	}
+#if DEBUG
+	Player[0].MarkResearchComplete(TechID::techRareOreProcessing);
+	ExtPlayer[0].SetSatelliteCount(mapEDWARDSatellite, 1);
+#endif
+
 }
 
 void InitializePlayer(PlayerNum playerNumber, const LOCATION& initBaseLoc)
