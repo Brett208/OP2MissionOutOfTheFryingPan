@@ -114,6 +114,7 @@
     <ClCompile Include="FightGroups\FightGroupOverlay.cpp" />
     <ClCompile Include="LevelMain.cpp" />
     <ClCompile Include="FightGroups\OffensiveFightGroup.cpp" />
+    <ClCompile Include="OffensiveStateManager.cpp" />
     <ClCompile Include="PlayerInitialization.cpp" />
     <ClCompile Include="VolcanoHelper.cpp" />
   </ItemGroup>
@@ -131,6 +132,7 @@
     <ClInclude Include="DisasterHelper.h" />
     <ClInclude Include="FightGroups\FightGroupOverlay.h" />
     <ClInclude Include="FightGroups\OffensiveFightGroup.h" />
+    <ClInclude Include="OffensiveStateManager.h" />
     <ClInclude Include="VolcanoHelper.h" />
     <ClInclude Include="PlayerInitialization.h" />
     <ClInclude Include="resource.h" />

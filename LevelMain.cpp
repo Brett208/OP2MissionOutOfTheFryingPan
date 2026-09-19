@@ -10,7 +10,8 @@
 #include "PlayerInitialization.h"
 #include "VolcanoHelper.h"
 #include "FightGroups/OffensiveFightGroup.h"
-#include "Environment.h"
+#include "OffensiveStateManager.h"
+
 #include <vector>
 #include <algorithm>
 
@@ -22,6 +23,7 @@
 ExportLevelDetailsFullEx("5P, SRV, 'Out Of The Frying Pan'", "FryingPan.map", "survtech.txt", MultiSpaceRace, 6, 12, false, 1);
 
 DisasterHelper disasterHelper;
+OffensiveStateManager offensiveStateManager;
 
 struct ScriptGlobal
 {
@@ -43,8 +45,6 @@ SongIds PlayList[] = {
 
 std::vector<bool> moraleFree; // If each player's morale is free
 const int disastersAndMoraleTimer = 20'000;
-bool hasBlightEnteredWestRegion = false;
-
 
 static void FreeMorale(int playerIndex)
 {
@@ -305,7 +305,7 @@ Export int InitProc()
 
 	Trigger BlightTrigger = CreateTimeTrigger(true, true, 1, 1, "SpawnBlight");
 	Trigger FirstAttackTrigger = CreateTimeTrigger(true, true, 2'500, "WeakBaseAttackTrigger"); // Should be 25'000 ticks for actual game, 2'500 for debugging first attack
-	
+
 	return true;
 }
 
@@ -313,11 +313,7 @@ Export void AIProc()
 {
 	CheckMorale();
 	UpdateWeakAIBase();
-
-	if (!hasBlightEnteredWestRegion && IsBlightInArea(MAP_RECT(86 + X_, 98 + Y_, 86 + X_, 131 + Y_)))
-	{
-		hasBlightEnteredWestRegion = true;
-	}
+	offensiveStateManager.Update();
 }
 
 Export void SpawnBlight()
