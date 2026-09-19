@@ -2,10 +2,18 @@
 #include "Outpost2DLL/Outpost2DLL.h"
 #include "Environment.h"
 #include "OffensiveStateManager.h"
+#include "AIPlayer.h"
+
+void OffensiveStateManager::Initialize(LOCATION northCommandCenterLoc, LOCATION southCommandCenterLoc, LOCATION northStructureFactoryLoc, LOCATION southStructureFactoryLoc)
+{
+	NorthCommandCenterLoc = northCommandCenterLoc;
+	SouthCommandCenterLoc = southCommandCenterLoc;
+	NorthStructureFactoryLoc = northStructureFactoryLoc;
+	SouthStructureFactoryLoc = southStructureFactoryLoc;
+}
 
 void OffensiveStateManager::Update()
 {
-	CheckRegionCenterConsumed();
 	if (hasLavaConsumedCenterRegion)
 	{
 		CheckRegionWestConsumed();
@@ -15,6 +23,38 @@ void OffensiveStateManager::Update()
 		CheckNorthBaseDestroyed();
 		CheckSouthBaseDestroyed();
 	}
+	else
+	{
+		CheckRegionCenterConsumed();
+	}
+}
+
+bool OffensiveStateManager::CheckCommandCenterDestroyed(LOCATION commandCenterLoc)
+{
+	PlayerBuildingEnum playerBuildingEnum = PlayerBuildingEnum(GetAIIndex(), mapCommandCenter);
+	Unit unit;
+	while (playerBuildingEnum.GetNext(unit))
+	{
+		if (unit.Location() == commandCenterLoc && unit.GetType() == mapCommandCenter)
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+bool OffensiveStateManager::CheckStructureFactoryDestroyed(LOCATION structureFactoryLoc)
+{
+	PlayerBuildingEnum playerBuildingEnum = PlayerBuildingEnum(GetAIIndex(), mapStructureFactory);
+	Unit unit;
+	while (playerBuildingEnum.GetNext(unit))
+	{
+		if (unit.Location() == structureFactoryLoc && unit.GetType() == mapStructureFactory)
+		{
+			return false;
+		}
+	}
+	return true;
 }
 
 void OffensiveStateManager::CheckRegionCenterConsumed()
@@ -35,10 +75,10 @@ void OffensiveStateManager::CheckRegionWestConsumed()
 
 void OffensiveStateManager::CheckNorthBaseDestroyed()
 {
-
+	isNorthBaseDestroyed = CheckCommandCenterDestroyed(NorthCommandCenterLoc) && CheckStructureFactoryDestroyed(NorthStructureFactoryLoc);
 }
 
 void OffensiveStateManager::CheckSouthBaseDestroyed()
 {
-
+	isSouthBaseDestroyed = CheckCommandCenterDestroyed(SouthCommandCenterLoc) && CheckStructureFactoryDestroyed(SouthStructureFactoryLoc);
 }
