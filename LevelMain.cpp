@@ -9,7 +9,6 @@
 #include "AIPlayer.h"
 #include "PlayerInitialization.h"
 #include "VolcanoHelper.h"
-#include "FightGroups/OffensiveFightGroup.h"
 #include "OffensiveStateManager.h"
 
 #include <vector>
