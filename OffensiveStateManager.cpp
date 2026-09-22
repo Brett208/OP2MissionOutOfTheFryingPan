@@ -70,10 +70,10 @@ void OffensiveStateManager::CheckRegionWestConsumed()
 
 void OffensiveStateManager::CheckNorthBaseDestroyed()
 {
-	isNorthBaseDestroyed = CheckCommandCenterDestroyed(NorthCommandCenterLoc) && CheckStructureFactoryDestroyed(NorthStructureFactoryLoc);
+	isNorthBaseDestroyed = CheckCommandCenterDestroyed(NorthCommandCenterLoc) || CheckStructureFactoryDestroyed(NorthStructureFactoryLoc);
 }
 
 void OffensiveStateManager::CheckSouthBaseDestroyed()
 {
-	isSouthBaseDestroyed = CheckCommandCenterDestroyed(SouthCommandCenterLoc) && CheckStructureFactoryDestroyed(SouthStructureFactoryLoc);
+	isSouthBaseDestroyed = CheckCommandCenterDestroyed(SouthCommandCenterLoc) || CheckStructureFactoryDestroyed(SouthStructureFactoryLoc);
 }
