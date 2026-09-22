@@ -6,7 +6,7 @@
 #include "HFL/Source/HFL.h"
 #include "OP2Helper/OP2Helper.h"
 
-void BuildSouthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
+void BuildSouthAIBase(PlayerNum aiPlayerNum, LOCATION commandCenterLoc, LOCATION structureFactoryLoc)
 {
 	std::vector<Unit> defensiveVehicleFactories;
 	std::vector<Unit> buildings;
@@ -14,10 +14,10 @@ void BuildSouthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 
 	CreateMiddleGuardPostClusters(LOCATION(242 + X_, 135 + Y_), buildings);
 
-	CreateAIBuilding(unit, mapCommandCenter, initBaseLoc, aiPlayerNum, buildings);
+	CreateAIBuilding(unit, mapCommandCenter, commandCenterLoc, aiPlayerNum, buildings);
 
 	Unit structureFactory;
-	CreateAIBuilding(structureFactory, map_id::mapStructureFactory, LOCATION(242 + X_, 175 + Y_), aiPlayerNum, buildings);
+	CreateAIBuilding(structureFactory, map_id::mapStructureFactory, structureFactoryLoc, aiPlayerNum, buildings);
 	CreateAIBuilding(unit, mapReinforcedResidence, LOCATION(237 + X_, 174 + Y_), aiPlayerNum, buildings);
 	CreateAIBuilding(unit, mapReinforcedResidence, LOCATION(237 + X_, 177 + Y_), aiPlayerNum, buildings);
 	CreateAIBuilding(unit, mapStandardLab, LOCATION(234 + X_, 171 + Y_), aiPlayerNum, buildings);
@@ -48,23 +48,23 @@ void BuildSouthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 		CreateTubeLine(LOCATION(227 + X_, 167 + Y_), LOCATION(227 + X_, 172 + Y_));
 	}
 
-	CreateAIBuilding(unit, mapAdvancedLab, LOCATION(initBaseLoc.x, 152 + Y_), aiPlayerNum, buildings);
+	CreateAIBuilding(unit, mapAdvancedLab, LOCATION(commandCenterLoc.x, 152 + Y_), aiPlayerNum, buildings);
 
 	Unit vehicleFactory;
-	CreateAIBuilding(vehicleFactory, mapVehicleFactory, LOCATION(249 + X_, initBaseLoc.y), aiPlayerNum, buildings);
+	CreateAIBuilding(vehicleFactory, mapVehicleFactory, LOCATION(249 + X_, commandCenterLoc.y), aiPlayerNum, buildings);
 	if (HumanPlayerCount() >= 5)
 	{
-		CreateAIBuilding(unit, mapVehicleFactory, LOCATION(249 + X_, initBaseLoc.y - 4), aiPlayerNum, buildings);
+		CreateAIBuilding(unit, mapVehicleFactory, LOCATION(249 + X_, commandCenterLoc.y - 4), aiPlayerNum, buildings);
 		defensiveVehicleFactories.push_back(unit);
 	}
 	if (HumanPlayerCount() >= 4)
 	{
-		CreateAIBuilding(unit, mapVehicleFactory, LOCATION(249 + X_, initBaseLoc.y + 4), aiPlayerNum, buildings);
+		CreateAIBuilding(unit, mapVehicleFactory, LOCATION(249 + X_, commandCenterLoc.y + 4), aiPlayerNum, buildings);
 		defensiveVehicleFactories.push_back(unit);
 	}
 	if (HumanPlayerCount() >= 3)
 	{
-		CreateAIBuilding(unit, mapVehicleFactory, LOCATION(254 + X_, initBaseLoc.y), aiPlayerNum, buildings);
+		CreateAIBuilding(unit, mapVehicleFactory, LOCATION(254 + X_, commandCenterLoc.y), aiPlayerNum, buildings);
 		defensiveVehicleFactories.push_back(unit);
 	}
 
@@ -80,16 +80,16 @@ void BuildSouthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
 	CreatePlymouthGuardPostCluster(LOCATION(228 + X_, 193 + Y_), buildings);
 	CreatePlymouthGuardPostCluster(LOCATION(234 + X_, 197 + Y_), buildings);
 	CreatePlymouthGuardPostCluster(LOCATION(239 + X_, 202 + Y_), buildings);
-	CreatePlymouthGuardPostCluster(LOCATION(initBaseLoc.x - 5, initBaseLoc.y - 2), buildings);
-	CreatePlymouthGuardPostCluster(LOCATION(initBaseLoc.x, initBaseLoc.y + 2), buildings);
-	CreatePlymouthGuardPostCluster(LOCATION(initBaseLoc.x, initBaseLoc.y - 6), buildings);
+	CreatePlymouthGuardPostCluster(LOCATION(commandCenterLoc.x - 5, commandCenterLoc.y - 2), buildings);
+	CreatePlymouthGuardPostCluster(LOCATION(commandCenterLoc.x, commandCenterLoc.y + 2), buildings);
+	CreatePlymouthGuardPostCluster(LOCATION(commandCenterLoc.x, commandCenterLoc.y - 6), buildings);
 
-	CreateTubeLine(LOCATION(initBaseLoc.x, initBaseLoc.y - 2), LOCATION(initBaseLoc.x, 155 + Y_));
-	CreateTubeLine(LOCATION(initBaseLoc.x, initBaseLoc.y + 1), LOCATION(initBaseLoc.x, 173 + Y_));
+	CreateTubeLine(LOCATION(commandCenterLoc.x, commandCenterLoc.y - 2), LOCATION(commandCenterLoc.x, 155 + Y_));
+	CreateTubeLine(LOCATION(commandCenterLoc.x, commandCenterLoc.y + 1), LOCATION(commandCenterLoc.x, 173 + Y_));
 
-	CreateTubeLine(LOCATION(initBaseLoc.x, 175 + Y_), LOCATION(initBaseLoc.x, 183 + Y_));
+	CreateTubeLine(LOCATION(commandCenterLoc.x, 175 + Y_), LOCATION(commandCenterLoc.x, 183 + Y_));
 
-	CreateTubeLine(LOCATION(initBaseLoc.x + 2, initBaseLoc.y), LOCATION(247 + X_, initBaseLoc.y));
+	CreateTubeLine(LOCATION(commandCenterLoc.x + 2, commandCenterLoc.y), LOCATION(247 + X_, commandCenterLoc.y));
 
 	BuildingGroup buildingGroup;
 	SetupBuildingGroup(buildingGroup, structureFactory, vehicleFactory, buildings, aiPlayerNum, BuildingGroupOptions{ 1, 2 });

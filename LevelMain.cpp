@@ -13,6 +13,7 @@
 
 #include <vector>
 #include <algorithm>
+#include <memory>
 
 // Prevent using the Windows defined macros that step on the C++ standard function calls
 #undef min
@@ -21,8 +22,21 @@
 // Required data exports  (Description, Map, TechTree, GameType, NumPlayers, TechLvl, number of AI)
 ExportLevelDetailsFullEx("5P, SRV, 'Out Of The Frying Pan'", "FryingPan.map", "survtech.txt", MultiSpaceRace, 6, 12, false, 1);
 
+namespace AIBaseLoc
+{
+	const LOCATION weakBase(76 + X_, 132 + Y_);
+	const LOCATION northCommandCenter(244 + X_, 122 + Y_);
+	const LOCATION northStructureFactory(244 + X_, 100 + Y_);
+	const LOCATION southCommandCenter(242 + X_, 162 + Y_);
+	const LOCATION southStructureFactory(242 + X_, 175 + Y_);
+}
+
 DisasterHelper disasterHelper;
-OffensiveStateManager offensiveStateManager;
+OffensiveStateManager offensiveStateManager(
+	AIBaseLoc::northCommandCenter,
+	AIBaseLoc::southCommandCenter,
+	AIBaseLoc::northStructureFactory,
+	AIBaseLoc::southStructureFactory);
 
 struct ScriptGlobal
 {
@@ -105,9 +119,6 @@ static void AddVictoryConditions()
 
 void AIInitialization()
 {
-	LOCATION AIWeakBaseLoc(76 + X_, 132 + Y_);
-	LOCATION AINorthBaseLoc(244 + X_, 122 + Y_);
-	LOCATION AISouthBaseLoc(242  + X_, 162 + Y_);
 	PlayerNum aiIndex = GetAIIndex();
 	Player[aiIndex].GoAI();
 	Player[aiIndex].SetColorNumber(GetAIColor());
@@ -118,9 +129,9 @@ void AIInitialization()
 	Player[aiIndex].SetWorkers(200);
 	Player[aiIndex].SetScientists(200);
 	SetAIIndex(aiIndex);
-	BuildAIBase(aiIndex, AIWeakBaseLoc);
-	BuildNorthAIBase(aiIndex, AINorthBaseLoc);
-	BuildSouthAIBase(aiIndex, AISouthBaseLoc);
+	BuildAIBase(aiIndex, AIBaseLoc::weakBase);
+	BuildNorthAIBase(aiIndex, AIBaseLoc::northCommandCenter, AIBaseLoc::northStructureFactory);
+	BuildSouthAIBase(aiIndex, AIBaseLoc::southCommandCenter, AIBaseLoc::southStructureFactory);
 }
 
 static void InitializeDisasterHelper()

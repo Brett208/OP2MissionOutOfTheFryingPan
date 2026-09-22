@@ -4,13 +4,12 @@
 #include "OffensiveStateManager.h"
 #include "AIPlayer.h"
 
-void OffensiveStateManager::Initialize(LOCATION northCommandCenterLoc, LOCATION southCommandCenterLoc, LOCATION northStructureFactoryLoc, LOCATION southStructureFactoryLoc)
-{
-	NorthCommandCenterLoc = northCommandCenterLoc;
-	SouthCommandCenterLoc = southCommandCenterLoc;
-	NorthStructureFactoryLoc = northStructureFactoryLoc;
-	SouthStructureFactoryLoc = southStructureFactoryLoc;
-}
+OffensiveStateManager::OffensiveStateManager(LOCATION northCommandCenterLoc, LOCATION southCommandCenterLoc, LOCATION northStructureFactoryLoc, LOCATION southStructureFactoryLoc)
+	: NorthCommandCenterLoc(northCommandCenterLoc),
+	  SouthCommandCenterLoc(southCommandCenterLoc),
+	  NorthStructureFactoryLoc(northStructureFactoryLoc),
+	  SouthStructureFactoryLoc(southStructureFactoryLoc)
+{ }
 
 void OffensiveStateManager::Update()
 {
@@ -29,13 +28,13 @@ void OffensiveStateManager::Update()
 	}
 }
 
-bool OffensiveStateManager::CheckCommandCenterDestroyed(LOCATION commandCenterLoc)
+bool OffensiveStateManager::CheckStructureDestroyed(map_id unitType, LOCATION loc)
 {
 	PlayerBuildingEnum playerBuildingEnum = PlayerBuildingEnum(GetAIIndex(), mapCommandCenter);
 	Unit unit;
 	while (playerBuildingEnum.GetNext(unit))
 	{
-		if (unit.Location() == commandCenterLoc && unit.GetType() == mapCommandCenter)
+		if (unit.Location() == loc && unit.GetType() == unitType)
 		{
 			return false;
 		}
@@ -43,18 +42,14 @@ bool OffensiveStateManager::CheckCommandCenterDestroyed(LOCATION commandCenterLo
 	return true;
 }
 
+bool OffensiveStateManager::CheckCommandCenterDestroyed(LOCATION commandCenterLoc)
+{
+	return CheckStructureDestroyed(mapCommandCenter, commandCenterLoc);
+}
+
 bool OffensiveStateManager::CheckStructureFactoryDestroyed(LOCATION structureFactoryLoc)
 {
-	PlayerBuildingEnum playerBuildingEnum = PlayerBuildingEnum(GetAIIndex(), mapStructureFactory);
-	Unit unit;
-	while (playerBuildingEnum.GetNext(unit))
-	{
-		if (unit.Location() == structureFactoryLoc && unit.GetType() == mapStructureFactory)
-		{
-			return false;
-		}
-	}
-	return true;
+	return CheckStructureDestroyed(mapStructureFactory, structureFactoryLoc);
 }
 
 void OffensiveStateManager::CheckRegionCenterConsumed()
