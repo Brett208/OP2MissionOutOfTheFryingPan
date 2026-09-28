@@ -1,7 +1,9 @@
 #pragma once
 
 #include "TargetRegion.h"
+
 #include <vector>
+#include <map>
 
 
 class OffensiveStateManager
@@ -15,6 +17,20 @@ public:
 	void Update();
 
 private:
+	enum class MapState
+	{
+		WestAvailable,
+		WestConsumed
+	};
+
+	enum class SouthBaseState
+	{
+		WestAvailableAndNorthBaseSurvives,
+		WestAvailableAndNorthBaseDestroyed,
+		WestConsumedAndNorthBaseSurvives,
+		WestConsumedAndNorthBaseDestroyed
+	};
+
 	const LOCATION NorthCommandCenterLoc;
 	const LOCATION SouthCommandCenterLoc;
 	const LOCATION NorthStructureFactoryLoc;
@@ -76,6 +92,11 @@ private:
 			LOCATION(170 + X_, 72 + Y_),
 			LOCATION(120 + X_, 88 + Y_) } };
 
+		inline static const std::map<MapState, std::vector<TargetRegion>> northBaseTargetMap
+		{
+			{ MapState::WestAvailable, { SouthEast, North, West, South } },
+			{ MapState::WestConsumed, { SouthEast, North, South } }
+		};
 	};
 
 	struct SouthBaseTarget
