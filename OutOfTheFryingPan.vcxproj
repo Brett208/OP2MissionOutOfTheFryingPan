@@ -135,6 +135,7 @@
     <ClInclude Include="FightGroups\FightGroupOverlay.h" />
     <ClInclude Include="FightGroups\OffensiveFightGroup.h" />
     <ClInclude Include="OffensiveStateManager.h" />
+    <ClInclude Include="TargetRegion.h" />
     <ClInclude Include="VolcanoHelper.h" />
     <ClInclude Include="PlayerInitialization.h" />
     <ClInclude Include="resource.h" />
