@@ -23,14 +23,6 @@ private:
 		WestConsumed
 	};
 
-	enum class SouthBaseState
-	{
-		WestAvailableAndNorthBaseSurvives,
-		WestAvailableAndNorthBaseDestroyed,
-		WestConsumedAndNorthBaseSurvives,
-		WestConsumedAndNorthBaseDestroyed
-	};
-
 	const LOCATION NorthCommandCenterLoc;
 	const LOCATION SouthCommandCenterLoc;
 	const LOCATION NorthStructureFactoryLoc;
@@ -92,7 +84,7 @@ private:
 			LOCATION(170 + X_, 72 + Y_),
 			LOCATION(120 + X_, 88 + Y_) } };
 
-		inline static const std::map<MapState, std::vector<TargetRegion>> northBaseTargetMap
+		inline static const std::map<MapState, std::vector<TargetRegion>> targetMap
 		{
 			{ MapState::WestAvailable, { SouthEast, North, West, South } },
 			{ MapState::WestConsumed, { SouthEast, North, South } }
@@ -117,10 +109,12 @@ private:
 				LOCATION(110 + X_, 172 + Y_),
 				LOCATION(96 + X_, 129 + Y_),
 				LOCATION(105 + X_, 86 + Y_) } };
+
 		inline static const TargetRegion South{
 			MapArea::South,
 			std::vector<LOCATION>{
 				LOCATION(206 + X_, 192 + Y_) } };
+
 		inline static const TargetRegion West{
 			MapArea::West,
 			std::vector<LOCATION>{
@@ -128,6 +122,12 @@ private:
 				LOCATION(156 + X_, 190 + Y_),
 				LOCATION(110 + X_, 172 + Y_),
 				LOCATION(96 + X_, 129 + Y_) } };
+
+		inline static const std::map<MapState, std::vector<TargetRegion>> targetMap
+		{
+			{ MapState::WestAvailable, { NorthEast, South, West, North } },
+			{ MapState::WestConsumed, { NorthEast, South, North } }
+		};
 	};
 
 	bool hasLavaConsumedCenterRegion = false;
