@@ -53,8 +53,16 @@ void OffensiveFightGroup::TaskFightGroup(FightGroup& fightGroup)
 
 void OffensiveFightGroup::AttackBuilding(FightGroup& fightGroup, const std::vector<map_id>& buildingTypes)
 {
+	//TODO: Create a list of which target regions contain viable targets
+	// A viable region includes (a CC, a Structure Factory, a mine, or a Smelter)
+
+	// Check if no viable regions exist, if not, pass the entire MAP_RECT in to search (this ensures that if somehow the player is building outside the target regions, or is in process of transferring base, a valid attack still occur
+		// Also, if no target regions are presented, then just pass the entire MAP_RECT in.
+	// Then, starting with the first viable region, use a 70% weight to choose it for targetting, passing on to the next region if the weight fails
+	// If the final region fails as a viable weight, target the first viable region.
+
 	std::vector<Unit> buildings;
-	GetHumanBuildings(buildings, buildingTypes);
+	GetHumanBuildings(buildings, buildingTypes, MAP_RECT(LOCATION(0 + X_, 0 + Y_), LOCATION(GameMapEx::GetMapWidth(), GameMapEx::GetMapHeight())));
 
 	if (buildings.empty())
 	{
@@ -73,14 +81,14 @@ void OffensiveFightGroup::AttackBuilding(FightGroup& fightGroup, const std::vect
 	fightGroupsWithTarget.push_back(FightGroupTarget{ fightGroup, building });
 }
 
-void OffensiveFightGroup::GetHumanBuildings(std::vector<Unit>& buildingsOut, const std::vector<map_id>& buildingTypes)
+void OffensiveFightGroup::GetHumanBuildings(std::vector<Unit>& buildingsOut, const std::vector<map_id>& buildingTypes, MAP_RECT& region)
 {
 	for (map_id buildingType : buildingTypes) {
-		GetHumanBuildings(buildingsOut, buildingType);
+		GetHumanBuildings(buildingsOut, buildingType, region);
 	}
 }
 
-void OffensiveFightGroup::GetHumanBuildings(std::vector<Unit>& buildingsOut, map_id buildingType)
+void OffensiveFightGroup::GetHumanBuildings(std::vector<Unit>& buildingsOut, map_id buildingType, MAP_RECT& region)
 {
 	Unit building;
 	for (std::size_t i = 0; i < humanPlayerCount; ++i)
@@ -89,7 +97,10 @@ void OffensiveFightGroup::GetHumanBuildings(std::vector<Unit>& buildingsOut, map
 
 		while (playerBuildingEnum.GetNext(building))
 		{
-			buildingsOut.push_back(building);
+			if(region.Check(building.Location()))
+			{
+				buildingsOut.push_back(building);
+			}
 		}
 	}
 }
@@ -103,4 +114,9 @@ void OffensiveFightGroup::UpdateTaskedFightGroups()
 			TaskFightGroup(fightGroupTarget.fightGroup);
 		}
 	}
+}
+
+void OffensiveFightGroup::SetTargetRegions(const std::vector<TargetRegion>& targetRegions)
+{
+	this->targetRegions = targetRegions;
 }

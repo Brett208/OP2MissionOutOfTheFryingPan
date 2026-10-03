@@ -4,11 +4,13 @@
 #include "OffensiveStateManager.h"
 #include "AIPlayer.h"
 
-OffensiveStateManager::OffensiveStateManager(LOCATION northCommandCenterLoc, LOCATION southCommandCenterLoc, LOCATION northStructureFactoryLoc, LOCATION southStructureFactoryLoc)
+OffensiveStateManager::OffensiveStateManager(LOCATION northCommandCenterLoc, LOCATION southCommandCenterLoc, LOCATION northStructureFactoryLoc, LOCATION southStructureFactoryLoc, OffensiveFightGroup& northFightGroup, OffensiveFightGroup& southFightGroup)
 	: NorthCommandCenterLoc(northCommandCenterLoc),
 	  SouthCommandCenterLoc(southCommandCenterLoc),
 	  NorthStructureFactoryLoc(northStructureFactoryLoc),
-	  SouthStructureFactoryLoc(southStructureFactoryLoc)
+	  SouthStructureFactoryLoc(southStructureFactoryLoc),
+	  NorthFightGroup(northFightGroup),
+	  SouthFightGroup(southFightGroup)
 { }
 
 void OffensiveStateManager::Update()
@@ -25,6 +27,20 @@ void OffensiveStateManager::Update()
 	else
 	{
 		CheckRegionCenterConsumed();
+	}
+}
+
+void OffensiveStateManager::SetFightGroupTargetRegions()
+{
+	if (hasBlightEnteredWestRegion)
+	{
+		NorthFightGroup.SetTargetRegions(NorthBaseTarget::targetMap.at(MapState::WestConsumed));
+		SouthFightGroup.SetTargetRegions(SouthBaseTarget::targetMap.at(MapState::WestConsumed));
+	}
+	else
+	{
+		NorthFightGroup.SetTargetRegions(NorthBaseTarget::targetMap.at(MapState::WestAvailable));
+		SouthFightGroup.SetTargetRegions(SouthBaseTarget::targetMap.at(MapState::WestAvailable));
 	}
 }
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "TargetRegion.h"
+#include "FightGroups/OffensiveFightGroup.h"
 
 #include <vector>
 #include <map>
@@ -13,7 +14,9 @@ public:
 		LOCATION northCommandCenterLoc, 
 		LOCATION southCommandCenterLoc, 
 		LOCATION northStructureFactoryLoc, 
-		LOCATION southStructureFactoryLoc);
+		LOCATION southStructureFactoryLoc,
+		OffensiveFightGroup& northFightGroup,
+		OffensiveFightGroup& southFightGroup);
 	void Update();
 
 private:
@@ -27,6 +30,9 @@ private:
 	const LOCATION SouthCommandCenterLoc;
 	const LOCATION NorthStructureFactoryLoc;
 	const LOCATION SouthStructureFactoryLoc;
+
+	OffensiveFightGroup& NorthFightGroup;
+	OffensiveFightGroup& SouthFightGroup;
 
 	struct MapArea
 	{
@@ -142,4 +148,5 @@ private:
 	void CheckRegionWestConsumed();
 	void CheckNorthBaseDestroyed();
 	void CheckSouthBaseDestroyed();
+	void SetFightGroupTargetRegions();
 };

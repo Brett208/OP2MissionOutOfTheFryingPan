@@ -32,11 +32,16 @@ namespace AIBaseLoc
 }
 
 DisasterHelper disasterHelper;
+
+OffensiveFightGroup dummyNorthFightGroup(GetAIIndex(), HumanPlayerCount());
+OffensiveFightGroup dummySouthFightGroup(GetAIIndex(), HumanPlayerCount());
 OffensiveStateManager offensiveStateManager(
 	AIBaseLoc::northCommandCenter,
 	AIBaseLoc::southCommandCenter,
 	AIBaseLoc::northStructureFactory,
-	AIBaseLoc::southStructureFactory);
+	AIBaseLoc::southStructureFactory,
+	dummyNorthFightGroup,
+	dummySouthFightGroup);
 
 struct ScriptGlobal
 {
@@ -136,7 +141,7 @@ void AIInitialization()
 
 static void InitializeDisasterHelper()
 {
-	disasterHelper.SetMapProperties(LOCATION(80, 0), LOCATION(256, 256), false);
+	disasterHelper.SetMapProperties(LOCATION(80, 0), LOCATION(GameMapEx::GetMapWidth(), GameMapEx::GetMapHeight()), false);
 }
 
 static Yield GetRandomYield(Yield yieldA, Yield yieldB)
