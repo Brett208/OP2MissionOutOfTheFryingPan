@@ -5,5 +5,5 @@
 
 void AllowWeakAIBaseAttack();
 void UpdateWeakAIBase();
-void BuildAIBase(PlayerNum  aiPlayerNum, const LOCATION& initBaseLoc);
+void BuildAIBase(PlayerNum  aiPlayerNum, LOCATION initBaseLoc);
 void RecordBuildings(BuildingGroup& buildingGroup);

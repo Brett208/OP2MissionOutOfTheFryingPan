@@ -49,6 +49,7 @@
       <AdditionalIncludeDirectories>OP2MissionSDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <PreprocessorDefinitions>_WINDLL;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -71,6 +72,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <AdditionalIncludeDirectories>OP2MissionSDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -114,6 +116,7 @@
     <ClCompile Include="FightGroups\FightGroupOverlay.cpp" />
     <ClCompile Include="LevelMain.cpp" />
     <ClCompile Include="FightGroups\OffensiveFightGroup.cpp" />
+    <ClCompile Include="OffensiveStateManager.cpp" />
     <ClCompile Include="PlayerInitialization.cpp" />
     <ClCompile Include="VolcanoHelper.cpp" />
   </ItemGroup>
@@ -131,6 +134,8 @@
     <ClInclude Include="DisasterHelper.h" />
     <ClInclude Include="FightGroups\FightGroupOverlay.h" />
     <ClInclude Include="FightGroups\OffensiveFightGroup.h" />
+    <ClInclude Include="OffensiveStateManager.h" />
+    <ClInclude Include="TargetRegion.h" />
     <ClInclude Include="VolcanoHelper.h" />
     <ClInclude Include="PlayerInitialization.h" />
     <ClInclude Include="resource.h" />

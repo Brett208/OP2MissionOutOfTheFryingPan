@@ -28,7 +28,7 @@ void AllowWeakAIBaseAttack()
 	offensiveFightGroups->EnableAttack();
 }
 
-void BuildAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
+void BuildAIBase(PlayerNum aiPlayerNum, LOCATION initBaseLoc)
 {
 	LOCATION currentLoc = initBaseLoc;
 	Unit unit;

@@ -41,7 +41,7 @@ void OffensiveFightGroup::TaskFightGroup(FightGroup& fightGroup)
 	case 1: // Attack Command Center / Structure Factory / Vehicle Factory
 		AttackBuilding(fightGroup, std::vector<map_id>{ map_id::mapCommandCenter, mapStructureFactory, mapVehicleFactory });
 		return;
-	case 2: // Attack MiningBuilding
+	case 2: // Attack Mining Building
 		AttackBuilding(fightGroup, std::vector<map_id>{ 
 			mapCommonOreSmelter, mapRareOreSmelter, mapCommonOreMine, mapRareOreMine});
 		return;
@@ -51,10 +51,59 @@ void OffensiveFightGroup::TaskFightGroup(FightGroup& fightGroup)
 	}
 }
 
-void OffensiveFightGroup::AttackBuilding(FightGroup& fightGroup, const std::vector<map_id>& buildingTypes)
+std::vector<TargetRegion> OffensiveFightGroup::GetPossibleTargetRegions(const std::vector<TargetRegion> targetRegionList)
+{
+	std::vector<TargetRegion> viableTargetRegions;
+	std::vector<Unit> buildings;
+
+	if (!targetRegionList.empty())
+	{
+		for (TargetRegion targetRegion : targetRegionList)
+		{
+			GetHumanBuildings(buildings, std::vector<map_id>{ mapCommandCenter, mapStructureFactory, mapCommonOreMine, mapRareOreMine, mapCommonOreSmelter, mapRareOreSmelter }, targetRegion.area);
+
+			if (!buildings.empty())
+			{
+				viableTargetRegions.push_back(targetRegion);
+				buildings.clear();
+			}
+		}
+	}
+	return viableTargetRegions;
+}
+
+std::vector<Unit> OffensiveFightGroup::SelectTargetBuildings(const std::vector<TargetRegion> possibleTargetRegions, const std::vector<map_id> buildingTypes)
 {
 	std::vector<Unit> buildings;
-	GetHumanBuildings(buildings, buildingTypes);
+
+	if (possibleTargetRegions.empty())
+	{
+		GetHumanBuildings(buildings, buildingTypes, MAP_RECT(LOCATION(0 + X_, 0 + Y_), LOCATION(GameMapEx::GetMapWidth(), GameMapEx::GetMapHeight())));
+	}
+	else
+	{
+		for (TargetRegion targetRegion : possibleTargetRegions)
+		{
+			GetHumanBuildings(buildings, buildingTypes, targetRegion.area);
+			if (!buildings.empty())
+			{
+				if (TethysGame::GetRand(100) < 70)
+				{
+					return buildings;
+				}
+				else
+				{
+					buildings.clear();
+				}
+			}
+		}
+	}
+}
+
+void OffensiveFightGroup::AttackBuilding(FightGroup& fightGroup, const std::vector<map_id>& buildingTypes)
+{
+	std::vector<TargetRegion> viableTargetRegions = GetPossibleTargetRegions(targetRegions);
+	std::vector<Unit> buildings = SelectTargetBuildings(viableTargetRegions, buildingTypes);
 
 	if (buildings.empty())
 	{
@@ -73,14 +122,14 @@ void OffensiveFightGroup::AttackBuilding(FightGroup& fightGroup, const std::vect
 	fightGroupsWithTarget.push_back(FightGroupTarget{ fightGroup, building });
 }
 
-void OffensiveFightGroup::GetHumanBuildings(std::vector<Unit>& buildingsOut, const std::vector<map_id>& buildingTypes)
+void OffensiveFightGroup::GetHumanBuildings(std::vector<Unit>& buildingsOut, const std::vector<map_id>& buildingTypes, MAP_RECT& region)
 {
 	for (map_id buildingType : buildingTypes) {
-		GetHumanBuildings(buildingsOut, buildingType);
+		GetHumanBuildings(buildingsOut, buildingType, region);
 	}
 }
 
-void OffensiveFightGroup::GetHumanBuildings(std::vector<Unit>& buildingsOut, map_id buildingType)
+void OffensiveFightGroup::GetHumanBuildings(std::vector<Unit>& buildingsOut, map_id buildingType, MAP_RECT& region)
 {
 	Unit building;
 	for (std::size_t i = 0; i < humanPlayerCount; ++i)
@@ -89,7 +138,10 @@ void OffensiveFightGroup::GetHumanBuildings(std::vector<Unit>& buildingsOut, map
 
 		while (playerBuildingEnum.GetNext(building))
 		{
-			buildingsOut.push_back(building);
+			if(region.Check(building.Location()))
+			{
+				buildingsOut.push_back(building);
+			}
 		}
 	}
 }
@@ -103,4 +155,9 @@ void OffensiveFightGroup::UpdateTaskedFightGroups()
 			TaskFightGroup(fightGroupTarget.fightGroup);
 		}
 	}
+}
+
+void OffensiveFightGroup::SetTargetRegions(const std::vector<TargetRegion>& targetRegions)
+{
+	this->targetRegions = targetRegions;
 }
