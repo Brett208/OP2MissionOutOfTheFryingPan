@@ -41,7 +41,7 @@ void OffensiveFightGroup::TaskFightGroup(FightGroup& fightGroup)
 	case 1: // Attack Command Center / Structure Factory / Vehicle Factory
 		AttackBuilding(fightGroup, std::vector<map_id>{ map_id::mapCommandCenter, mapStructureFactory, mapVehicleFactory });
 		return;
-	case 2: // Attack MiningBuilding
+	case 2: // Attack Mining Building
 		AttackBuilding(fightGroup, std::vector<map_id>{ 
 			mapCommonOreSmelter, mapRareOreSmelter, mapCommonOreMine, mapRareOreMine});
 		return;
@@ -53,16 +53,45 @@ void OffensiveFightGroup::TaskFightGroup(FightGroup& fightGroup)
 
 void OffensiveFightGroup::AttackBuilding(FightGroup& fightGroup, const std::vector<map_id>& buildingTypes)
 {
-	//TODO: Create a list of which target regions contain viable targets
-	// A viable region includes (a CC, a Structure Factory, a mine, or a Smelter)
-
-	// Check if no viable regions exist, if not, pass the entire MAP_RECT in to search (this ensures that if somehow the player is building outside the target regions, or is in process of transferring base, a valid attack still occur
-		// Also, if no target regions are presented, then just pass the entire MAP_RECT in.
-	// Then, starting with the first viable region, use a 70% weight to choose it for targetting, passing on to the next region if the weight fails
-	// If the final region fails as a viable weight, target the first viable region.
-
+	std::vector<TargetRegion> viableTargetRegions;
 	std::vector<Unit> buildings;
-	GetHumanBuildings(buildings, buildingTypes, MAP_RECT(LOCATION(0 + X_, 0 + Y_), LOCATION(GameMapEx::GetMapWidth(), GameMapEx::GetMapHeight())));
+
+	if (!targetRegions.empty())
+	{
+		for (TargetRegion& targetRegion : targetRegions)
+		{
+			GetHumanBuildings(buildings, std::vector<map_id>{ mapCommandCenter, mapStructureFactory, mapCommonOreMine, mapRareOreMine, mapCommonOreSmelter, mapRareOreSmelter }, targetRegion.area);
+
+			if (!buildings.empty())
+			{
+				viableTargetRegions.push_back(targetRegion);
+				buildings.clear();
+			}
+		}
+	}
+
+	if (viableTargetRegions.empty())
+	{
+		GetHumanBuildings(buildings, buildingTypes, MAP_RECT(LOCATION(0 + X_, 0 + Y_), LOCATION(GameMapEx::GetMapWidth(), GameMapEx::GetMapHeight())));
+	}
+	else
+	{
+		for (TargetRegion& targetRegion : viableTargetRegions)
+		{
+			GetHumanBuildings(buildings, buildingTypes, targetRegion.area);
+			if (!buildings.empty())
+			{
+				if (TethysGame::GetRand(100) < 70)
+				{
+					break;
+				}
+				else
+				{
+					buildings.clear();
+				}
+			}
+		}
+	}
 
 	if (buildings.empty())
 	{
