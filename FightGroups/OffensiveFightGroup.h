@@ -33,5 +33,6 @@ private:
 	void AttackBuilding(FightGroup& fightGroup, const std::vector<map_id>& buildingTypes);
 	void GetHumanBuildings(std::vector<Unit>& buildingsOut, const std::vector<map_id>& buildingTypes, MAP_RECT& region);
 	void GetHumanBuildings(std::vector<Unit>& buildingsOut, map_id buildingType, MAP_RECT& region);
-	
+	std::vector<TargetRegion> GetPossibleTargetRegions(const std::vector<TargetRegion> targetRegionList);
+	std::vector<Unit> SelectTargetBuildings(const std::vector<TargetRegion> targetRegions, const std::vector<map_id> buildingTypes);
 };

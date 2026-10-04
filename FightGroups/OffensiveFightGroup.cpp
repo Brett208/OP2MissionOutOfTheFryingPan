@@ -51,14 +51,14 @@ void OffensiveFightGroup::TaskFightGroup(FightGroup& fightGroup)
 	}
 }
 
-void OffensiveFightGroup::AttackBuilding(FightGroup& fightGroup, const std::vector<map_id>& buildingTypes)
+std::vector<TargetRegion> OffensiveFightGroup::GetPossibleTargetRegions(const std::vector<TargetRegion> targetRegionList)
 {
 	std::vector<TargetRegion> viableTargetRegions;
 	std::vector<Unit> buildings;
 
-	if (!targetRegions.empty())
+	if (!targetRegionList.empty())
 	{
-		for (TargetRegion& targetRegion : targetRegions)
+		for (TargetRegion targetRegion : targetRegionList)
 		{
 			GetHumanBuildings(buildings, std::vector<map_id>{ mapCommandCenter, mapStructureFactory, mapCommonOreMine, mapRareOreMine, mapCommonOreSmelter, mapRareOreSmelter }, targetRegion.area);
 
@@ -69,21 +69,27 @@ void OffensiveFightGroup::AttackBuilding(FightGroup& fightGroup, const std::vect
 			}
 		}
 	}
+	return viableTargetRegions;
+}
 
-	if (viableTargetRegions.empty())
+std::vector<Unit> OffensiveFightGroup::SelectTargetBuildings(const std::vector<TargetRegion> possibleTargetRegions, const std::vector<map_id> buildingTypes)
+{
+	std::vector<Unit> buildings;
+
+	if (possibleTargetRegions.empty())
 	{
 		GetHumanBuildings(buildings, buildingTypes, MAP_RECT(LOCATION(0 + X_, 0 + Y_), LOCATION(GameMapEx::GetMapWidth(), GameMapEx::GetMapHeight())));
 	}
 	else
 	{
-		for (TargetRegion& targetRegion : viableTargetRegions)
+		for (TargetRegion targetRegion : possibleTargetRegions)
 		{
 			GetHumanBuildings(buildings, buildingTypes, targetRegion.area);
 			if (!buildings.empty())
 			{
 				if (TethysGame::GetRand(100) < 70)
 				{
-					break;
+					return buildings;
 				}
 				else
 				{
@@ -92,6 +98,12 @@ void OffensiveFightGroup::AttackBuilding(FightGroup& fightGroup, const std::vect
 			}
 		}
 	}
+}
+
+void OffensiveFightGroup::AttackBuilding(FightGroup& fightGroup, const std::vector<map_id>& buildingTypes)
+{
+	std::vector<TargetRegion> viableTargetRegions = GetPossibleTargetRegions(targetRegions);
+	std::vector<Unit> buildings = SelectTargetBuildings(viableTargetRegions, buildingTypes);
 
 	if (buildings.empty())
 	{
