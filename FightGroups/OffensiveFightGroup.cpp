@@ -1,4 +1,5 @@
 #include "OffensiveFightGroup.h"
+#include "../MapRectEx.h"
 
 void OffensiveFightGroup::Initialize(MAP_RECT guardedRect, std::vector<Unit> vehicleFactories, const std::vector<TargetTankCount>& targetTankCounts)
 {
@@ -51,14 +52,14 @@ void OffensiveFightGroup::TaskFightGroup(FightGroup& fightGroup)
 	}
 }
 
-std::vector<TargetRegion> OffensiveFightGroup::GetPossibleTargetRegions(const std::vector<TargetRegion> targetRegionList)
+std::vector<TargetRegion> OffensiveFightGroup::GetPossibleTargetRegions(const std::vector<TargetRegion>& targetRegionList)
 {
 	std::vector<TargetRegion> viableTargetRegions;
 	std::vector<Unit> buildings;
 
 	if (!targetRegionList.empty())
 	{
-		for (TargetRegion targetRegion : targetRegionList)
+		for (const TargetRegion& targetRegion : targetRegionList)
 		{
 			GetHumanBuildings(buildings, std::vector<map_id>{ mapCommandCenter, mapStructureFactory, mapCommonOreMine, mapRareOreMine, mapCommonOreSmelter, mapRareOreSmelter }, targetRegion.area);
 
@@ -72,32 +73,44 @@ std::vector<TargetRegion> OffensiveFightGroup::GetPossibleTargetRegions(const st
 	return viableTargetRegions;
 }
 
-std::vector<Unit> OffensiveFightGroup::SelectTargetBuildings(const std::vector<TargetRegion> possibleTargetRegions, const std::vector<map_id> buildingTypes)
+bool OffensiveFightGroup::SkipRegion(const TargetRegion& region, const std::vector<map_id>& buildingTypes)
 {
 	std::vector<Unit> buildings;
 
+	GetHumanBuildings(buildings, buildingTypes, region.area);
+	if (!buildings.empty())
+	{
+		return TethysGame::GetRand(100) <= 25;
+	}
+	return false;
+}
+
+TargetRegion OffensiveFightGroup::GetTargetRegion(const std::vector<TargetRegion>& possibleTargetRegions, const std::vector<map_id>& targetBuildingTypes)
+{
 	if (possibleTargetRegions.empty())
 	{
-		GetHumanBuildings(buildings, buildingTypes, MAP_RECT(LOCATION(0 + X_, 0 + Y_), LOCATION(GameMapEx::GetMapWidth(), GameMapEx::GetMapHeight())));
+		return TargetRegion{ GetFullMapRect() };
 	}
 	else
 	{
-		for (TargetRegion targetRegion : possibleTargetRegions)
+		for (const TargetRegion& targetRegion : possibleTargetRegions)
 		{
-			GetHumanBuildings(buildings, buildingTypes, targetRegion.area);
-			if (!buildings.empty())
+			if (!SkipRegion(targetRegion, targetBuildingTypes))
 			{
-				if (TethysGame::GetRand(100) < 70)
-				{
-					return buildings;
-				}
-				else
-				{
-					buildings.clear();
-				}
+				return targetRegion;
 			}
 		}
+		return possibleTargetRegions.back();
 	}
+	return TargetRegion{ GetFullMapRect() };
+}
+
+std::vector<Unit> OffensiveFightGroup::SelectTargetBuildings(const std::vector<TargetRegion>& possibleTargetRegions, const std::vector<map_id>& buildingTypes)
+{
+	std::vector<Unit> buildings;
+
+	GetHumanBuildings(buildings, buildingTypes, GetTargetRegion(possibleTargetRegions, buildingTypes).area);
+	return buildings;
 }
 
 void OffensiveFightGroup::AttackBuilding(FightGroup& fightGroup, const std::vector<map_id>& buildingTypes)
@@ -122,14 +135,14 @@ void OffensiveFightGroup::AttackBuilding(FightGroup& fightGroup, const std::vect
 	fightGroupsWithTarget.push_back(FightGroupTarget{ fightGroup, building });
 }
 
-void OffensiveFightGroup::GetHumanBuildings(std::vector<Unit>& buildingsOut, const std::vector<map_id>& buildingTypes, MAP_RECT& region)
+void OffensiveFightGroup::GetHumanBuildings(std::vector<Unit>& buildingsOut, const std::vector<map_id>& buildingTypes, const MAP_RECT& region)
 {
 	for (map_id buildingType : buildingTypes) {
 		GetHumanBuildings(buildingsOut, buildingType, region);
 	}
 }
 
-void OffensiveFightGroup::GetHumanBuildings(std::vector<Unit>& buildingsOut, map_id buildingType, MAP_RECT& region)
+void OffensiveFightGroup::GetHumanBuildings(std::vector<Unit>& buildingsOut, map_id buildingType, const MAP_RECT& region)
 {
 	Unit building;
 	for (std::size_t i = 0; i < humanPlayerCount; ++i)
@@ -138,7 +151,7 @@ void OffensiveFightGroup::GetHumanBuildings(std::vector<Unit>& buildingsOut, map
 
 		while (playerBuildingEnum.GetNext(building))
 		{
-			if(region.Check(building.Location()))
+			if(CheckEx(region, building.Location()))
 			{
 				buildingsOut.push_back(building);
 			}
