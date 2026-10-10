@@ -9,15 +9,15 @@
 #include <vector>
 
 
-void BuildNorthAIBase(PlayerNum aiPlayerNum, const LOCATION& initBaseLoc)
+void BuildNorthAIBase(PlayerNum aiPlayerNum, LOCATION commandCenterLoc, LOCATION structureFactoryLoc)
 {
 	std::vector<Unit> defensiveVehicleFactories;
 	std::vector<Unit> buildings;
 	Unit unit;
 
-	CreateAIBuilding(unit, mapCommandCenter, initBaseLoc, aiPlayerNum, buildings);
+	CreateAIBuilding(unit, mapCommandCenter, commandCenterLoc, aiPlayerNum, buildings);
 	Unit structureFactory;
-	CreateAIBuilding(structureFactory, map_id::mapStructureFactory, LOCATION(244 + X_, 100 + Y_), aiPlayerNum, buildings);
+	CreateAIBuilding(structureFactory, map_id::mapStructureFactory, structureFactoryLoc, aiPlayerNum, buildings);
 
 	CreateAIBuilding(unit, mapReinforcedResidence, LOCATION(239 + X_, 100 + Y_), aiPlayerNum, buildings);
 	CreateAIBuilding(unit, mapReinforcedResidence, LOCATION(239 + X_, 103 + Y_), aiPlayerNum, buildings);

@@ -16,3 +16,18 @@ bool IsBlightInArea(MAP_RECT area)
 	}
 	return false;
 }
+
+bool IsLavaInArea(MAP_RECT area)
+{
+	for (int x = area.x1; x <= area.x2; ++x)
+	{
+		for (int y = area.y1; y <= area.y2; ++y)
+		{
+			if (GameMapEx::GetTileEx(LOCATION(x, y)).lava)
+			{
+				return true;
+			}
+		}
+	}
+	return false;
+}
