@@ -134,6 +134,7 @@
     <ClInclude Include="DisasterHelper.h" />
     <ClInclude Include="FightGroups\FightGroupOverlay.h" />
     <ClInclude Include="FightGroups\OffensiveFightGroup.h" />
+    <ClInclude Include="MapRectEx.h" />
     <ClInclude Include="OffensiveStateManager.h" />
     <ClInclude Include="TargetRegion.h" />
     <ClInclude Include="VolcanoHelper.h" />
