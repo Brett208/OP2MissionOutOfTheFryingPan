@@ -104,3 +104,20 @@ void OffensiveFightGroup::UpdateTaskedFightGroups()
 		}
 	}
 }
+
+void OffensiveFightGroup::SetTargetRegions(const std::vector<TargetRegion>& targetRegions)
+{
+	this->targetRegions = targetRegions;
+}
+
+
+
+bool OffensiveFightGroup::IsWaypointReached(const LOCATION& loc, FightGroup fightGroup)
+{
+	int numberOfUnitsInFightGroup = fightGroup.TotalUnitCount();
+	int numberOfUnitsRequiredAtWaypoint = (numberOfUnitsInFightGroup * percentageVehiclesRequiredAtWaypoint) / 100;
+	
+	fightGroup.
+
+	return numberOfUnits > 0 && numberOfUnits == numberOfUnitsAtWaypoint;
+}
