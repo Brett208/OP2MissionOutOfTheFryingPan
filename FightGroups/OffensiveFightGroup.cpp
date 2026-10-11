@@ -177,12 +177,14 @@ void OffensiveFightGroup::SetTargetRegions(const std::vector<TargetRegion>& targ
 
 
 
-bool OffensiveFightGroup::IsWaypointReached(const LOCATION& loc, FightGroup fightGroup)
+bool OffensiveFightGroup::IsWaypointReached(const LOCATION& loc, FightGroup& fightGroup) const
 {
 	int numberOfUnitsInFightGroup = fightGroup.TotalUnitCount();
 	int numberOfUnitsRequiredAtWaypoint = (numberOfUnitsInFightGroup * percentageVehiclesRequiredAtWaypoint) / 100;
 	
-	fightGroup.
+	//fightGroup.
 
-	return numberOfUnits > 0 && numberOfUnits == numberOfUnitsAtWaypoint;
+	//return numberOfUnits > 0 && numberOfUnits == numberOfUnitsAtWaypoint;
+
+	return false;
 }

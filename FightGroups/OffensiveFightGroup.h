@@ -31,7 +31,7 @@ private:
 
 	const int percentageVehiclesRequiredAtWaypoint = 75;
 
-	bool IsWaypointReached(const LOCATION& loc);
+	bool IsWaypointReached(const LOCATION& loc, FightGroup& fightGroup) const;
 	void TaskFightGroup(FightGroup& fightGroup);
 	void AttackBuilding(FightGroup& fightGroup, const std::vector<map_id>& buildingTypes);
 	void GetHumanBuildings(std::vector<Unit>& buildingsOut, const std::vector<map_id>& buildingTypes, const MAP_RECT& region);
