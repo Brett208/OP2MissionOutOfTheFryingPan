@@ -1,4 +1,5 @@
 #include "OffensiveFightGroup.h"
+#include "../MapRectEx.h"
 
 void OffensiveFightGroup::Initialize(MAP_RECT guardedRect, std::vector<Unit> vehicleFactories, const std::vector<TargetTankCount>& targetTankCounts)
 {
@@ -41,7 +42,7 @@ void OffensiveFightGroup::TaskFightGroup(FightGroup& fightGroup)
 	case 1: // Attack Command Center / Structure Factory / Vehicle Factory
 		AttackBuilding(fightGroup, std::vector<map_id>{ map_id::mapCommandCenter, mapStructureFactory, mapVehicleFactory });
 		return;
-	case 2: // Attack MiningBuilding
+	case 2: // Attack Mining Building
 		AttackBuilding(fightGroup, std::vector<map_id>{ 
 			mapCommonOreSmelter, mapRareOreSmelter, mapCommonOreMine, mapRareOreMine});
 		return;
@@ -51,10 +52,71 @@ void OffensiveFightGroup::TaskFightGroup(FightGroup& fightGroup)
 	}
 }
 
-void OffensiveFightGroup::AttackBuilding(FightGroup& fightGroup, const std::vector<map_id>& buildingTypes)
+std::vector<TargetRegion> OffensiveFightGroup::GetPossibleTargetRegions(const std::vector<TargetRegion>& targetRegionList)
+{
+	std::vector<TargetRegion> viableTargetRegions;
+	std::vector<Unit> buildings;
+
+	if (!targetRegionList.empty())
+	{
+		for (const TargetRegion& targetRegion : targetRegionList)
+		{
+			GetHumanBuildings(buildings, std::vector<map_id>{ mapCommandCenter, mapStructureFactory, mapCommonOreMine, mapRareOreMine, mapCommonOreSmelter, mapRareOreSmelter }, targetRegion.area);
+
+			if (!buildings.empty())
+			{
+				viableTargetRegions.push_back(targetRegion);
+				buildings.clear();
+			}
+		}
+	}
+	return viableTargetRegions;
+}
+
+bool OffensiveFightGroup::SkipRegion(const TargetRegion& region, const std::vector<map_id>& buildingTypes)
 {
 	std::vector<Unit> buildings;
-	GetHumanBuildings(buildings, buildingTypes);
+
+	GetHumanBuildings(buildings, buildingTypes, region.area);
+	if (!buildings.empty())
+	{
+		return TethysGame::GetRand(100) <= 25;
+	}
+	return false;
+}
+
+TargetRegion OffensiveFightGroup::GetTargetRegion(const std::vector<TargetRegion>& possibleTargetRegions, const std::vector<map_id>& targetBuildingTypes)
+{
+	if (possibleTargetRegions.empty())
+	{
+		return TargetRegion{ GetFullMapRect() };
+	}
+	else
+	{
+		for (const TargetRegion& targetRegion : possibleTargetRegions)
+		{
+			if (!SkipRegion(targetRegion, targetBuildingTypes))
+			{
+				return targetRegion;
+			}
+		}
+		return possibleTargetRegions.back();
+	}
+	return TargetRegion{ GetFullMapRect() };
+}
+
+std::vector<Unit> OffensiveFightGroup::SelectTargetBuildings(const std::vector<TargetRegion>& possibleTargetRegions, const std::vector<map_id>& buildingTypes)
+{
+	std::vector<Unit> buildings;
+
+	GetHumanBuildings(buildings, buildingTypes, GetTargetRegion(possibleTargetRegions, buildingTypes).area);
+	return buildings;
+}
+
+void OffensiveFightGroup::AttackBuilding(FightGroup& fightGroup, const std::vector<map_id>& buildingTypes)
+{
+	std::vector<TargetRegion> viableTargetRegions = GetPossibleTargetRegions(targetRegions);
+	std::vector<Unit> buildings = SelectTargetBuildings(viableTargetRegions, buildingTypes);
 
 	if (buildings.empty())
 	{
@@ -73,14 +135,14 @@ void OffensiveFightGroup::AttackBuilding(FightGroup& fightGroup, const std::vect
 	fightGroupsWithTarget.push_back(FightGroupTarget{ fightGroup, building });
 }
 
-void OffensiveFightGroup::GetHumanBuildings(std::vector<Unit>& buildingsOut, const std::vector<map_id>& buildingTypes)
+void OffensiveFightGroup::GetHumanBuildings(std::vector<Unit>& buildingsOut, const std::vector<map_id>& buildingTypes, const MAP_RECT& region)
 {
 	for (map_id buildingType : buildingTypes) {
-		GetHumanBuildings(buildingsOut, buildingType);
+		GetHumanBuildings(buildingsOut, buildingType, region);
 	}
 }
 
-void OffensiveFightGroup::GetHumanBuildings(std::vector<Unit>& buildingsOut, map_id buildingType)
+void OffensiveFightGroup::GetHumanBuildings(std::vector<Unit>& buildingsOut, map_id buildingType, const MAP_RECT& region)
 {
 	Unit building;
 	for (std::size_t i = 0; i < humanPlayerCount; ++i)
@@ -89,7 +151,10 @@ void OffensiveFightGroup::GetHumanBuildings(std::vector<Unit>& buildingsOut, map
 
 		while (playerBuildingEnum.GetNext(building))
 		{
-			buildingsOut.push_back(building);
+			if(CheckEx(region, building.Location()))
+			{
+				buildingsOut.push_back(building);
+			}
 		}
 	}
 }

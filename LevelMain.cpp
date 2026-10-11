@@ -9,10 +9,11 @@
 #include "AIPlayer.h"
 #include "PlayerInitialization.h"
 #include "VolcanoHelper.h"
-#include "FightGroups/OffensiveFightGroup.h"
-#include "Environment.h"
+#include "OffensiveStateManager.h"
+
 #include <vector>
 #include <algorithm>
+#include <memory>
 
 // Prevent using the Windows defined macros that step on the C++ standard function calls
 #undef min
@@ -21,7 +22,26 @@
 // Required data exports  (Description, Map, TechTree, GameType, NumPlayers, TechLvl, number of AI)
 ExportLevelDetailsFullEx("5P, SRV, 'Out Of The Frying Pan'", "FryingPan.map", "survtech.txt", MultiSpaceRace, 6, 12, false, 1);
 
+namespace AIBaseLoc
+{
+	const LOCATION weakBase(76 + X_, 132 + Y_);
+	const LOCATION northCommandCenter(244 + X_, 122 + Y_);
+	const LOCATION northStructureFactory(244 + X_, 100 + Y_);
+	const LOCATION southCommandCenter(242 + X_, 162 + Y_);
+	const LOCATION southStructureFactory(242 + X_, 175 + Y_);
+}
+
 DisasterHelper disasterHelper;
+
+OffensiveFightGroup dummyNorthFightGroup(GetAIIndex(), HumanPlayerCount());
+OffensiveFightGroup dummySouthFightGroup(GetAIIndex(), HumanPlayerCount());
+OffensiveStateManager offensiveStateManager(
+	AIBaseLoc::northCommandCenter,
+	AIBaseLoc::southCommandCenter,
+	AIBaseLoc::northStructureFactory,
+	AIBaseLoc::southStructureFactory,
+	dummyNorthFightGroup,
+	dummySouthFightGroup);
 
 struct ScriptGlobal
 {
@@ -43,8 +63,6 @@ SongIds PlayList[] = {
 
 std::vector<bool> moraleFree; // If each player's morale is free
 const int disastersAndMoraleTimer = 20'000;
-bool hasBlightEnteredWestRegion = false;
-
 
 static void FreeMorale(int playerIndex)
 {
@@ -106,9 +124,6 @@ static void AddVictoryConditions()
 
 void AIInitialization()
 {
-	LOCATION AIWeakBaseLoc(76 + X_, 132 + Y_);
-	LOCATION AINorthBaseLoc(244 + X_, 122 + Y_);
-	LOCATION AISouthBaseLoc(242  + X_, 162 + Y_);
 	PlayerNum aiIndex = GetAIIndex();
 	Player[aiIndex].GoAI();
 	Player[aiIndex].SetColorNumber(GetAIColor());
@@ -119,14 +134,14 @@ void AIInitialization()
 	Player[aiIndex].SetWorkers(200);
 	Player[aiIndex].SetScientists(200);
 	SetAIIndex(aiIndex);
-	BuildAIBase(aiIndex, AIWeakBaseLoc);
-	BuildNorthAIBase(aiIndex, AINorthBaseLoc);
-	BuildSouthAIBase(aiIndex, AISouthBaseLoc);
+	BuildAIBase(aiIndex, AIBaseLoc::weakBase);
+	BuildNorthAIBase(aiIndex, AIBaseLoc::northCommandCenter, AIBaseLoc::northStructureFactory);
+	BuildSouthAIBase(aiIndex, AIBaseLoc::southCommandCenter, AIBaseLoc::southStructureFactory);
 }
 
 static void InitializeDisasterHelper()
 {
-	disasterHelper.SetMapProperties(LOCATION(80, 0), LOCATION(256, 256), false);
+	disasterHelper.SetMapProperties(LOCATION(80, 0), LOCATION(GameMapEx::GetMapWidth(), GameMapEx::GetMapHeight()), false);
 }
 
 static Yield GetRandomYield(Yield yieldA, Yield yieldB)
@@ -305,7 +320,7 @@ Export int InitProc()
 
 	Trigger BlightTrigger = CreateTimeTrigger(true, true, 1, 1, "SpawnBlight");
 	Trigger FirstAttackTrigger = CreateTimeTrigger(true, true, 2'500, "WeakBaseAttackTrigger"); // Should be 25'000 ticks for actual game, 2'500 for debugging first attack
-	
+
 	return true;
 }
 
@@ -313,11 +328,7 @@ Export void AIProc()
 {
 	CheckMorale();
 	UpdateWeakAIBase();
-
-	if (!hasBlightEnteredWestRegion && IsBlightInArea(MAP_RECT(86 + X_, 98 + Y_, 86 + X_, 131 + Y_)))
-	{
-		hasBlightEnteredWestRegion = true;
-	}
+	offensiveStateManager.Update();
 }
 
 Export void SpawnBlight()
