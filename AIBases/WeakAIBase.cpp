@@ -164,9 +164,9 @@ int GetDefensiveTankCount()
 
 void RecordBuildings(BuildingGroup& buildingGroup)
 {
-	buildingGroup.RecordBuilding(LOCATION(74 + X_, 125 + Y_), mapAgridome, mapNone);
-	buildingGroup.RecordBuilding(LOCATION(78 + X_, 125 + Y_), mapResidence, mapNone);
-	buildingGroup.RecordBuilding(LOCATION(81 + X_, 125 + Y_), mapMedicalCenter, mapNone);
-	buildingGroup.RecordBuilding(LOCATION(70 + X_, 125 + Y_), mapDIRT, mapNone);
-	buildingGroup.RecordBuilding(LOCATION(66 + X_, 128 + Y_), mapDIRT, mapNone);
+	RecordBuildingConst(buildingGroup, LOCATION(74 + X_, 125 + Y_), mapAgridome, mapNone);
+	RecordBuildingConst(buildingGroup, LOCATION(78 + X_, 125 + Y_), mapResidence, mapNone);
+	RecordBuildingConst(buildingGroup, LOCATION(81 + X_, 125 + Y_), mapMedicalCenter, mapNone);
+	RecordBuildingConst(buildingGroup, LOCATION(70 + X_, 125 + Y_), mapDIRT, mapNone);
+	RecordBuildingConst(buildingGroup, LOCATION(66 + X_, 128 + Y_), mapDIRT, mapNone);
 }

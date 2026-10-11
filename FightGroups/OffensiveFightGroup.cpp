@@ -26,7 +26,8 @@ void OffensiveFightGroup::CreateTank(map_id type, map_id turret)
 
 void OffensiveFightGroup::Attack(const std::vector<TargetTankCount>& targetCounts)
 {
-	TaskFightGroup(GetFightGroup());
+	FightGroup fightGroup = GetFightGroup();
+	TaskFightGroup(fightGroup);
 	Initialize(GetGuardedRect(), vehicleFactories, targetCounts);
 }
 

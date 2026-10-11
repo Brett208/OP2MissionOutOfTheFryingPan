@@ -65,10 +65,10 @@ void BuildNorthAIBase(PlayerNum aiPlayerNum, LOCATION commandCenterLoc, LOCATION
 
 	RecordTubeLine(buildingGroup, LOCATION(219 + X_, 94 + Y_), LOCATION(243 + X_, 98 + Y_));
 
-	buildingGroup.RecordBuilding(LOCATION(251 + X_, 100 + Y_), mapDIRT, mapNone);
-	buildingGroup.RecordBuilding(LOCATION(235 + X_, 103 + Y_), mapAgridome, mapNone);
-	buildingGroup.RecordBuilding(LOCATION(251 + X_, 103 + Y_), mapDIRT, mapNone);
-	buildingGroup.RecordBuilding(LOCATION(236 + X_, 100 + Y_), mapMedicalCenter, mapNone);
+	RecordBuildingConst(buildingGroup, LOCATION(251 + X_, 100 + Y_), mapDIRT, mapNone);
+	RecordBuildingConst(buildingGroup, LOCATION(235 + X_, 103 + Y_), mapAgridome, mapNone);
+	RecordBuildingConst(buildingGroup, LOCATION(251 + X_, 103 + Y_), mapDIRT, mapNone);
+	RecordBuildingConst(buildingGroup, LOCATION(236 + X_, 100 + Y_), mapMedicalCenter, mapNone);
 
 	CreateCommonMineGroup3Bar(LOCATION(225 + X_, 112 + Y_), aiPlayerNum, buildings);
 

@@ -2,6 +2,7 @@
 #include "HFL/Source/HFL.h"
 #include "OP2Helper/OP2Helper.h"
 #include "Outpost2DLL/Outpost2DLL.h"
+#include "AIBases/AIBaseShared.h"
 
 namespace {
 	void CreateMiningGroup(LOCATION beaconLocation, PlayerNum playerNum, 
@@ -30,7 +31,7 @@ void RecordGuardPostCluster(LOCATION loc, const std::vector<GuardPostData>& guar
 	Unit unit;
 	for (const auto& guardPostData : guardPosts)
 	{
-		buildingGroup.RecordBuilding(loc + guardPostData.relativeLoc, mapGuardPost, guardPostData.weapon);
+		RecordBuildingConst(buildingGroup, loc + guardPostData.relativeLoc, mapGuardPost, guardPostData.weapon);
 	}
 }
 
@@ -62,7 +63,7 @@ void SetupBuildingGroup(BuildingGroup& buildingGroup, Unit& structureFactory, Un
 
 	for (Unit building : buildings)
 	{
-		buildingGroup.RecordBuilding(building.Location(), building.GetType(), building.GetCargo());
+		RecordBuildingConst(buildingGroup, building.Location(), building.GetType(), building.GetCargo());
 	}
 }
 

@@ -193,9 +193,8 @@ private:
 
 	LOCATION GetRandMapLoc();
 	double DistanceBetweenPoints(LOCATION loc1, LOCATION loc2);	
-	bool DisasterHelper::IsInSafeArea(LOCATION& loc);
-	LOCATION DisasterHelper::FindVortexEndLoc(const MAP_RECT& vortexCorridor,
-		const LOCATION& startLoc, double minPercentHypotenuseTravel);
+	bool IsInSafeArea(LOCATION loc);
+	LOCATION FindVortexEndLoc(const MAP_RECT& vortexCorridor, const LOCATION& startLoc, double minPercentHypotenuseTravel);
 
-	void SendDebugMessage(char* message);
+	void SendDebugMessage(const char* message);
 };

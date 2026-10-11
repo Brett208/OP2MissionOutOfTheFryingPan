@@ -97,7 +97,7 @@ LOCATION DisasterHelper::GetRandMapLoc()
 		TethysGame::GetRand(GetHeight()) + yOffset + topLeft.y);
 }
 
-bool DisasterHelper::IsInSafeArea(LOCATION& location)
+bool DisasterHelper::IsInSafeArea(LOCATION location)
 {
 	if (TethysGame::Time() / 100 >= safeZoneTimer)
 	{
@@ -279,10 +279,9 @@ void DisasterHelper::CreateMeteor()
 	TethysGame::SetMeteor(disasterLoc.x, disasterLoc.y, meteorSize);
 }
 
-void DisasterHelper::SendDebugMessage(char* message)
+void DisasterHelper::SendDebugMessage(const char* message)
 {
 #if _DEBUG
-	Unit unit;
-	TethysGame::AddMessage(unit, message, PlayerNum::Player0, SoundID::sndBeep8);
+	AddGameMessage(message, SoundID::sndBeep8);
 #endif
 }
