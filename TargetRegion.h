@@ -7,5 +7,10 @@
 struct TargetRegion
 {
 	MAP_RECT area = MAP_RECT(LOCATION(0, 0), LOCATION(0, 0));
-	std::vector<LOCATION> waypoints = { LOCATION(0, 0) };
+	std::vector<LOCATION> waypoints = {};
+
+	bool HasWaypoints() const
+	{
+		return !waypoints.empty();
+	}
 };

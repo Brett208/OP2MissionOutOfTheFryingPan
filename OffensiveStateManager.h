@@ -148,5 +148,4 @@ private:
 	void CheckRegionWestConsumed();
 	void CheckNorthBaseDestroyed();
 	void CheckSouthBaseDestroyed();
-	void SetFightGroupTargetRegions();
 };

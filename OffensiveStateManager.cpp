@@ -11,7 +11,10 @@ OffensiveStateManager::OffensiveStateManager(LOCATION northCommandCenterLoc, LOC
 	  SouthStructureFactoryLoc(southStructureFactoryLoc),
 	  NorthFightGroup(northFightGroup),
 	  SouthFightGroup(southFightGroup)
-{ }
+{
+	northFightGroup.SetTargetRegions(NorthBaseTarget::targetMap.at(MapState::WestAvailable));
+	southFightGroup.SetTargetRegions(SouthBaseTarget::targetMap.at(MapState::WestAvailable));
+}
 
 void OffensiveStateManager::Update()
 {
@@ -27,20 +30,6 @@ void OffensiveStateManager::Update()
 	else
 	{
 		CheckRegionCenterConsumed();
-	}
-}
-
-void OffensiveStateManager::SetFightGroupTargetRegions()
-{
-	if (hasBlightEnteredWestRegion)
-	{
-		NorthFightGroup.SetTargetRegions(NorthBaseTarget::targetMap.at(MapState::WestConsumed));
-		SouthFightGroup.SetTargetRegions(SouthBaseTarget::targetMap.at(MapState::WestConsumed));
-	}
-	else
-	{
-		NorthFightGroup.SetTargetRegions(NorthBaseTarget::targetMap.at(MapState::WestAvailable));
-		SouthFightGroup.SetTargetRegions(SouthBaseTarget::targetMap.at(MapState::WestAvailable));
 	}
 }
 
@@ -81,6 +70,8 @@ void OffensiveStateManager::CheckRegionWestConsumed()
 	if (!hasBlightEnteredWestRegion && IsBlightInArea(MAP_RECT(86 + X_, 98 + Y_, 86 + X_, 131 + Y_)))
 	{
 		hasBlightEnteredWestRegion = true;
+		NorthFightGroup.SetTargetRegions(NorthBaseTarget::targetMap.at(MapState::WestConsumed));
+		SouthFightGroup.SetTargetRegions(SouthBaseTarget::targetMap.at(MapState::WestConsumed));
 	}
 }
 

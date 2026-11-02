@@ -19,11 +19,16 @@ public:
 	virtual void Initialize(MAP_RECT guardedRect, std::vector<Unit> vehicleFactories);
 	bool IsFull();
 	int vehicleFactoryCount() { return vehicleFactories.size(); }
-	
+
+	float PercentageVehiclesInRect(const MAP_RECT& rect) const;
+	inline void SetIdleRect(MAP_RECT rect) { fightGroup.SetRect(rect); }
+	void BasicAttack();
+
 protected:
 	const PlayerNum aiPlayerNum;
 	const std::size_t humanPlayerCount;
 	std::vector<Unit> vehicleFactories;
+	std::vector<Unit> tanks;
 	
 	void AddTank(map_id tankType, map_id weapon);
 
@@ -34,12 +39,15 @@ protected:
 	void SetTigerCount(map_id weaponType, int targetCount);
 	void SetScorpionCount(int targetCount);
 
-	MAP_RECT GetGuardedRect();
+	MAP_RECT GetGuardedRect() const;
 	
-	int GetFightGroupCount();
-	
-	void BasicAttack();
-	FightGroup GetFightGroup();
+	/// <summary>
+	/// Total alive units currently in the fight group.
+	/// </summary>
+	int GetFightGroupCount() const;
+
+	void TakeUnit(Unit& unit);
+	//FightGroup GetFightGroup() const;
 	int targetCount = 0;
 
 private:

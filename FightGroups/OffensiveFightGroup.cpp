@@ -20,35 +20,34 @@ void OffensiveFightGroup::CreateTank(map_id type, map_id turret)
 		TethysGame::CreateUnit(tank, type, vehicleFactory.Location(), aiPlayerNum, turret, 0);
 		tank.DoSetLights(true);
 
-		GetFightGroup().TakeUnit(tank);
+		TakeUnit(tank);
 	}
 }
 
 void OffensiveFightGroup::Attack(const std::vector<TargetTankCount>& targetCounts)
 {
-	FightGroup fightGroup = GetFightGroup();
-	TaskFightGroup(fightGroup);
+	TaskFightGroup(*this);
 	Initialize(GetGuardedRect(), vehicleFactories, targetCounts);
 }
 
-void OffensiveFightGroup::TaskFightGroup(FightGroup& fightGroup)
+void OffensiveFightGroup::TaskFightGroup(FightGroupOverlay& group)
 {
 	int choice = TethysGame::GetRand(4);
 
 	switch (choice)
 	{
 	case 0: // General Attack
-		BasicAttack();
+		group.BasicAttack();
 		return;
 	case 1: // Attack Command Center / Structure Factory / Vehicle Factory
-		AttackBuilding(fightGroup, std::vector<map_id>{ map_id::mapCommandCenter, mapStructureFactory, mapVehicleFactory });
+		AttackBuilding(group, std::vector<map_id>{ map_id::mapCommandCenter, mapStructureFactory, mapVehicleFactory });
 		return;
 	case 2: // Attack Mining Building
-		AttackBuilding(fightGroup, std::vector<map_id>{ 
+		AttackBuilding(group, std::vector<map_id>{
 			mapCommonOreSmelter, mapRareOreSmelter, mapCommonOreMine, mapRareOreMine});
 		return;
 	case 3: // Spaceport / Advanced Lab
-		AttackBuilding(fightGroup, std::vector<map_id> { mapSpaceport, mapAdvancedLab});
+		AttackBuilding(group, std::vector<map_id> { mapSpaceport, mapAdvancedLab});
 		return;
 	}
 }
@@ -90,7 +89,7 @@ TargetRegion OffensiveFightGroup::GetTargetRegion(const std::vector<TargetRegion
 {
 	if (possibleTargetRegions.empty())
 	{
-		return TargetRegion{ GetFullMapRect() };
+		return TargetRegion{ MapEx::GetFullRect() };
 	}
 	else
 	{
@@ -103,37 +102,31 @@ TargetRegion OffensiveFightGroup::GetTargetRegion(const std::vector<TargetRegion
 		}
 		return possibleTargetRegions.back();
 	}
-	return TargetRegion{ GetFullMapRect() };
+	return TargetRegion{ MapEx::GetFullRect() };
 }
 
-std::vector<Unit> OffensiveFightGroup::SelectTargetBuildings(const std::vector<TargetRegion>& possibleTargetRegions, const std::vector<map_id>& buildingTypes)
+std::vector<Unit> OffensiveFightGroup::SelectTargetBuildings(const TargetRegion& targetRegion, const std::vector<map_id>& buildingTypes)
 {
 	std::vector<Unit> buildings;
 
-	GetHumanBuildings(buildings, buildingTypes, GetTargetRegion(possibleTargetRegions, buildingTypes).area);
+	GetHumanBuildings(buildings, buildingTypes, targetRegion.area);
 	return buildings;
 }
 
-void OffensiveFightGroup::AttackBuilding(FightGroup& fightGroup, const std::vector<map_id>& buildingTypes)
+void OffensiveFightGroup::AttackBuilding(FightGroupOverlay& group, const std::vector<map_id>& buildingTypes)
 {
 	std::vector<TargetRegion> viableTargetRegions = GetPossibleTargetRegions(targetRegions);
-	std::vector<Unit> buildings = SelectTargetBuildings(viableTargetRegions, buildingTypes);
+	TargetRegion targetRegion = GetTargetRegion(viableTargetRegions, buildingTypes);
+	std::vector<Unit> buildings = SelectTargetBuildings(targetRegion, buildingTypes);
 
 	if (buildings.empty())
 	{
-		BasicAttack();
+		group.BasicAttack();
 		return;
 	}
 
 	Unit building = buildings[TethysGame::GetRand(buildings.size())];
-
-	MAP_RECT mapRect(
-		building.Location().x - 5, building.Location().y - 5,
-		building.Location().x + 5, building.Location().y + 5
-	);
-	fightGroup.SetRect(mapRect);
-
-	fightGroupsWithTarget.push_back(FightGroupTarget{ fightGroup, building });
+	fightGroupsWithTarget.push_back(FightGroupTarget{ std::make_shared<FightGroupOverlay>(group), building, targetRegion.waypoints });
 }
 
 void OffensiveFightGroup::GetHumanBuildings(std::vector<Unit>& buildingsOut, const std::vector<map_id>& buildingTypes, const MAP_RECT& region)
@@ -152,7 +145,7 @@ void OffensiveFightGroup::GetHumanBuildings(std::vector<Unit>& buildingsOut, map
 
 		while (playerBuildingEnum.GetNext(building))
 		{
-			if(CheckEx(region, building.Location()))
+			if(MapEx::Check(region, building.Location()))
 			{
 				buildingsOut.push_back(building);
 			}
@@ -162,11 +155,33 @@ void OffensiveFightGroup::GetHumanBuildings(std::vector<Unit>& buildingsOut, map
 
 void OffensiveFightGroup::UpdateTaskedFightGroups()
 {
-	for (int i = fightGroupsWithTarget.size(); i-- > 0; ) {
-		if (!fightGroupsWithTarget[i].building.IsLive()) {
-			FightGroupTarget fightGroupTarget = fightGroupsWithTarget[i];
-			fightGroupsWithTarget.erase(fightGroupsWithTarget.begin() + i);
-			TaskFightGroup(fightGroupTarget.fightGroup);
+	for (int i = fightGroupsWithTarget.size(); i-- > 0; )
+	{
+		UpdateTaskedFightGroup(fightGroupsWithTarget[i]);
+	}
+}
+
+void OffensiveFightGroup::UpdateTaskedFightGroup(FightGroupTarget& fightGroupWithTarget)
+{
+	if (!fightGroupWithTarget.initiatedAttack)
+	{
+		if (fightGroupWithTarget.AreWaypointsEmpty())
+		{
+			fightGroupWithTarget.CommenceAttack();
+			fightGroupWithTarget.initiatedAttack = true;
+		}
+		else
+		{
+			// TODO: Check if the fight group has reached the next waypoint, and if so, remove it from the list of waypoints
+		}
+	}
+	else
+	{
+		if (!fightGroupWithTarget.building.IsLive())
+		{
+			FightGroupTarget fightGroupTarget = fightGroupWithTarget;
+			fightGroupsWithTarget.erase(std::remove(fightGroupsWithTarget.begin(), fightGroupsWithTarget.end(), fightGroupWithTarget), fightGroupsWithTarget.end());
+			TaskFightGroup(*fightGroupTarget.fightGroup);
 		}
 	}
 }
@@ -176,16 +191,7 @@ void OffensiveFightGroup::SetTargetRegions(const std::vector<TargetRegion>& targ
 	this->targetRegions = targetRegions;
 }
 
-
-
-bool OffensiveFightGroup::IsWaypointReached(const LOCATION& loc, FightGroup& fightGroup) const
+bool OffensiveFightGroup::IsWaypointReached(const LOCATION& loc, FightGroupOverlay& fightGroup) const
 {
-	int numberOfUnitsInFightGroup = fightGroup.TotalUnitCount();
-	int numberOfUnitsRequiredAtWaypoint = (numberOfUnitsInFightGroup * percentageVehiclesRequiredAtWaypoint) / 100;
-	
-	//fightGroup.
-
-	//return numberOfUnits > 0 && numberOfUnits == numberOfUnitsAtWaypoint;
-
-	return false;
+	return fightGroup.PercentageVehiclesInRect(MapEx::GetRectCenteredOnLoc(loc, 10)) >= percentageVehiclesRequiredAtWaypoint;
 }

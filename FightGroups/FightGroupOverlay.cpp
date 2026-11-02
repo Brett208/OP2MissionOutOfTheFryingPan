@@ -1,4 +1,5 @@
 #include "FightGroupOverlay.h"
+#include "../MapRectEx.h"
 
 FightGroupOverlay::FightGroupOverlay(PlayerNum aiPlayerNum, int humanPlayerCount) : 
 	aiPlayerNum(aiPlayerNum), humanPlayerCount(humanPlayerCount) {}
@@ -7,6 +8,7 @@ void FightGroupOverlay::Initialize(MAP_RECT guardedRect, std::vector<Unit> vehic
 {
 	this->vehicleFactories = vehicleFactories;
 	this->guardedRect = guardedRect;
+	tanks.clear();
 
 	fightGroup = CreateFightGroup(Player[aiPlayerNum]);
 	fightGroup.DoGuardRect();
@@ -45,6 +47,20 @@ void FightGroupOverlay::AddTank(map_id tankType, map_id weapon)
 	fightGroup.TakeUnit(unit);
 }
 
+float FightGroupOverlay::PercentageVehiclesInRect(const MAP_RECT& rect) const
+{
+	int totalFightGroupCount = GetFightGroupCount();
+	int unitsInRect = 0;
+
+	for (const Unit& tank : tanks) {
+		if (MapEx::Check(rect, tank.Location()))
+		{
+			unitsInRect++;
+		}
+	}
+	return (totalFightGroupCount > 0) ? (100.0f * unitsInRect / totalFightGroupCount) : 0.0f;
+}
+
 void FightGroupOverlay::ClearTargetCount()
 {
 	fightGroup.ClearTargCount();
@@ -70,7 +86,7 @@ void FightGroupOverlay::SetScorpionCount(int targetCount)
 	fightGroup.SetTargCount(map_id::mapScorpion, map_id::mapEnergyCannon, targetCount);
 }
 
-MAP_RECT FightGroupOverlay::GetGuardedRect()
+MAP_RECT FightGroupOverlay::GetGuardedRect() const
 {
 	return guardedRect;
 }
@@ -79,8 +95,10 @@ void FightGroupOverlay::BasicAttack() {
 	fightGroup.DoAttackEnemy();
 }
 
-FightGroup FightGroupOverlay::GetFightGroup() {
-	return fightGroup;
+void FightGroupOverlay::TakeUnit(Unit& unit)
+{
+	fightGroup.TakeUnit(unit);
+	tanks.push_back(unit);
 }
 
 bool FightGroupOverlay::IsFull()
@@ -88,7 +106,7 @@ bool FightGroupOverlay::IsFull()
 	return GetFightGroupCount() == targetCount;
 }
 
-int FightGroupOverlay::GetFightGroupCount()
+int FightGroupOverlay::GetFightGroupCount() const
 {
-	return fightGroup.TotalUnitCount();
+	return const_cast<FightGroup&>(fightGroup).TotalUnitCount();
 }
