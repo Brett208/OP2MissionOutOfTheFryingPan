@@ -3,6 +3,7 @@
 #include "Outpost2DLL/Outpost2DLL.h"
 #include "../OP2MissionSDK/HFL/Source/HFL.h"
 #include "../TargetRegion.h"
+#include "../MapRectEx.h"
 
 #include <memory>
 #include <string>
@@ -44,6 +45,18 @@ private:
 			MAP_RECT rect = MapEx::GetRectCenteredOnLoc(building.Location(), 10);
 			fightGroup->SetIdleRect(rect);
 		}
+
+/*		LOCATION GetNextWaypoint() const
+		{
+			if (!waypoints.empty())
+			{
+				return waypoints[0];
+			}
+			else
+			{
+				return LOCATION{ 1 + X_, 1 + Y_ };
+			}
+		}*/
 	};
 
 	std::vector<FightGroupTarget> fightGroupsWithTarget;

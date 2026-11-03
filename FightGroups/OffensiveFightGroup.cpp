@@ -173,6 +173,10 @@ void OffensiveFightGroup::UpdateTaskedFightGroup(FightGroupTarget& fightGroupWit
 		else
 		{
 			// TODO: Check if the fight group has reached the next waypoint, and if so, remove it from the list of waypoints
+			//if (IsWaypointReached(fightGroupWithTarget.GetNextWaypoint(), *fightGroupWithTarget.fightGroup))
+			//{
+			//	//fightGroupWithTarget.waypoints.erase(fightGroupWithTarget.waypoints.begin());
+			//}
 		}
 	}
 	else
